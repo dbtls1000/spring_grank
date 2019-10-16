@@ -6,10 +6,12 @@ import com.biz.grank.domain.BoardDto;
 
 public interface BoardDao {
 
-	int countList();
+	public int countList();
 
-	List<BoardDto> listAll();
+	public List<BoardDto> listAll();
 
-	BoardDto readOne(long bno);
+	public BoardDto readOne(long bno);
+
+	public void insert(BoardDto bDto);
 
 }

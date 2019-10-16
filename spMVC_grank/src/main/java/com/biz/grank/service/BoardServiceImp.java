@@ -39,4 +39,10 @@ public class BoardServiceImp implements BoardService {
 		// 게시글 단건의 정보 가져옴
 		return bDao.readOne(bno);
 	}
+
+	@Override
+	public void insert(BoardDto bDto) {
+		// TODO 게시글 새로 작성할때
+		bDao.insert(bDto);
+	}
 }

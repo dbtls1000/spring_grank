@@ -15,146 +15,32 @@
 				<th class="board-regdate">작성일자</th>
 				<th class="board-viewcnt">조회수</th>
 			</tr>
-			<tr>
-				<td class="board-content center">147845</td>
-				<td class="board-content title">[PS4] 이번 몬스터 헌터 기대중임 ㅋㅋ (3)</td>
-				<td class="board-content center">가갸거겨고교구규</td>
-				<td class="board-content center">2019-10-11</td>
-				<td class="board-content center">4</td>
-			</tr>
-			<tr>
-				<td class="board-content center">147845</td>
-				<td class="board-content title">[PS4] 이번 몬스터 헌터 기대중임 ㅋㅋ (3)</td>
-				<td class="board-content center">가갸거겨고교구규</td>
-				<td class="board-content center">2019-10-11</td>
-				<td class="board-content center">4</td>
-			</tr>
-			<tr>
-				<td class="board-content center">147845</td>
-				<td class="board-content title">[PS4] 이번 몬스터 헌터 기대중임 ㅋㅋ (3)</td>
-				<td class="board-content center">가갸거겨고교구규</td>
-				<td class="board-content center">2019-10-11</td>
-				<td class="board-content center">4</td>
-			</tr>
-			<tr>
-				<td class="board-content center">147845</td>
-				<td class="board-content title">[PS4] 이번 몬스터 헌터 기대중임 ㅋㅋ (3)</td>
-				<td class="board-content center">가갸거겨고교구규</td>
-				<td class="board-content center">2019-10-11</td>
-				<td class="board-content center">4</td>
-			</tr>
-			<tr>
-				<td class="board-content center">147845</td>
-				<td class="board-content title">[PS4] 이번 몬스터 헌터 기대중임 ㅋㅋ (3)</td>
-				<td class="board-content center">가갸거겨고교구규</td>
-				<td class="board-content center">2019-10-11</td>
-				<td class="board-content center">4</td>
-			</tr>
-			<tr>
-				<td class="board-content center">147845</td>
-				<td class="board-content title">[PS4] 이번 몬스터 헌터 기대중임 ㅋㅋ (3)</td>
-				<td class="board-content center">가갸거겨고교구규</td>
-				<td class="board-content center">2019-10-11</td>
-				<td class="board-content center">4</td>
-			</tr>
-			<tr>
-				<td class="board-content center">147845</td>
-				<td class="board-content title">[PS4] 이번 몬스터 헌터 기대중임 ㅋㅋ (3)</td>
-				<td class="board-content center">가갸거겨고교구규</td>
-				<td class="board-content center">2019-10-11</td>
-				<td class="board-content center">4</td>
-			</tr>
-			<tr>
-				<td class="board-content center">147845</td>
-				<td class="board-content title">[PS4] 이번 몬스터 헌터 기대중임 ㅋㅋ (3)</td>
-				<td class="board-content center">가갸거겨고교구규</td>
-				<td class="board-content center">2019-10-11</td>
-				<td class="board-content center">4</td>
-			</tr>
-			<tr>
-				<td class="board-content center">147845</td>
-				<td class="board-content title">[PS4] 이번 몬스터 헌터 기대중임 ㅋㅋ (3)</td>
-				<td class="board-content center">가갸거겨고교구규</td>
-				<td class="board-content center">2019-10-11</td>
-				<td class="board-content center">4</td>
-			</tr>
-			<tr>
-				<td class="board-content center">147845</td>
-				<td class="board-content title">[PS4] 이번 몬스터 헌터 기대중임 ㅋㅋ (3)</td>
-				<td class="board-content center">가갸거겨고교구규</td>
-				<td class="board-content center">2019-10-11</td>
-				<td class="board-content center">4</td>
-			</tr>
-			<tr>
-				<td class="board-content center">147845</td>
-				<td class="board-content title">[PS4] 이번 몬스터 헌터 기대중임 ㅋㅋ (3)</td>
-				<td class="board-content center">가갸거겨고교구규</td>
-				<td class="board-content center">2019-10-11</td>
-				<td class="board-content center">4</td>
-			</tr>
-			<tr>
-				<td class="board-content center">147845</td>
-				<td class="board-content title">[PS4] 이번 몬스터 헌터 기대중임 ㅋㅋ (3)</td>
-				<td class="board-content center">가갸거겨고교구규</td>
-				<td class="board-content center">2019-10-11</td>
-				<td class="board-content center">4</td>
-			</tr>
-			<tr>
-				<td class="board-content center">147845</td>
-				<td class="board-content title">[PS4] 이번 몬스터 헌터 기대중임 ㅋㅋ (3)</td>
-				<td class="board-content center">가갸거겨고교구규</td>
-				<td class="board-content center">2019-10-11</td>
-				<td class="board-content center">4</td>
-			</tr>
-			<tr>
-				<td class="board-content center">147845</td>
-				<td class="board-content title">[PS4] 이번 몬스터 헌터 기대중임 ㅋㅋ (3)</td>
-				<td class="board-content center">가갸거겨고교구규</td>
-				<td class="board-content center">2019-10-11</td>
-				<td class="board-content center">4</td>
-			</tr>
-			<tr>
-				<td class="board-content center">147845</td>
-				<td class="board-content title">[PS4] 이번 몬스터 헌터 기대중임 ㅋㅋ (3)</td>
-				<td class="board-content center">가갸거겨고교구규</td>
-				<td class="board-content center">2019-10-11</td>
-				<td class="board-content center">4</td>
-			</tr>
-			<tr>
-				<td class="board-content center">147845</td>
-				<td class="board-content title">[PS4] 이번 몬스터 헌터 기대중임 ㅋㅋ (3)</td>
-				<td class="board-content center">가갸거겨고교구규</td>
-				<td class="board-content center">2019-10-11</td>
-				<td class="board-content center">4</td>
-			</tr>
-			<tr>
-				<td class="board-content center">147845</td>
-				<td class="board-content title">[PS4] 이번 몬스터 헌터 기대중임 ㅋㅋ (3)</td>
-				<td class="board-content center">가갸거겨고교구규</td>
-				<td class="board-content center">2019-10-11</td>
-				<td class="board-content center">4</td>
-			</tr>
-			<tr>
-				<td class="board-content center">147845</td>
-				<td class="board-content title">[PS4] 이번 몬스터 헌터 기대중임 ㅋㅋ (3)</td>
-				<td class="board-content center">가갸거겨고교구규</td>
-				<td class="board-content center">2019-10-11</td>
-				<td class="board-content center">4</td>
-			</tr>
-			<tr>
-				<td class="board-content center">147845</td>
-				<td class="board-content title">[PS4] 이번 몬스터 헌터 기대중임 ㅋㅋ (3)</td>
-				<td class="board-content center">가갸거겨고교구규</td>
-				<td class="board-content center">2019-10-11</td>
-				<td class="board-content center">4</td>
-			</tr>
-			<tr>
-				<td class="board-content center">147845</td>
-				<td class="board-content title">[PS4] 이번 몬스터 헌터 기대중임 ㅋㅋ (3)</td>
-				<td class="board-content center">가갸거겨고교구규</td>
-				<td class="board-content center">2019-10-11</td>
-				<td class="board-content center">4</td>
-			</tr>
+			<c:forEach items="${blist}" var='list'>
+				<jsp:useBean id="now" class="java.util.Date"/>
+				<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today"/>
+				<fmt:formatDate value="${list.b_regdate}" pattern="yyyy-MM-dd" var="regdate"/>
+				<tr>
+					<td class="board-content center">${list.bno}</td>
+					<td class="board-content title"><a data-seq="${list.bno}" class="view-one" style="cursor:pointer">[${list.b_platform}] ${list.b_title}
+						<c:if test="${list.b_replycnt > 0}"> 
+						(${list.b_replycnt})
+						</c:if>
+					</a>
+					</td>
+					<td class="board-content center">${list.b_writer}</td>
+					<td class="board-content center">
+						<c:choose>
+							<c:when test="${today == regdate}">
+								<fmt:formatDate value="${list.b_regdate}" pattern="HH:mm:ss"/>
+							</c:when>
+							<c:otherwise>
+								${regdate}
+							</c:otherwise>
+						</c:choose>
+					</td>
+					<td class="board-content center">${list.b_viewcnt}</td>
+				</tr>
+			</c:forEach>
 		</table>
 		<div class="wrapper-content right">
 			<a class="a-button a-common" id="write-btn"><i class="fas fa-pencil-alt"></i></a>
@@ -180,7 +66,11 @@
 <script>
 	$(function(){
 		$('#write-btn').click(function(){
-			location.href="${path}/board/write"
+			location.href = "${path}/board/write";
+		})
+		$('.view-one').click(function(){
+			var bno = $(this).attr('data-seq');
+			location.href = "${path}/board/view?bno=" + bno;
 		})
 	})
 </script>

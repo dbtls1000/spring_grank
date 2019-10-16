@@ -8,5 +8,6 @@ public interface BoardService {
 	public int countList();
 	public List<BoardDto> listAll();
 	public BoardDto readOne(long bno);
+	public void insert(BoardDto bDto);
 	
 }
