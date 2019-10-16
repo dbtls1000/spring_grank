@@ -1,0 +1,91 @@
+@charset "UTF-8";
+
+.modal{
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: none;
+    z-index:999;
+}
+.modal-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    padding: 40px;
+    background: rgba(0,0,0,.8);
+    box-sizing: border-box;
+    box-shadow: 0 15px 25px rgba(0,0,0,.5);
+    border-radius: 10px;
+}
+.modal-box h2 {
+    margin: 0 0 30px;
+    padding: 0;
+    color: #fff;
+    text-align: center;
+}
+
+.modal-box .inputBox {
+    position: relative;
+}
+
+.modal-box .inputBox input {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #fff;
+    margin-bottom: 30px;
+    border: none;
+    border-bottom: 1px solid #fff;
+    outline: none;
+    background: transparent;
+}
+
+.modal-box .inputBox label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #fff;
+    pointer-events: none;
+    transition: 0.5s; 
+}
+.modal-box .inputBox input:focus ~ label,
+.modal-box .inputBox input:valid ~ label{
+    top: -18px;
+    left: 0;
+    color: #00b894;
+    font-size: 12px;
+}
+.modal-box input[type="button"]{
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #fff;
+    background: #00b894;
+    width: 100%;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+.modal-box #login-nav{
+    text-align: center;
+}
+.modal-box span{
+    color: #fff;
+}
+.modal-box span.err-msg{
+    position: relative;
+    bottom: 25px;
+    visibility: hidden;
+}
+.modal-close{
+	float:right;
+	cursor: pointer;
+}
