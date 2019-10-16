@@ -7,7 +7,13 @@
 	<insert id="join" parameterType="mDto">
 		INSERT INTO tbl_member(userid, passwd, name, phone, email, zipcode, addr1, addr2)
 		VALUES(#{userid}, #{passwd}, #{name}, #{phone}, #{email}, #{zipcode}, #{addr1}, #{addr2})
-		
-		
 	</insert>
+	
+	<select id="loginCheck" resultType="mDto" parameterType="mDto">
+      SELECT * FROM tbl_member WHERE userid = #{userid}
+   </select>
+   <select id="viewMember" resultType="mDto">
+		SELECT * FROM tbl_member
+		WHERE userid=#{userid}
+   </select>
 </mapper>
