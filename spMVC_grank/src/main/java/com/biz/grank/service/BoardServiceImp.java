@@ -6,10 +6,14 @@ import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.biz.grank.domain.BoardDto;
 import com.biz.grank.persistence.BoardDao;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class BoardServiceImp implements BoardService {
 	@Inject
@@ -41,8 +45,26 @@ public class BoardServiceImp implements BoardService {
 	}
 
 	@Override
-	public void insert(BoardDto bDto) {
-		// TODO 게시글 새로 작성할때
-		bDao.insert(bDto);
+	public void save(BoardDto bDto) {
+		// TODO 게시글 작성/수정을 bno값을 통해 진행
+		// bno가 0이면 작성
+		if(bDto.getBno() == 0) {
+			bDao.insert(bDto);
+		} else { // 0이 아니면 수정
+			bDao.update(bDto);
+		}
+	}
+	
+	@Transactional
+	@Override
+	public void answer(BoardDto bDto) {
+		// TODO 게시글 답변
+		// 게시글 답변 등록전 등록하려는 답변보다 높은 re_step을 +1 해주는 작업
+		log.info(">>>>>>>>>>"+bDto);
+		bDao.updateRestep(bDto);
+		bDto.setB_title("┖"+bDto.getB_title());
+		bDto.setRe_step(bDto.getRe_step()+1);
+		bDto.setRe_level(bDto.getRe_level()+1);
+		bDao.answer(bDto);
 	}
 }

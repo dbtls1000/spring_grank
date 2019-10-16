@@ -14,4 +14,10 @@ public interface BoardDao {
 
 	public void insert(BoardDto bDto);
 
+	public void update(BoardDto bDto);
+
+	public void updateRestep(BoardDto bDto);
+
+	public void answer(BoardDto bDto);
+
 }
