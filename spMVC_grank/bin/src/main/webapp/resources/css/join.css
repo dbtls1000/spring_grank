@@ -1,0 +1,124 @@
+@charset "UTF-8";
+
+.container {
+	position: relative;
+	width: 500px;
+	padding: 40px;
+	margin: 0 auto;
+	background: #151515;
+}
+
+.container h2 {
+	color: #fff;
+	margin-bottom: 45px;
+}
+
+.input-field, .input-address {
+	position: relative;
+	width: 100%;
+}
+
+.input-field {
+	margin-bottom: 40px;
+}
+
+.input-address {
+	margin-bottom: 30px;
+}
+
+.input-field, .input-address {
+	height: 40px;
+}
+
+.input-field input[type="text"], .input-address input[type="text"] {
+	border: none;
+	background: transparent;
+	box-shadow: none;
+	font-size: 16px;
+	color: #fff;
+	position: absolute;
+	width: 100%;
+	outline:none;
+}
+
+.input-field label, .input-address label {
+	color: #555;
+	pointer-events: none;
+	display: block;
+	transition: 0.5s;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.input-field input[type="text"]:focus+label, .input-field input[type="text"]:valid+label,
+	.input-address input[type="text"]:focus+label, .input-address input[type="text"]:valid+label
+	{
+	transform: translateY(-25px);
+	font-size: 14px;
+	color: #00b894;
+	padding: 2px 0;
+}
+
+.input-field span, .input-address span {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	display: block;
+	background: #555;
+	width: 100%;
+	height: 2px;
+}
+
+.input-field span::before, .input-address span::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: #00b894;
+	transform: scaleX(0);
+	transform-origin: right;
+	transition: transform 0.5s ease-in-out;
+}
+
+.input-field input[type="text"]:focus ~ span::before, .input-field input[type="text"]:valid 
+	~ span::before, .input-address input[type="text"]:focus ~ span::before,
+	.input-address input[type="text"]:valid ~ span::before {
+	transform: scaleX(1);
+	transform-origin: left;
+	transition: transform 0.5s ease-in-out;
+}
+
+.button-address input[type="button"] {
+	width: 100%;
+	margin-bottom: 25px;
+	height: 30px;
+	background-color: #00b894;
+	border: none;
+	outline: none;
+	cursor: pointer;
+}
+
+.btn {
+	margin-top: 20px;
+	border: none;
+	box-shadow: none;
+	padding: 10px 25px;
+	background: #333;
+	color: #fff;
+	font-size: 16px;
+	cursor: pointer;
+}
+
+.btn:hover {
+	background: #00b894;
+	color: grey;
+}
+
+.join-err-msg {
+	visibility: hidden;
+	font-size: 13px;
+	color: crimson;
+}

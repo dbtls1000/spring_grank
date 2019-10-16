@@ -1,0 +1,44 @@
+@charset "UTF-8";
+
+.board-view{
+   margin: 0 auto;
+   width: 960px;
+   padding: 2px;
+   border-collapse: collapse;
+}
+.board-view th{
+   border-bottom: 1px dashed grey ;
+}
+.view_button{
+   width: 960px;
+   margin: 0 auto;
+   margin-top: 10px;
+}
+.view_writer th{
+   font-size: 18px;
+   text-align: left;
+}
+.view_content{
+   vertical-align: top;
+}
+#view_an_btn{
+    width: 1000px;
+    margin: 20px auto;
+    
+    text-align: center;
+}
+.view_button ul{
+   display: flex;
+   padding-inline-start: 0;
+}
+.view_button ul li{
+   list-style: none;
+}
+.view_button ul li:nth-child(2){
+   margin-left: 20px;
+   
+}
+.view_button ul li:nth-child(3){
+   margin-left: auto;
+   margin-right: 20px;
+}
