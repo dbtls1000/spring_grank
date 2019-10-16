@@ -29,7 +29,12 @@ public class MemberServiceImp implements MemberService {
 	@Override
 	public void join(MemberDto mDto) {
 		// TODO 회원가입
+		String strPassword = mDto.getPasswd();
+		// crypt text : 암호와된 문자열
+		String cryptPassword = passwordEncoder.encode(strPassword);
+		mDto.setPasswd(cryptPassword);
 		
+		mDao.join(mDto);
 	}
 
 	@Override
