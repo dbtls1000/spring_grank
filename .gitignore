@@ -27,3 +27,4 @@ pom.properties
 Thumbs.db
 .settings
 .classpath
+MANIFEST.MF
