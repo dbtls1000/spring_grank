@@ -24,19 +24,19 @@ public class BoardServiceImp implements BoardService {
 
 	@Override
 	public int countList() {
-		// TODO list.jsp¿¡ Ãâ·ÂÇÒ °Ô½Ã±Û °³¼ö
+		// TODO ê²Œì‹œê¸€ ë¦¬ìŠ¤íŠ¸ ê°œìˆ˜
 		return bDao.countList();
 	}
 
 	@Override
 	public List<BoardDto> listAll() {
-		// TODO list.jsp¿¡ Ãâ·ÂÇÒ °Ô½Ã±Û ¸®½ºÆ®
+		// TODO ê²Œì‹œê¸€ ë¦¬ìŠ¤íŠ¸ ê°€ì ¸ì˜´
 		return bDao.listAll();
 	}
 
 	@Override
 	public BoardDto readOne(long bno) {
-		// view.jsp¿¡ Ãâ·ÂÇÒ »ó¼¼°Ô½Ã±Û Á¤º¸
+		// ê²Œì‹œê¸€ ë‹¨ê±´ì˜ ì •ë³´ ê°€ì ¸ì˜´
 		return bDao.readOne(bno);
 	}
 }

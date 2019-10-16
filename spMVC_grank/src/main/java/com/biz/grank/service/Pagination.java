@@ -1,56 +1,56 @@
 package com.biz.grank.service;
 
 public class Pagination {
-	public static final int PAGE_SCALE = 10; // ÆäÀÌÁö´ç °Ô½Ã¹° ¼ö
-	public static final int BLOCK_SCALE = 10; // È­¸é´ç ÆäÀÌÁö¼ö
+	public static final int PAGE_SCALE = 10; // íŽ˜ì´ì§€ë‹¹ ê²Œì‹œë¬¼ ìˆ˜
+	public static final int BLOCK_SCALE = 10; // í™”ë©´ë‹¹ íŽ˜ì´ì§€ìˆ˜
 
-	private int curPage; // ÇöÀç ÆäÀÌÁö
-	private int prevPage; // ÀÌÀü ÆäÀÌÁö
-	private int nextPage; // ´ÙÀ½ ÆäÀÌÁö
-	private int totalPage; // ÀüÃ¼ ÆäÀÌÁö °³¼ö
-	private int totalBlock; // ÀüÃ¼ ÆäÀÌÁö ºí·Ï°³¼ö
-	private int curBlock; // ÇöÀçºí·Ï
-	private int prevBlock; // ÀÌÀüºí·Ï
-	private int nextBlock; // ´ÙÀ½ºí·Ï
-	private int pageBegin; // #{start}°ª
-	private int pageEnd; // #{end}°ª
-	private int blockBegin; // ºí·ÏÀÇ ½ÃÀÛÆäÀÌÁö ¹øÈ£
-	private int blockEnd; // ºí·ÏÀÇ ³¡ÆäÀÌÁö ¹øÈ£
+	private int curPage; // í˜„ìž¬ íŽ˜ì´ì§€
+	private int prevPage; // ì´ì „ íŽ˜ì´ì§€
+	private int nextPage; // ë‹¤ìŒ íŽ˜ì´ì§€
+	private int totalPage; // ì „ì²´ íŽ˜ì´ì§€ ê°œìˆ˜
+	private int totalBlock; // ì „ì²´ íŽ˜ì´ì§€ ë¸”ë¡ê°œìˆ˜
+	private int curBlock; // í˜„ìž¬ë¸”ë¡
+	private int prevBlock; // ì´ì „ë¸”ë¡
+	private int nextBlock; // ë‹¤ìŒë¸”ë¡
+	private int pageBegin; // #{start}ê°’
+	private int pageEnd; // #{end}ê°’
+	private int blockBegin; // ë¸”ë¡ì˜ ì‹œìž‘íŽ˜ì´ì§€ ë²ˆí˜¸
+	private int blockEnd; // ë¸”ë¡ì˜ ëíŽ˜ì´ì§€ ë²ˆí˜¸
 
-	// Pager(·¹ÄÚµå°³¼ö,Ãâ·ÂÇÒÆäÀÌÁö¹øÈ£)
+	// Pager(ë ˆì½”ë“œê°œìˆ˜,ì¶œë ¥í• íŽ˜ì´ì§€ë²ˆí˜¸)
 	public Pagination(int count, int curPage) {
-		curBlock = 1; // ÇöÀçºí·Ï¹øÈ£
-		this.curPage = curPage; // ÇöÀç ÆäÀÌÁö ¹øÈ£
-		setTotalPage(count); // ÀüÃ¼ ÆäÀÌÁö °³¼ö °è»ê
-		setPageRange(); // #{start}#{end}°ª °è»ê
-		setTotalBlock(); // ÀüÃ¼ ºí·Ï °³¼ö °è»ê
-		setBlockRange(); // ºí·ÏÀÇ ½ÃÀÛ,³¡ ¹øÈ£ °è»ê
+		curBlock = 1; // í˜„ìž¬ë¸”ë¡ë²ˆí˜¸
+		this.curPage = curPage; // í˜„ìž¬ íŽ˜ì´ì§€ ë²ˆí˜¸
+		setTotalPage(count); // ì „ì²´ íŽ˜ì´ì§€ ê°œìˆ˜ ê³„ì‚°
+		setPageRange(); // #{start}#{end}ê°’ ê³„ì‚°
+		setTotalBlock(); // ì „ì²´ ë¸”ë¡ ê°œìˆ˜ ê³„ì‚°
+		setBlockRange(); // ë¸”ë¡ì˜ ì‹œìž‘,ë ë²ˆí˜¸ ê³„ì‚°
 	}
 
 	public void setPageRange() {
-		// ½ÃÀÛ¹øÈ£ = (ÇöÀçÆäÀÌÁö-1)xÆäÀÌÁö´ç °Ô½Ã¹°¼ö +1
-		// ³¡¹øÈ£ = ½ÃÀÛ¹øÈ£ +ÆäÀÌÁö´ç °Ô½Ã¹°¼ö -1
+		// ì‹œìž‘ë²ˆí˜¸ = (í˜„ìž¬íŽ˜ì´ì§€-1)xíŽ˜ì´ì§€ë‹¹ ê²Œì‹œë¬¼ìˆ˜ +1
+		// ëë²ˆí˜¸ = ì‹œìž‘ë²ˆí˜¸ +íŽ˜ì´ì§€ë‹¹ ê²Œì‹œë¬¼ìˆ˜ -1
 		pageBegin = (curPage - 1) * PAGE_SCALE + 1;
 		pageEnd = pageBegin + PAGE_SCALE - 1;
 	}
 	public void setTotalBlock() {
 		totalBlock = (int)Math.ceil(totalPage*1.0/BLOCK_SCALE);
 	}
-	// ºí·ÏÀÇ °³¼ö °è»ê
+	// ë¸”ë¡ì˜ ê°œìˆ˜ ê³„ì‚°
 	public void setBlockRange() {
-		// ¿øÇÏ´ÂÆäÀÌÁö°¡ ¸î¹øÂ° ºí·Ï¿¡ ¼ÓÇÏ´ÂÁö °è»ê
+		// ì›í•˜ëŠ”íŽ˜ì´ì§€ê°€ ëª‡ë²ˆì§¸ ë¸”ë¡ì— ì†í•˜ëŠ”ì§€ ê³„ì‚°
 		curBlock = (curPage - 1) / BLOCK_SCALE + 1;
-		// ºí·ÏÀÇ ½ÃÀÛÆäÀÌÁö ³¡ÆäÀÌÁö ¹øÈ£ °è»ê
+		// ë¸”ë¡ì˜ ì‹œìž‘íŽ˜ì´ì§€ ëíŽ˜ì´ì§€ ë²ˆí˜¸ ê³„ì‚°
 		blockBegin = (curBlock - 1) * BLOCK_SCALE + 1;
 		blockEnd = blockBegin + BLOCK_SCALE - 1;
-		// ¸¶Áö¸·ºí·Ï ¹øÈ£°¡ ¹øÀ§¸¦ ÃÊ°úÇÏÁö ¾Êµµ·Ï Ã³¸®
+		// ë§ˆì§€ë§‰ë¸”ë¡ ë²ˆí˜¸ê°€ ë²ˆìœ„ë¥¼ ì´ˆê³¼í•˜ì§€ ì•Šë„ë¡ ì²˜ë¦¬
 		if (blockEnd > totalPage) {
 			blockEnd = totalPage;
 		}
-		// [ÀÌÀü] [´ÙÀ½]À» ´­·µÀ»¶§ ÀÌµ¿ÇÒ ÆäÀÌÁö ¹øÈ£
+		// [ì´ì „] [ë‹¤ìŒ]ì„ ëˆŒëŸ¿ì„ë•Œ ì´ë™í•  íŽ˜ì´ì§€ ë²ˆí˜¸
 		prevPage = (curBlock == 1) ? 1 : (curBlock - 1) * BLOCK_SCALE;
 		nextPage = curBlock > totalBlock ? (curBlock * BLOCK_SCALE) : (curBlock * BLOCK_SCALE) + 1;
-		// ¸¶Áö¸· ÆäÀÌÁö°¡ ¹üÀ§¸¦ ÃÊ°úÇÏÁö ¾Êµµ·Ï Ã³¸®
+		// ë§ˆì§€ë§‰ íŽ˜ì´ì§€ê°€ ë²”ìœ„ë¥¼ ì´ˆê³¼í•˜ì§€ ì•Šë„ë¡ ì²˜ë¦¬
 		if(nextPage >= totalPage) {
 			nextPage = totalPage;
 		}
@@ -86,7 +86,7 @@ public class Pagination {
 	}
 
 	public void setTotalPage(int count) {
-		//Math.ceil()¿Ã¸²
+		//Math.ceil()ì˜¬ë¦¼
 		totalPage = (int)Math.ceil(count*1.0/PAGE_SCALE);
 	}
 

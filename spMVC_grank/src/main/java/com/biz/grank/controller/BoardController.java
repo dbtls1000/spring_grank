@@ -17,23 +17,25 @@ public class BoardController {
 	@Autowired
 	BoardService bService;
 	
-	// °Ô½Ã±Û ¸®½ºÆ® È­¸é´Ü
+	// ê²Œì‹œê¸€ ë¦¬ìŠ¤íŠ¸ í™”ë©´ë‹¨
 	@GetMapping("list")
 	public String list(Model model) {
 		return "board/list";
 	}
 	
-	// »ó¼¼ °Ô½Ã±Û È­¸é´Ü
+	// ìƒì„¸ ê²Œì‹œê¸€ í™”ë©´ë‹¨
 	@GetMapping("view")
 	public String view(Model model) {
 		return "board/view";
 	}
 	
-	// °Ô½Ã±ÛÀÛ¼º/¼öÁ¤ È­¸é´Ü
+	// ê²Œì‹œê¸€ ì‘ì„± í™”ë©´ë‹¨
 	@GetMapping("write")
 	public String write() {
 		return "board/write";
 	}
+	
+	// ê²Œì‹œê¸€ ì‘ì„± ì‹¤í–‰
 	@PostMapping("write")
 	public String write(BoardDto bDto) {
 		

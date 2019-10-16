@@ -17,6 +17,7 @@ public class MemberServiceImp implements MemberService {
 	
 	MemberDao mDao;
 	
+	// 비밀번호 암호화
 	@Inject
 	BCryptPasswordEncoder passwordEncoder;
 	
@@ -27,25 +28,25 @@ public class MemberServiceImp implements MemberService {
 
 	@Override
 	public void join(MemberDto mDto) {
-		// TODO Auto-generated method stub
+		// TODO 회원가입
 		
 	}
 
 	@Override
 	public void login(MemberDto mDto, HttpSession httpSession) {
-		// TODO Auto-generated method stub
+		// TODO 로그인
 		
 	}
 
 	@Override
 	public void logout(HttpSession httpSession) {
-		// TODO Auto-generated method stub
+		// TODO 로그아웃
 		
 	}
 
 	@Override
 	public MemberDto viewMember(String userid) {
-		// TODO Auto-generated method stub
+		// TODO 회원 1명 정보 조회
 		return null;
 	}
 }
