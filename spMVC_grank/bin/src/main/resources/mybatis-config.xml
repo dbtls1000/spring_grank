@@ -4,5 +4,8 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
+		<typeAlias type="com.biz.grank.domain.BoardDto" alias="bDto"/>
+		<typeAlias type="com.biz.grank.domain.MemberDto" alias="mDto"/>
+		<typeAlias type="com.biz.grank.domain.ReplyDto" alias="rDto"/>
 	</typeAliases>
 </configuration>

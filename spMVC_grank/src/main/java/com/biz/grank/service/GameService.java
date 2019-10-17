@@ -1,5 +1,10 @@
 package com.biz.grank.service;
 
-public interface GameService {
+import java.util.List;
 
-}
+import com.biz.grank.domain.ComingSoonDto;
+
+public interface GameService {
+	
+	public List<ComingSoonDto> findAll();
+}	

@@ -160,6 +160,12 @@ a.a-common,
 a.a-delete{
     padding: 2px 6px;
 }
+a.a-modal-common{
+	padding:2px 20px;
+}
+a.a-modal-delete{
+	padding:2px 32px;
+}
 a.a-button::after{
     content: '';
     position: absolute;
@@ -203,20 +209,24 @@ a#cancel-btn:hover{
     cursor: pointer;
 }
 a.a-common,
-a.a-comment{
+a.a-comment,
+a.a-modal-common{
     color:#546de5;
     border:2px solid #546de5;
 }
 a.a-common::after,
-a.a-comment::after{
+a.a-comment::after,
+a.a-modal-common::after{
     background: #546de5;
 }
 a#cancel-btn,
-a.a-delete{
+a.a-delete,
+a.a-modal-delete{
     color:crimson;
     border:2px solid crimson;
 }
 a#cancel-btn::after,
-a.a-delete::after{
+a.a-delete::after,
+a.a-modal-delete::after{
     background: crimson;
 }

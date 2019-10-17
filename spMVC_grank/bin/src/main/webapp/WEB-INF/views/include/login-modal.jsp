@@ -11,7 +11,7 @@
 				<span class="err-msg">test</span>
 			</div>
 			<div class="inputBox">
-				<input type="password" required="" name=""> <label>Password</label>
+				<input id="login-pw" type="password" required="" name=""> <label>Password</label>
 			</div>
 			<input id="login-submit" type="button" value="로그인"><br>
 			<div id="login-nav">
@@ -20,3 +20,4 @@
 		</form>
 	</div>
 </div>
+

@@ -43,7 +43,39 @@
 .pagination li{
     list-style: none;
     margin: 10px 10px;
-    background: #16a085;
     padding: 0 5px;
-    color:#ecf0f1;
+    color:#341f97;
+    border:1px solid #16a085
+}
+
+.pagination li a{
+	text-decoration: none;
+	color:inherit;
+}
+.pagination li.active{
+	background: #16a085;
+}
+.list-search{
+	margin:20px auto 0 auto;
+	width:960px;
+	height:30px;
+	display: flex;
+	justify-content: space-between;
+}
+.flex-item{
+	display: inline-block;
+}
+.list-search select,
+.list-search input{
+	outline: none;
+}
+.list-search select{
+	height: 28px;
+	
+}
+.list-search input{
+	position:relative;
+	bottom:1px;
+	height:28px;
+	font-size:17px;
 }
