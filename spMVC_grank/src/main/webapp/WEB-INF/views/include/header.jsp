@@ -41,6 +41,7 @@
 
 	<i class="fas fa-arrow-circle-up" id="top-btn"></i>
 	<%@ include file="login-modal.jsp"%>
+	<%@ include file="delete-modal.jsp"%>
 	<script>
 		$(function() {
 			$('#home-img').click(function() {

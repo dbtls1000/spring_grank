@@ -1,6 +1,7 @@
 package com.biz.grank.persistence;
 
 import java.util.List;
+import java.util.Map;
 
 import com.biz.grank.domain.BoardDto;
 
@@ -8,7 +9,7 @@ public interface BoardDao {
 
 	public int countList();
 
-	public List<BoardDto> listAll();
+	public List<BoardDto> listAll(Map<String, Object> map);
 
 	public BoardDto readOne(long bno);
 
@@ -19,5 +20,7 @@ public interface BoardDao {
 	public void updateRestep(BoardDto bDto);
 
 	public void answer(BoardDto bDto);
+
+	public void delete(int bno);
 
 }

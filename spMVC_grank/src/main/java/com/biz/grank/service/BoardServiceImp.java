@@ -1,6 +1,7 @@
 package com.biz.grank.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -33,9 +34,9 @@ public class BoardServiceImp implements BoardService {
 	}
 
 	@Override
-	public List<BoardDto> listAll() {
+	public List<BoardDto> listAll(Map<String, Object> map) {
 		// TODO 게시글 리스트 가져옴
-		return bDao.listAll();
+		return bDao.listAll(map);
 	}
 
 	@Override
@@ -66,5 +67,11 @@ public class BoardServiceImp implements BoardService {
 		bDto.setRe_step(bDto.getRe_step()+1);
 		bDto.setRe_level(bDto.getRe_level()+1);
 		bDao.answer(bDto);
+	}
+
+	@Override
+	public void delete(int bno) {
+		// TODO 게시글 삭제
+		bDao.delete(bno);
 	}
 }

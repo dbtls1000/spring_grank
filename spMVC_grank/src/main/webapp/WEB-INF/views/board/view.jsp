@@ -43,7 +43,7 @@
 				<li><a class="a-button a-common"">목록</a></li>
 				<li><a class="a-button a-common" id="board-answer-btn">답변</a></li>
 				<li><a class="a-button a-common" id="board-update-btn">수정</a></li>
-				<li><a class="a-button a-delete">삭제</a></li>
+				<li><a class="a-button a-delete" id="board-delete-btn">삭제</a></li>
 			</ul>
 		</div>
 		<!-- 댓글 -->
@@ -59,5 +59,14 @@
 	})
 	$(document).on('click','#board-answer-btn',function(){
 		location.href = "${path}/board/answer?bno=${bDto.bno}"
+	})
+	$(document).on('click','#board-delete-btn',function(){
+		$('.delete-modal').css('display','block')
+	})
+	$(document).on('click','#confirm-no',function(){
+		$('.delete-modal').css('display','none')
+	})
+	$(document).on('click','#confirm-yes',function(){
+		location.href = "${path}/board/delete?bno=${bDto.bno}"
 	})
 </script>

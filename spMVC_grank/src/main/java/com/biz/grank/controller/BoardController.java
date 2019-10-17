@@ -1,5 +1,8 @@
 package com.biz.grank.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.biz.grank.domain.BoardDto;
 import com.biz.grank.service.BoardService;
+import com.biz.grank.service.Pagination;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -25,11 +29,18 @@ public class BoardController {
 	
 	// 게시글 리스트 화면단
 	@GetMapping("list")
-	public String list(Model model) {
+	public String list(@RequestParam(defaultValue = "1")int curPage,
+						Model model) {
 		// 페이지네이션을 위한 게시글 수
 		int count = bService.countList();
+		Pagination page = new Pagination(count, curPage);
+		int start = page.getPageBegin();
+		int end = page.getPageEnd();
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("start", start);
+		map.put("end", end);
 		
-		model.addAttribute("blist",bService.listAll());
+		model.addAttribute("blist",bService.listAll(map));
 		return "board/list";
 	}
 	
@@ -73,6 +84,7 @@ public class BoardController {
 		return "board/write";
 	}
 	
+	// 게시글 답변 실행
 	@PostMapping("answer")
 	public String answer(BoardDto bDto) {
 		// 로그인 된 세션값으로부터 작성자이름을 꺼내와 name에 담기
@@ -88,5 +100,12 @@ public class BoardController {
 		
 		bService.answer(bDto);
 		return "redirect:/";
+	}
+	
+	// 게시글 삭제 실행
+	@GetMapping("delete")
+	public String delete(int bno) {
+		bService.delete(bno);
+		return "redirect:/board/list";
 	}
 }

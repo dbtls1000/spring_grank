@@ -8,8 +8,10 @@
 		SELECT COUNT(*) FROM tbl_board
 	</select>
 	<select id="listAll" resultType="bDto">
-		SELECT * FROM tbl_board
-		ORDER BY ref desc,re_step
+		<include refid="header"/>
+		SELECT * FROM tbl_board 
+		ORDER BY bno desc
+		<include refid="footer"/>
 	</select>
 	<select id="readOne" resultType="bDto">
 		SELECT * FROM tbl_board WHERE bno = #{bno}
@@ -29,4 +31,14 @@
 	<update id="updateRestep" parameterType="bDto">
 		UPDATE tbl_board SET re_step = re_step + 1 WHERE ref = #{ref} AND re_step > #{re_step}
 	</update>
+	<delete id="delete">
+		DELETE FROM tbl_board WHERE bno = #{bno}
+	</delete>
+	
+	<sql id="header">
+		SELECT * FROM ( SELECT ROWNUM as rnum, A.* FROM(
+	</sql>
+	<sql id="footer">
+		) A ) WHERE rnum BETWEEN #{start} AND #{end}
+	</sql>
 </mapper>
