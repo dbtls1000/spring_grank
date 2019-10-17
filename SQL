@@ -34,3 +34,22 @@ CREATE TABLE tbl_member(
     regdate DATE DEFAULT SYSDATE
 );
 ALTER TABLE tbl_member ADD CONSTRAINT tbl_member_pk_userid PRIMARY KEY(userid);
+
+-- 댓글 테이블
+DROP SEQUENCE seq_reply;
+CREATE SEQUENCE seq_reply
+START WITH 1
+INCREMENT BY 1;
+
+DROP TABLE tbl_reply;
+CREATE TABLE tbl_reply(
+rno NUMBER,
+r_content VARCHAR2(2000) not null,
+r_writer VARCHAR2(30) not null,
+r_regdate DATE DEFAULT SYSDATE,
+bno NUMBER not null
+);
+ALTER TABLE tbl_reply ADD CONSTRAINT pk_reply PRIMARY KEY(rno);
+ALTER TABLE tbl_reply ADD CONSTRAINT fk_reply_bno
+FOREIGN KEY(bno) REFERENCES tbl_board(bno)
+ON DELETE CASCADE;
