@@ -84,4 +84,12 @@ public class MemberServiceImp implements MemberService {
 		// TODO 회원 1명 정보 조회
 		return mDao.viewMember(userid);
 	}
+
+	@Override
+	public void update(MemberDto mDto) {
+		// TODO Auto-generated method stub
+		mDao.update(mDto);
+	}
+
+
 }

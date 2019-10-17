@@ -9,4 +9,5 @@ public interface MemberService {
 	public boolean login(MemberDto mDto,HttpSession httpSession);
 	public void logout(HttpSession httpSession);
 	public MemberDto viewMember(String userid);
+	public void update(MemberDto mDto);
 }

@@ -16,4 +16,10 @@
 		SELECT * FROM tbl_member
 		WHERE userid=#{userid}
    </select>
+   
+   <update id="update" parameterType="mDto">
+		UPDATE tbl_member SET name = #{name}, phone = #{phone}, email = #{email}, 
+		zipcode = #{zipcode}, addr1 = #{addr1}, addr2 = #{addr2}
+		WHERE userid = #{userid}
+   </update>
 </mapper>

@@ -12,5 +12,7 @@ public interface MemberDao {
 
 	MemberDto viewMember(String userid);
 
+	void update(MemberDto mDto);
+
 
 }

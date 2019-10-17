@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="include/include.jsp" %>
-<link rel="stylesheet" type="text/css" href="${path}/resources/css/searchbox.css?ver=20191014">
+<link rel="stylesheet" type="text/css" href="${path}/resources/css/searchbox.css?ver=20191017">
 <%@ include file="include/header.jsp" %>
 <div style="height: 110px;"></div>
 	<!-- 검색기능 box -->

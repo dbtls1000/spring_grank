@@ -1,0 +1,40 @@
+@charset "UTF-8";
+
+table.member_table {
+	border-collapse: collapse;
+}
+
+div.member_thcell {
+	background-color: #f9f9f9;
+	padding-top: 31px;
+	padding-bottom: 31px;
+	padding-left: 32px;
+	padding-right: 32px;
+	width: 100px;
+}
+
+th.member_my, td.member_my {
+	border-top: 1px solid #e5e5e5;
+}
+
+td.member_my {
+	width: 100%;
+	padding-top: 31px;
+	padding-bottom: 31px;
+	padding-left: 32px;
+	padding-right: 32px;
+}
+
+div.member_header {
+	padding-left:30px;
+    padding-bottom: 40px;
+}
+
+div.member_button {
+	text-align: center;
+	margin-top:20px;
+	margin-bottom: 20px;
+}
+th.member_bottom, td.member_bottom {
+	border-bottom: 1px solid #e5e5e5;
+}

@@ -67,6 +67,9 @@
 			$('#logout-btn').click(function(){
 				location.href = "${path}/member/logout"
 			})
+			$('#mypage-btn').click(function() {
+				location.href = "${path}/member/mypage?userid=${sessionScope.userid}"
+			})
 			$('#top-btn').click(function() {
 				$('html,body').animate({
 					scrollTop : 0

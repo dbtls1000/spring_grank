@@ -187,7 +187,9 @@ a.a-button:hover::after{
     transform-origin: left;
 }
 a#join-btn,
-a#login-btn{
+a#login-btn,
+a#logout-btn,
+a#mypage-btn{
     top: 15px;
     left: 10px;
 }
