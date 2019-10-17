@@ -30,17 +30,31 @@ public class BoardController {
 	// 게시글 리스트 화면단
 	@GetMapping("list")
 	public String list(@RequestParam(defaultValue = "1")int curPage,
+						@RequestParam(defaultValue = "title_content")String search_option,
+						@RequestParam(defaultValue = "") String keyword,
 						Model model) {
-		// 페이지네이션을 위한 게시글 수
-		int count = bService.countList();
-		Pagination page = new Pagination(count, curPage);
-		int start = page.getPageBegin();
-		int end = page.getPageEnd();
+		log.info(">>>>"+search_option);
+		log.info(">>>>"+keyword);
+		// 검색,페이지네이션,정렬을 하기위한 값들을 담을 map
 		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("search_option", search_option);
+		// 조건문에서 keyword 앞뒤로 %를 붙여 검색하기 위해 설정
+		map.put("keyword", "%"+keyword+"%");
+		// 페이지네이션을 위한 게시글 수
+		int count = bService.countList(map);
+		Pagination page = new Pagination(count, curPage);
+		// rownum 시작값
+		int start = page.getPageBegin();
+		// rownum 끝값
+		int end = page.getPageEnd();
+		
 		map.put("start", start);
 		map.put("end", end);
 		
+		
 		model.addAttribute("blist",bService.listAll(map));
+		model.addAttribute("search_option",search_option);
+		model.addAttribute("keyword",keyword);
 		model.addAttribute("page",page);
 		return "board/list";
 	}
@@ -66,10 +80,9 @@ public class BoardController {
 	@PostMapping("write")
 	public String write(BoardDto bDto,HttpSession httpSession) {
 		// 로그인 된 세션값으로부터 작성자이름을 꺼내와 name에 담기
-//		String name = (String)httpSession.getAttribute("name");
+		String name = (String)httpSession.getAttribute("name");
 		// name을 bDto의 b_writer에 담기
-//		bDto.setB_writer(name);
-		bDto.setB_writer("테스터");
+		bDto.setB_writer(name);
 		// bno값에 따른 작성/수정
 		bService.save(bDto);
 		return "redirect:/";
@@ -87,11 +100,11 @@ public class BoardController {
 	
 	// 게시글 답변 실행
 	@PostMapping("answer")
-	public String answer(BoardDto bDto) {
+	public String answer(BoardDto bDto,HttpSession httpSession) {
 		// 로그인 된 세션값으로부터 작성자이름을 꺼내와 name에 담기
-//		String name = (String)httpSession.getAttribute("name");
+		String name = (String)httpSession.getAttribute("name");
 		// name을 bDto의 b_writer에 담기
-//		bDto.setB_writer(name);
+		bDto.setB_writer(name);
 		bDto.setB_writer("테스터");
 		// 답변을 달고자하는 게시글의 정보를 가져와 ref,re_step,re_level을 set한다
 		BoardDto pDto = bService.readOne(bDto.getBno());

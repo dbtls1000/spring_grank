@@ -6,11 +6,13 @@
 <mapper namespace="com.biz.grank.persistence.BoardDao">
 	<select id="countList" resultType="int">
 		SELECT COUNT(*) FROM tbl_board
+		<include refid="search"></include>
 	</select>
 	<select id="listAll" resultType="bDto">
 		<include refid="header"/>
-		SELECT * FROM tbl_board 
-		ORDER BY bno desc
+		SELECT * FROM tbl_board
+		<include refid="search"></include> 
+		ORDER BY bno desc 
 		<include refid="footer"/>
 	</select>
 	<select id="readOne" resultType="bDto">
@@ -34,11 +36,29 @@
 	<delete id="delete">
 		DELETE FROM tbl_board WHERE bno = #{bno}
 	</delete>
-	
+	<sql id="search">
+		<choose>
+			<when test="search_option != 'title_content'">
+				<if test="search_option == 'title'">
+					WHERE b_title LIKE #{keyword}
+				</if>
+				<if test="search_option == 'content'">
+					WHERE b_content LIKE #{keyword}
+				</if>
+				<if test="search_option == 'writer'">
+					WHERE b_writer LIKE #{keyword}
+				</if>
+			</when>
+			<otherwise>
+				WHERE b_title LIKE #{keyword} OR b_content LIKE #{keyword}
+			</otherwise>
+		</choose>
+	</sql>
 	<sql id="header">
 		SELECT * FROM ( SELECT ROWNUM as rnum, A.* FROM(
 	</sql>
 	<sql id="footer">
 		) A ) WHERE rnum BETWEEN #{start} AND #{end}
 	</sql>
+	
 </mapper>

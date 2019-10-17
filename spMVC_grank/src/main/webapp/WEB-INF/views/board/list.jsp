@@ -14,14 +14,14 @@
 	  		</c:if>
 	  		</div>
 	  		<div class="flex-item">
-				<select>
+				<select id="search_option">
 					<option value="title_content">제목+내용</option>
 					<option value="title">제목</option>
 					<option value="content">내용</option>
 					<option value="writer">작성자</option>
 				</select>
-				<input type="text">
-				<a class="a-button a-common"><i class="fas fa-search"></i></a>
+				<input type="text" id="keyword">
+				<a class="a-button a-common" id="board-search-btn"><i class="fas fa-search"></i></a>
 			</div>
 		</div>
 		<table class="board-list">
@@ -85,6 +85,11 @@
 		$('.view-one').click(function(){
 			var bno = $(this).attr('data-seq');
 			location.href = "${path}/board/view?bno=" + bno;
+		})
+		$('#board-search-btn').click(function(){
+			var search_option = $.trim($('#search_option').val());
+			var keyword = $.trim($('#keyword').val());
+			location.href = '${path}/board/list?search_option=' + search_option + '&keyword=' + keyword;
 		})
 	})
 </script>

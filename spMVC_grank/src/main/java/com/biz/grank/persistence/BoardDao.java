@@ -7,7 +7,7 @@ import com.biz.grank.domain.BoardDto;
 
 public interface BoardDao {
 
-	public int countList();
+	public int countList(Map<String, Object> map);
 
 	public List<BoardDto> listAll(Map<String, Object> map);
 

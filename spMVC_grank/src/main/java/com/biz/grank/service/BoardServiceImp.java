@@ -28,9 +28,9 @@ public class BoardServiceImp implements BoardService {
 	}
 
 	@Override
-	public int countList() {
+	public int countList(Map<String, Object> map) {
 		// TODO 게시글 리스트 개수
-		return bDao.countList();
+		return bDao.countList(map);
 	}
 
 	@Override

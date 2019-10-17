@@ -5,6 +5,9 @@ body,html{
     width: 100%;
     height: 100%;
 }
+body{
+	background: ghostwhite;
+}
 div#header{
     display: flex;
     justify-content: space-between;

@@ -6,7 +6,7 @@ import java.util.Map;
 import com.biz.grank.domain.BoardDto;
 
 public interface BoardService {
-	public int countList();
+	public int countList(Map<String, Object> map);
 	public List<BoardDto> listAll(Map<String, Object> map);
 	public BoardDto readOne(long bno);
 	public void save(BoardDto bDto);
