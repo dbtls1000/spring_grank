@@ -1,0 +1,36 @@
+-- 게시판 테이블
+drop table tbl_board;
+create table tbl_board(
+bno number,
+b_title varchar2(200) not null,
+b_content varchar2(4000) not null,
+b_writer varchar2(30) not null,
+b_viewcnt number default 0,
+b_replycnt number default 0,
+b_regdate date default sysdate,
+b_platform varchar2(30) not null,
+ref number not null,
+re_step number not null,
+re_level number not null
+);
+alter table tbl_board add CONSTRAINT tbl_board_pk_bno primary key(bno);
+drop SEQUENCE seq_board;
+create sequence seq_board
+start with 1
+INCREMENT by 1;
+commit;
+
+-- 회원 테이블
+DROP TABLE tbl_member;
+CREATE TABLE tbl_member(
+    userid VARCHAR2(60),
+    passwd VARCHAR2(60) NOT NULL,
+    name VARCHAR2(30) NOT NULL,
+    phone VARCHAR2(30) NOT NULL,
+    email VARCHAR2(50) NOT NULL,
+    zipcode VARCHAR2(20) NOT NULL,
+    addr1 VARCHAR2(200) NOT NULL,
+    addr2 VARCHAR2(200) NOT NULL,
+    regdate DATE DEFAULT SYSDATE
+);
+ALTER TABLE tbl_member ADD CONSTRAINT tbl_member_pk_userid PRIMARY KEY(userid);
