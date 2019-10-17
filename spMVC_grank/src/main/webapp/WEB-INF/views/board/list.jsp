@@ -1,11 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="../include/include.jsp"%>
-<link rel="stylesheet" type="text/css" href="${path}/resources/css/board-list.css?ver=20191015">
+<link rel="stylesheet" type="text/css" href="${path}/resources/css/board-list.css?ver=2019101702">
 <%@ include file="../include/header.jsp"%>
 	<div class="wrapper">
 		<div class="wrapper-header">
 			<span class="header-text">자유 게시판</span>
+		</div>
+		<div class="list-search">
+			<div class="flex-item">
+			<c:if test="${!empty map.keyword}">
+	   			<span class="search-comment">"${map.keyword}"(으)로 검색한 결과는 총 ${map.count}건 입니다</span>
+	  		</c:if>
+	  		</div>
+	  		<div class="flex-item">
+				<select>
+					<option value="title_content">제목+내용</option>
+					<option value="title">제목</option>
+					<option value="content">내용</option>
+					<option value="writer">작성자</option>
+				</select>
+				<input type="text">
+				<a class="a-button a-common"><i class="fas fa-search"></i></a>
+			</div>
 		</div>
 		<table class="board-list">
 			<tr>
@@ -46,22 +63,19 @@
 			<a class="a-button a-common" id="write-btn"><i class="fas fa-pencil-alt"></i></a>
 		</div>
 		<ul class="pagination">
-			<li><i class="fas fa-angle-double-left"></i></li>
-			<li><i class="fas fa-angle-left"></i></li>
-			<li>1</li>
-			<li>2</li>
-			<li>3</li>
-			<li>4</li>
-			<li>5</li>
-			<li>6</li>
-			<li>7</li>
-			<li>8</li>
-			<li>9</li>
-			<li>10</li>
-			<li><i class="fas fa-angle-right"></i></li>
-			<li><i class="fas fa-angle-double-right"></i></li>
+			<c:if test="${page.curBlock > 1}">
+				<li><a href="${path}/board/list?curPage=1"><i class="fas fa-angle-double-left"></i></a></li>
+				<li><a href="${path}/board/list?curPage=${page.blockBegin -10}"><i class="fas fa-angle-left"></i></a></li>
+			</c:if>
+			<c:forEach begin="${page.blockBegin}" end="${page.blockEnd}" var="idx">
+				<li <c:out value="${page.curPage == idx ? 'class=active' : '' }"/> ><a href="${path}/board/list?curPage=${idx}" >${idx}</a></li>
+			</c:forEach>
+			<c:if test="${page.curBlock < page.totalBlock}">
+				<li><a href="${path}/board/list?curPage=${page.blockEnd+1}"><i class="fas fa-angle-right"></i></a></li>
+				<li><a href="${path}/board/list?curPage=${page.totalPage}"><i class="fas fa-angle-double-right"></i></a></li>
+			</c:if>
 		</ul>
-	</div>
+			</div>
 <%@ include file="../include/footer.jsp"%>
 <script>
 	$(function(){

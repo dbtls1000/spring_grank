@@ -41,6 +41,7 @@ public class BoardController {
 		map.put("end", end);
 		
 		model.addAttribute("blist",bService.listAll(map));
+		model.addAttribute("page",page);
 		return "board/list";
 	}
 	
