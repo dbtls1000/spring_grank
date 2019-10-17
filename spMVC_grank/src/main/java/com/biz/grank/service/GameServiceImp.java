@@ -17,9 +17,13 @@ public class GameServiceImp implements GameService {
 	@Autowired
 	private GameDao gDao;
 
-	// 1. 출시예정작 리스트 출력
+	
 	@Override
+	// 1. 출시예정작 리스트 출력
 	public List<ComingSoonDto> findAll() {
+		List<ComingSoonDto> list = gDao.findAll();
+		log.info(">>>>>>>>>>>>>>>>>"+list);
 		return gDao.findAll();
 	}
+
 }
