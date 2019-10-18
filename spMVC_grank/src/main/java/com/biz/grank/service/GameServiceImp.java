@@ -21,9 +21,16 @@ public class GameServiceImp implements GameService {
 	@Override
 	// 1. 출시예정작 리스트 출력
 	public List<ComingSoonDto> findAll() {
-		List<ComingSoonDto> list = gDao.findAll();
-		log.info(">>>>>>>>>>>>>>>>>"+list);
+		List<ComingSoonDto> list = gDao.findLimit();
 		return gDao.findAll();
+	}
+
+
+	@Override
+	// 2. 출시예정작 n건 출력
+	public List<ComingSoonDto> findLimit() {
+		List<ComingSoonDto> list = gDao.findLimit();
+		return gDao.findLimit();
 	}
 
 }

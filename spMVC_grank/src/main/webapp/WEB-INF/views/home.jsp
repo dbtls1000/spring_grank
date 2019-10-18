@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="include/include.jsp" %>
-<link rel="stylesheet" type="text/css" href="${path}/resources/css/searchbox.css?ver=20191017">
+<link rel="stylesheet" type="text/css" href="${path}/resources/css/searchbox.css?ver=2019101811">
 <%@ include file="include/header.jsp" %>
 <div style="height: 110px;"></div>
 	<!-- 검색기능 box -->
@@ -16,7 +16,29 @@
     <!-- 출시 예정작 -->
     <div class="wrapper">
         <div class="wrapper-header"><span class="header-text">출시예정작</span></div>
-    </div>
+        	<article class="flex-wrapper">
+	        	<c:forEach items="${cList}" var="c">
+			        <div class="c-cards">
+            			<a class="c-card" href="#">
+                		<span class="card-header" >
+                		<img src='${c.c_img}'>
+                    	<span class="card-title">
+                        <h3>${c.c_name}</h3>
+                    </span>
+		                </span>
+		                <span class="card-summary">
+		                        ${c.platform}
+		                </span>
+		                <span class="card-meta">
+		                        ${c.c_date}
+		                </span>
+            			</a>
+            		</div>
+					</c:forEach>
+		    </article>
+		      <div class="right"><span class="more"><a href="#">more..</a></span></div>
+	    </div>
+
     <!-- 게임평가 순위 -->
     <div class="wrapper">
         <div class="wrapper-header"><span class="header-text">게임평가 순위</span></div>

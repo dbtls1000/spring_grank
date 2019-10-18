@@ -23,11 +23,10 @@ public class GameController {
 	@Autowired
 	private GameService gameService;
 
-	// 출시 예정작 리스트 불러오기
+	// 출시 예정작 n건 불러오기
 	@RequestMapping(value = "comingsoon", method = RequestMethod.GET)
 	public String commingSoon(Model model) {
-		List<ComingSoonDto> cList = gameService.findAll();
-		log.info("야 제발가져와" + cList);	
+		List<ComingSoonDto> cList = gameService.findLimit();
 		model.addAttribute("cList", cList);
 		return "home";
 	}
