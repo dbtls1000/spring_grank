@@ -42,53 +42,18 @@
     <!-- 게임평가 순위 -->
     <div class="wrapper">
         <div class="wrapper-header"><span class="header-text">게임평가 순위</span></div>
-        
         <div class="flex-wrapper">
             <div class="flex-item item1">
-                <div class="card">
-                    <div><img src="https://static.metacritic.com/images/products/games/0/a620e8f4249dde4c64ec0ff2828672f6-98.jpg" alt=""></div>
-                    <div class="center">몬스터헌터</div>
-                    <div class="center">2019-11-09</div>
-                    <div class="center">PS4</div>
-                </div>
-                <div class="card">
-                    <div><img src="https://static.metacritic.com/images/products/games/0/a620e8f4249dde4c64ec0ff2828672f6-98.jpg" alt=""></div>
-                    <div class="center">몬스터헌터</div>
-                    <div class="center">2019-11-09</div>
-                    <div class="center">PS4</div>
-                </div>
-                <div class="card">
-                    <div><img src="https://static.metacritic.com/images/products/games/0/a620e8f4249dde4c64ec0ff2828672f6-98.jpg" alt=""></div>
-                    <div class="center">몬스터헌터</div>
-                    <div class="center">2019-11-09</div>
-                    <div class="center">PS4</div>
-                </div>
-                <div class="card">
-                    <div><img src="https://static.metacritic.com/images/products/games/0/a620e8f4249dde4c64ec0ff2828672f6-98.jpg" alt=""></div>
-                    <div class="center">몬스터헌터</div>
-                    <div class="center">2019-11-09</div>
-                    <div class="center">PS4</div>
-                </div>
-                <div class="card">
-                    <div><img src="https://static.metacritic.com/images/products/games/0/a620e8f4249dde4c64ec0ff2828672f6-98.jpg" alt=""></div>
-                    <div class="center">몬스터헌터</div>
-                    <div class="center">2019-11-09</div>
-                    <div class="center">PS4</div>
-                </div>
-                <div class="card">
-                    <div><img src="https://static.metacritic.com/images/products/games/0/a620e8f4249dde4c64ec0ff2828672f6-98.jpg" alt=""></div>
-                    <div class="center">몬스터헌터</div>
-                    <div class="center">2019-11-09</div>
-                    <div class="center">PS4</div>
-                </div>
+     			<div id="gameranklist" class="gameranklist">
+     			</div>
                 <div class="right"><span class="more">더 보기</span></div>
             </div>
             <div class="flex-item item2">
                 <ul>
-                    <li>PS4</li>
-                    <li>XBOX</li>
-                    <li>SWITCH</li>
-                    <li>PC</li>
+                    <li class="platform"><input class="input" type="hidden" value="PS4">PS4</li>
+                    <li class="platform"><input class="input" type="hidden" value="XONE">XBOX</li>
+                    <li class="platform"><input class="input" type="hidden" value="Switch">SWITCH</li>
+                    <li class="platform"><input class="input" type="hidden" value="PC">PC</li>
                 </ul>
             </div>
         </div>
@@ -98,3 +63,33 @@
         <div class="wrapper-header"><span class="header-text">오늘의 화제글</span></div>
     </div>
 <%@ include file="include/footer.jsp" %>
+<script>
+	
+ 	// 게임순위 리스트 띄워주는 Ajax메소드 생성
+ 	$(document).on('click','.platform',function(){
+ 		var platform = $(this).children('input').val();
+		$.ajax({
+			url:'${path}/grank?platform='+platform,
+			type:'GET',
+			success:function(page){
+				$('#gameranklist').html(page);
+			},
+			error:function(){
+				alert('error')
+			}
+		})
+ 	})
+	function gameranklist(){
+			$.ajax({
+			url:'${path}/grank?platform=PS4',
+			type:'GET',
+			success:function(page){
+				$('#gameranklist').html(page);
+			}
+		})
+ 	}
+	// 페이지가 준비되면 메소드 호출
+	$(document).ready(function(){
+		gameranklist();
+	})
+</script>
