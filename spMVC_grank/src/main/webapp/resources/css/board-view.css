@@ -6,7 +6,7 @@
    padding: 2px;
    border-collapse: collapse;
 }
-.board-view th{
+.board-view th,.board-view td{
    border-bottom: 1px dashed grey ;
 }
 .view_button{

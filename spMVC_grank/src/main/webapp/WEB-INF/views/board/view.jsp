@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="../include/include.jsp"%>
-<link rel="stylesheet" type="text/css" href="${path}/resources/css/board-view.css?ver=20191015">
+<link rel="stylesheet" type="text/css" href="${path}/resources/css/board-view.css?ver=20191018">
 <link rel="stylesheet" type="text/css" href="${path}/resources/css/commentlist.css?ver=2019101803">
 	<%@ include file="../include/header.jsp"%>
 	<div class="wrapper">
