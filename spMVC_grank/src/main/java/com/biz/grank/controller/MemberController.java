@@ -1,5 +1,8 @@
 package com.biz.grank.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,6 +62,16 @@ public class MemberController {
 		model.addAttribute("mDto",mService.viewMember(userid));
 		return "member/mypage";
 	}
+	// 비밀번호 변경 화면단
+	@GetMapping("member_password")
+	public String member_password() {
+		return "member/password";
+	}
+	// 회원탈퇴 화면단
+	@GetMapping("member_delete")
+	public String member_delete() {
+		return "member/member_delete";
+	}
 	// 회원가입
 	@PostMapping("join")
 	public String join(MemberDto mDto) {
@@ -69,12 +82,21 @@ public class MemberController {
 	
 	// 회원 수정
 	@PostMapping("update")
-	public String update(MemberDto mDto,HttpSession httpSession) {
+	public String update(MemberDto mDto,HttpSession httpSession,Model model) {
 		String userid = (String)httpSession.getAttribute("userid");
 		mDto.setUserid(userid);
 		System.out.println(">>>>>>>>>>>>>>>>" + mDto);
 		mService.update(mDto);
+		model.addAttribute("mDto",mDto);
 		return "redirect:/member/mypage";
+	}
+	
+	// 회원 탈퇴
+	@PostMapping("delete")
+	public String delete(String userid ,HttpSession httpSession) {
+		mService.delete(userid);
+		mService.logout(httpSession);
+		return "redirect:/";
 	}
 	// 로그아웃
 	@GetMapping("logout")
@@ -82,6 +104,23 @@ public class MemberController {
 		mService.logout(httpSession);
 		return "redirect:/";
 	}
-	
-	
+	// 비밀번호 변경
+	@PostMapping("psupdate")
+	public String psupdate(MemberDto mDto,Model model) {
+		
+		mService.psupdate(mDto);
+		String userid = mDto.getUserid();
+		MemberDto view = mService.viewMember(userid);
+		model.addAttribute("mDto",view);
+		return "redirect:/member/mypage";
+	}
+	// 회원 탈퇴 비밀번호 확인
+	@ResponseBody
+	@PostMapping("passCheck")
+	public int passCheck(String userid, String passwd) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("userid",userid);
+		map.put("passwd",passwd);
+		return mService.passCheck(map);
+	}
 }

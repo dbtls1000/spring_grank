@@ -1,5 +1,7 @@
 package com.biz.grank.service;
 
+import java.util.Map;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
@@ -89,6 +91,40 @@ public class MemberServiceImp implements MemberService {
 	public void update(MemberDto mDto) {
 		// TODO Auto-generated method stub
 		mDao.update(mDto);
+	}
+
+	@Override
+	public int passCheck(Map<String, Object> map) {
+		// TODO 회원 탈퇴 확인
+		String userid = (String)map.get("userid");
+		MemberDto checkDto= mDao.viewMember(userid);
+		int result = 0;
+		if(checkDto.getUserid() != null) {
+			String cryptPassword = checkDto.getPasswd();
+			
+			String strPassword = (String)map.get("passwd");
+			if(passwordEncoder.matches(strPassword, cryptPassword)) {
+				map.put("passwd",cryptPassword);
+				result = mDao.passCheck(map);
+				System.out.println(result);
+			} else {
+				result = 0;
+			}
+		}
+		
+		return result;
+	}
+
+	@Override
+	public void delete(String userid) {
+		// TODO 회원 탈퇴
+		mDao.delete(userid);
+	}
+
+	@Override
+	public void psupdate(MemberDto mDto) {
+		// TODO 비밀번호 변경
+		mDao.psupdate(mDto);
 	}
 
 

@@ -1,0 +1,38 @@
+@charset "UTF-8";
+
+div.delete-info {
+	width: 960px;
+	border: 2px solid #00b894;
+	border-radius: 10px;
+	margin: 20px auto;
+}
+
+div.delete-info h3 {
+	text-align: center
+}
+
+div.delete-info-content {
+	width: 900px;
+	font-size: 16px;
+	margin: 0 auto 15px auto;
+	text-align: left
+}
+
+div.delete-item {
+	text-align: center;
+}
+
+div.delete-item input {
+	width: 300px;
+	outline: none;
+}
+
+div.delete-item span {
+	color: crimson;
+	font-size: 13px;
+	visibility: hidden;
+}
+
+.delete-confirm {
+	margin-bottom: 20px;
+}

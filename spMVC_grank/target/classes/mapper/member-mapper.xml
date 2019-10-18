@@ -22,4 +22,15 @@
 		zipcode = #{zipcode}, addr1 = #{addr1}, addr2 = #{addr2}
 		WHERE userid = #{userid}
    </update>
+   <select id="passCheck" resultType="int">
+		SELECT COUNT(*) FROM tbl_member
+		WHERE userid = #{userid} AND passwd = #{passwd}
+   </select>
+   <delete id="delete">
+		DELETE FROM tbl_member WHERE userid = #{userid}
+   </delete>
+   <update id="psupdate" parameterType="mDto">
+		UPDATE tbl_member SET passwd = #{passwd}
+		WHERE userid = #{userid} AND passwd = #{passwd}
+   </update>
 </mapper>

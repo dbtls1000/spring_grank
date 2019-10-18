@@ -47,8 +47,8 @@
 	</table>
 	<div class="member_button">
 		<a class="a-button a-common" id="member_up">회원수정</a>
-		<a class="a-button a-common">비밀번호 변경</a>
-		<a class="a-button a-delete">회원 탈퇴</a>
+		<a class="a-button a-common" id="member_password">비밀번호 변경</a>
+		<a class="a-button a-delete" id="member_de">회원 탈퇴</a>
 	</div>
 </div>
 <%@ include file="../include/footer.jsp" %>
@@ -57,6 +57,11 @@ $(function() {
 	$('#member_up').click(function() {
 		location.href="${path}/member/update"
 	})
-	
+	$('#member_de').click(function() {
+		location.href="${path}/member/member_delete"
+	})
+	$('#member_password').click(function() {
+		location.href="${path}/member/member_password"
+	})
 })
 </script>
