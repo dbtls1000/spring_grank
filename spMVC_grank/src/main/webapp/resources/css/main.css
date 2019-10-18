@@ -234,7 +234,7 @@ a.a-member::after {
 	background: #341f97;
 }
 
-a.a-button:hover, a#cancel-btn:hover {
+a.a-button:hover, a#cancel-btn:hover,i:hover {
 	color: #fff;
 }
 
@@ -257,12 +257,12 @@ a.a-common::after, a.a-comment::after, a.a-modal-common::after {
 	background: #546de5;
 }
 
-a#cancel-btn, a.a-delete, a.a-modal-delete {
+a#cancel-btn, a.a-delete, a.a-modal-delete,a.a-delete-comment {
 	color: crimson;
 	border: 2px solid crimson;
 }
 
-a#cancel-btn::after, a.a-delete::after, a.a-modal-delete::after {
+a#cancel-btn::after, a.a-delete::after, a.a-modal-delete::after, a.a-delete-comment::after {
 	background: crimson;
 }
 
@@ -423,32 +423,6 @@ flex-wrapper -->.flex-wrapper {
 
 img {
 	max-width: 100%;
-}
-
-body {
-	background: #f0f0f0;
-	font-size: 12px;
-	line-height: 1.6;
-	font-family: 'Jaldi', sans-serif;
-}
-
-* {
-	-moz-transition-property: background-color, border-color, box-shadow,
-		color, opacity, text-shadow, -moz-transform;
-	-o-transition-property: background-color, border-color, box-shadow,
-		color, opacity, text-shadow, -o-transform;
-	-webkit-transition-property: background-color, border-color, box-shadow,
-		color, opacity, text-shadow, -webkit-transform;
-	transition-property: background-color, border-color, box-shadow, color,
-		opacity, text-shadow, transform;
-	-moz-transition-duration: 0.2s;
-	-o-transition-duration: 0.2s;
-	-webkit-transition-duration: 0.2s;
-	transition-duration: 0.2s;
-	-moz-transition-timing-function: linear;
-	-o-transition-timing-function: linear;
-	-webkit-transition-timing-function: linear;
-	transition-timing-function: linear;
 }
 
 .more a{

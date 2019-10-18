@@ -56,6 +56,7 @@ public class BoardController {
 		model.addAttribute("search_option",search_option);
 		model.addAttribute("keyword",keyword);
 		model.addAttribute("page",page);
+		model.addAttribute("count",count);
 		return "board/list";
 	}
 	

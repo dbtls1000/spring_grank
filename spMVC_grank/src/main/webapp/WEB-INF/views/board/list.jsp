@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="../include/include.jsp"%>
-<link rel="stylesheet" type="text/css" href="${path}/resources/css/board-list.css?ver=2019101702">
+<link rel="stylesheet" type="text/css" href="${path}/resources/css/board-list.css?ver=20191018">
 <%@ include file="../include/header.jsp"%>
 	<div class="wrapper">
 		<div class="wrapper-header">
@@ -9,18 +9,19 @@
 		</div>
 		<div class="list-search">
 			<div class="flex-item">
-			<c:if test="${!empty map.keyword}">
-	   			<span class="search-comment">"${map.keyword}"(으)로 검색한 결과는 총 ${map.count}건 입니다</span>
+			<c:if test="${!empty keyword}">
+	   			<span class="search-comment">"${keyword}"(으)로 검색한 결과는 총 ${count}건 입니다</span>
 	  		</c:if>
 	  		</div>
 	  		<div class="flex-item">
 				<select id="search_option">
-					<option value="title_content">제목+내용</option>
-					<option value="title">제목</option>
-					<option value="content">내용</option>
-					<option value="writer">작성자</option>
+				
+					<option value="title_content" <c:if test="${search_option == 'title_content'}">selected="selected"</c:if> >제목+내용</option>
+					<option value="title" <c:if test="${search_option == 'title'}">selected="selected"</c:if> >제목</option>
+					<option value="content" <c:if test="${search_option == 'content'}">selected="selected"</c:if> >내용</option>
+					<option value="writer" <c:if test="${search_option == 'writer'}">selected="selected"</c:if> >작성자</option>
 				</select>
-				<input type="text" id="keyword">
+				<input type="text" id="keyword" value="${keyword}">
 				<a class="a-button a-common" id="board-search-btn"><i class="fas fa-search"></i></a>
 			</div>
 		</div>
@@ -64,15 +65,15 @@
 		</div>
 		<ul class="pagination">
 			<c:if test="${page.curBlock > 1}">
-				<li><a href="${path}/board/list?curPage=1"><i class="fas fa-angle-double-left"></i></a></li>
-				<li><a href="${path}/board/list?curPage=${page.blockBegin -10}"><i class="fas fa-angle-left"></i></a></li>
+				<li><a href="${path}/board/list?curPage=1&search_option=${search_option}&keyword=${keyword}"><i class="fas fa-angle-double-left"></i></a></li>
+				<li><a href="${path}/board/list?curPage=${page.blockBegin -10}&search_option=${search_option}&keyword=${keyword}"><i class="fas fa-angle-left"></i></a></li>
 			</c:if>
 			<c:forEach begin="${page.blockBegin}" end="${page.blockEnd}" var="idx">
-				<li <c:out value="${page.curPage == idx ? 'class=active' : '' }"/> ><a href="${path}/board/list?curPage=${idx}" >${idx}</a></li>
+				<li <c:out value="${page.curPage == idx ? 'class=active' : '' }"/> ><a href="${path}/board/list?curPage=${idx}&search_option=${search_option}&keyword=${keyword}" >${idx}</a></li>
 			</c:forEach>
 			<c:if test="${page.curBlock < page.totalBlock}">
-				<li><a href="${path}/board/list?curPage=${page.blockEnd+1}"><i class="fas fa-angle-right"></i></a></li>
-				<li><a href="${path}/board/list?curPage=${page.totalPage}"><i class="fas fa-angle-double-right"></i></a></li>
+				<li><a href="${path}/board/list?curPage=${page.blockEnd+1}&search_option=${search_option}&keyword=${keyword}"><i class="fas fa-angle-right"></i></a></li>
+				<li><a href="${path}/board/list?curPage=${page.totalPage}&search_option=${search_option}&keyword=${keyword}"><i class="fas fa-angle-double-right"></i></a></li>
 			</c:if>
 		</ul>
 			</div>

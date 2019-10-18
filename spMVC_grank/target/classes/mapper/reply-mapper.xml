@@ -7,4 +7,26 @@
 	<select id="listAll" resultType="rDto">
 		SELECT * FROM tbl_reply WHERE bno = #{bno}
 	</select>
+	<insert id="insert_reply">
+		INSERT INTO tbl_reply(rno,r_content,r_writer,bno)
+		VALUES(seq_reply.NEXTVAL,#{r_content},#{r_writer},#{bno})
+	</insert>
+	<update id="updateReplyCnt">
+		UPDATE tbl_board 
+		<if test="flag == 1">
+		SET b_replycnt = b_replycnt + 1
+		</if>
+		<if test="flag == -1">
+		SET b_replycnt = b_replycnt - 1
+		</if> 
+		WHERE bno = #{bno}
+	</update>
+	<update id="update_reply">
+		UPDATE tbl_reply
+		SET r_content = #{r_content}
+		WHERE rno = #{rno} AND bno = #{bno}
+	</update>
+	<delete id="delete_reply">
+		DELETE FROM tbl_reply WHERE bno = #{bno} AND rno = #{rno}
+	</delete>
 </mapper>
