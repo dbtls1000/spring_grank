@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="../include/include.jsp"%>
 <link rel="stylesheet" type="text/css" href="${path}/resources/css/board-view.css?ver=20191015">
+<link rel="stylesheet" type="text/css" href="${path}/resources/css/commentlist.css?ver=2019101801">
 	<%@ include file="../include/header.jsp"%>
 	<div class="wrapper">
 		<div class="wrapper-header">
@@ -51,26 +52,46 @@
 			</ul>
 		</div>
 		<!-- 댓글 -->
-		<div class="wrapper-reply" id="commnetlist">
+		<div class="wrapper-reply">
 			<div class="wrapper-header"><span class="header-text">댓글</span></div>
-			
+			<div id="commentlist"></div>
 		</div>
 	</div>
 	<%@ include file="../include/footer.jsp"%>
 <script>
+	// 댓글을 띄어주는 Ajax메서드 생성
+	function comment_list(){
+		$.ajax({
+			url:'${path}/reply/list?bno=${bDto.bno}',
+			type:'GET',
+			success:function(page){
+				$('#commentlist').html(page)
+			}
+		})
+	}
+	// 페이지가 준비되면 메서드 호출
+	$(document).ready(function(){
+		comment_list();
+	})
+	// 수정버튼 클릭시 이벤트
 	$(document).on('click','#board-update-btn',function(){
 		location.href = "${path}/board/write?bno=${bDto.bno}"
 	})
+	// 답변버튼 클릭시 이벤트
 	$(document).on('click','#board-answer-btn',function(){
 		location.href = "${path}/board/answer?bno=${bDto.bno}"
 	})
+	// 삭제버튼 클릭시 이벤트
 	$(document).on('click','#board-delete-btn',function(){
 		$('.delete-modal').css('display','block')
 	})
+	// delete-modal 아니오버튼 클릭시 이벤트
 	$(document).on('click','#confirm-no',function(){
 		$('.delete-modal').css('display','none')
 	})
+	// delete-modal 예버튼 클릭시 이벤트
 	$(document).on('click','#confirm-yes',function(){
 		location.href = "${path}/board/delete?bno=${bDto.bno}"
 	})
+	
 </script>

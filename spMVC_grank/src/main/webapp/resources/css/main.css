@@ -31,7 +31,6 @@ div.wrapper{
 div.wrapper-reply{
     width:960px;
     border: 2px solid #00b894;
-    min-height: 300px;
     margin: 20px auto 20px auto;
 }
 div.wrapper-header{
