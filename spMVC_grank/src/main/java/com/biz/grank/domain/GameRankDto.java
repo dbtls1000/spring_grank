@@ -20,13 +20,13 @@ public class GameRankDto {
 	@Id
 	private String id;
 	private String game_code;
-	private int m_score;
+	private String m_score;
 	private	String game_name;
 	private String platform;
-	private float u_score;
+	private String u_score;
 	private String img_src;
 	
-	public GameRankDto(String game_code, int m_score, String game_name, String platform, float u_score,  String img_src) {
+	public GameRankDto(String game_code, String m_score, String game_name, String platform, String u_score,  String img_src) {
 		this.game_code = game_code;
 		this.m_score = m_score;
 		this.game_name = game_name;

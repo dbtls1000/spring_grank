@@ -10,9 +10,13 @@ public interface GameService {
 	// 1. 출시예정작 리스트 출력
 	public List<ComingSoonDto> cFindAll();
 	
-	// 2. 출시예정작 n건 출력
+	// 2. 출시예정작 6건 출력
 	public List<ComingSoonDto> cFindLimit();
 	
-	public List<GameRankDto> gFindAll(String platform);
+	// 3. 게임순위리스트 5건 출력
+	public List<GameRankDto> gFindLimit(String platform);
+	
+	// 5. 게임순위리스트 모든 건 수 출력
+	public List<GameRankDto> gFindAll();
 	
 }	

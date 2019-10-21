@@ -36,7 +36,7 @@
             		</div>
 					</c:forEach>
 		    </article>
-		      <div class="right"><span class="more"><a href="#">more..</a></span></div>
+		      <div class="right"><span class="more"><a href="${path}/game/comingsoonmoreview">more..</a></span></div>
 	    </div>
 
     <!-- 게임평가 순위 -->
@@ -46,7 +46,7 @@
             <div class="flex-item item1">
      			<div id="gameranklist" class="gameranklist">
      			</div>
-                <div class="right"><span class="more">더 보기</span></div>
+                <div class="right"><span class="more"><a href ="${path}/game/rankmoreview">more..</a></span></div>
             </div>
             <div class="flex-item item2">
                 <ul>
@@ -79,6 +79,7 @@
 			}
 		})
  	})
+ 	
 	function gameranklist(){
 			$.ajax({
 			url:'${path}/grank?platform=PS4',

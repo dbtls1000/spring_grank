@@ -24,14 +24,20 @@ public class GameController {
 	@Autowired
 	private GameService gameService;
 
-	// 출시 예정작 n건 불러오기
-	@RequestMapping(value = "comingsoon", method = RequestMethod.GET)
-	public String commingSoon(Model model) {
-		List<ComingSoonDto> cList = gameService.cFindLimit();
+
+	@RequestMapping(value = "comingsoonmoreview", method = RequestMethod.GET)
+	public String ComingsoonMore(Model model) {
+		List<ComingSoonDto> cList = gameService.cFindAll();
 		model.addAttribute("cList", cList);
-		return "home";
+		return "gameview/comingsoonmoreview";
 	}
 	
+	@RequestMapping(value ="rankmoreview", method = RequestMethod.GET)
+	public String MankMoreview(Model model) {
+		List<GameRankDto> gList = gameService.gFindAll();
+		model.addAttribute("gList", gList);
+		return "gameview/rankmoreview";
+	}
 	
 
 }

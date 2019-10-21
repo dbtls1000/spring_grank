@@ -24,21 +24,25 @@ public class HomeController {
 	@Autowired
 	private GameService gameService;
 
-	
+	// 1. 출시 예정작 6건 출력
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Model model) {
+		// 출시 예정작 6건 출력
 		List<ComingSoonDto> cList = gameService.cFindLimit();
 		model.addAttribute("cList", cList);
 		return "home";
 		
 	}
+	// 2. 게임 순위 리스트 5건 출력
 	@RequestMapping(value = "grank", method = RequestMethod.GET)
 	public String Grank(Model model, String platform) {
-		List<GameRankDto> gList = gameService.gFindAll(platform);
+		// 게임 순위 리스트 5건 출력
+		List<GameRankDto> gList = gameService.gFindLimit(platform);
 		log.info("platform: " + platform);
 		log.info("gList: " + gList);
 		log.info("gListSize: " + gList.size());
 		model.addAttribute("gList", gList);
 		return "gameview/gameranklist";
 	}
+	
 }
