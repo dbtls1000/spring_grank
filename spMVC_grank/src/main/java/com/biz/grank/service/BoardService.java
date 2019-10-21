@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import com.biz.grank.domain.BoardDto;
+import com.biz.grank.domain.LikeDto;
 
 public interface BoardService {
 	public int countList(Map<String, Object> map);
@@ -15,4 +16,7 @@ public interface BoardService {
 	public void answer(BoardDto bDto);
 	public void delete(int bno);
 	public void increaseViewCnt(int bno, HttpSession httpSession);
+	public void like_cnt_up(int bno);
+	public void like_cnt_down(int bno);
+	
 }

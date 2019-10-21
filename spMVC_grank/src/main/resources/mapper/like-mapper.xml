@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.biz.grank.persistence.LikeDao">
+	<update id="like_check">
+		UPDATE tbl_like SET like_check = like_check + 1 
+		WHERE userid = #{userid} AND bno = #{bno}
+	</update>
+	<update id="like_check_cansel">
+		UPDATE tbl_like SET like_check = 0 
+		WHERE userid = #{userid} AND bno = #{bno}
+	</update>
+	<select id="countByLike" resultType="int">
+		SELECT COUNT(likeno) FROM tbl_like
+		WHERE bno = #{bno} AND userid = #{userid}
+	</select>
+	<insert id="createLike">
+		INSERT INTO tbl_like(likeno,bno,userid,like_check)
+		VALUES(seq_like.NEXTVAL,#{bno},#{userid},0)
+	</insert>
+	<select id="likeRead" resultType="lDto">
+		SELECT * FROM tbl_like WHERE bno = #{bno} AND userid = #{userid}
+	</select>
+</mapper>

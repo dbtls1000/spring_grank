@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="../include/include.jsp"%>
-<link rel="stylesheet" type="text/css" href="${path}/resources/css/board-view.css?ver=20191018">
+<link rel="stylesheet" type="text/css" href="${path}/resources/css/board-view.css?ver=2019102101">
 <link rel="stylesheet" type="text/css" href="${path}/resources/css/commentlist.css?ver=2019101803">
 	<%@ include file="../include/header.jsp"%>
 	<div class="wrapper">
@@ -9,8 +9,21 @@
 			<span class="header-text">상세 게시글</span>
 		</div>
 		<div id="view_an_btn">
-			<a class="a-button a-common" id="board-prev-btn">이전글</a>
-			<a class="a-button a-common" id="board-next-btn">다음글</a>
+			<div class="view-flex-item">
+				<a class="a-button a-common" id="board-prev-btn">이전글</a>
+				<a class="a-button a-common" id="board-next-btn">다음글</a>
+			</div>
+			<c:choose>
+				<c:when test="${empty sessionScope.name}">
+					<i id="like-btn-login" class="far fa-heart"></i>
+				</c:when>
+				<c:when test="${lDto.like_check == 1}">
+					<i id="like-btn" class="fas fa-heart"></i>
+				</c:when>
+				<c:otherwise>
+					<i id="like-btn" class="far fa-heart"></i>
+				</c:otherwise>
+			</c:choose>
 		</div>
 		<table class="board-view">
 			<colgroup>
@@ -191,4 +204,38 @@
 			location.href = "${path}/board/view?bno=" + next;	
 		}
 	})
+	// 좋아요버튼 클릭시
+	$(document).on('click','#like-btn',function(){
+		var bno = '${bDto.bno}';
+		$.ajax({
+			url:'${path}/board/like',
+			type:'GET',
+			cache: false,
+			dataType:'json',
+			data:'bno='+bno,
+			success:function(data){
+				// icon변수 = 좋아요 아이콘의 클래스를 바꿔줄 변수
+				var icon = '';
+				var check = data.like_check;
+				console.log(check)
+				// like_check가 0이면 꽉찬하트로 바꿔주고
+				if(data.like_check == 0){
+			        icon = "fas fa-heart";
+			    } else { // like_check가 1이면 빈 하트로 바꿔준다
+			        icon = "far fa-heart";
+			    }
+				// icon을 class속성에 대입
+				$('#like-btn').attr('class',icon)
+			},
+			error:function(){
+				alert('error')
+			}
+		})
+	})
+	// 로그인하지 않은상태로 좋아요 버튼을 클릭하면 로그인 모달창을 띄우고 경고메세지를 출력한다
+	$(document).on('click','#like-btn-login',function(){
+		$('#modal-login').css('display', 'block');
+		$('.login-err-msg').text('로그인후 사용할 수 있습니다.').css('visibility','visible');
+	})
+
 </script>

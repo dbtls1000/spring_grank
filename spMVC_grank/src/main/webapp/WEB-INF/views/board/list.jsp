@@ -25,7 +25,7 @@
 					<option value="writer" <c:if test="${search_option == 'writer'}">selected="selected"</c:if> >작성자</option>
 				</select>
 				<input type="text" id="keyword" value="${keyword}">
-				<a class="a-button a-common" id="board-search-btn"><i class="fas fa-search"></i></a>
+				<a class="a-button a-common" id="board-search-btn"><i class="fas fa-search i-btn"></i></a>
 			</div>
 		</div>
 		<table class="board-list">
@@ -64,7 +64,7 @@
 			</c:forEach>
 		</table>
 		<div class="wrapper-content right">
-			<a class="a-button a-common" id="write-btn"><i class="fas fa-pencil-alt"></i></a>
+			<a class="a-button a-common" id="write-btn"><i class="fas fa-pencil-alt i-btn"></i></a>
 		</div>
 		<ul class="pagination">
 			<c:if test="${page.curBlock > 1}">

@@ -27,4 +27,5 @@ public class BoardDto {
 	private int re_level;//	
 	private int prev_bno; // 이전 게시글 번호
 	private int next_bno; // 다음 게시글 번호
+	private int like_cnt; // 게시글 좋아요 수
 }

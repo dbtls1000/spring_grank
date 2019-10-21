@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.biz.grank.domain.BoardDto;
+import com.biz.grank.domain.LikeDto;
 import com.biz.grank.persistence.BoardDao;
 
 import lombok.extern.slf4j.Slf4j;
@@ -102,4 +103,17 @@ public class BoardServiceImp implements BoardService {
 			// 해당 게시글의 조회수 +1
 		}
 	}
+
+	@Override
+	public void like_cnt_up(int bno) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void like_cnt_down(int bno) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -37,7 +37,7 @@
 			</div>
 			<div class="comment-text">
 				<textarea name="r_content" id="txt" cols="30" rows="2"></textarea>
-				<a class="a-button a-comment comment-btn" id="board-reply-btn"><i class="fas fa-pencil-alt"></i></a>
+				<a class="a-button a-comment comment-btn" id="board-reply-btn"><i class="fas fa-pencil-alt i-btn"></i></a>
 			</div>
 			<input type="hidden" id="re_bno" name="bno">
 			</form>

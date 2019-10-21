@@ -7,5 +7,6 @@
 		<typeAlias type="com.biz.grank.domain.BoardDto" alias="bDto"/>
 		<typeAlias type="com.biz.grank.domain.MemberDto" alias="mDto"/>
 		<typeAlias type="com.biz.grank.domain.ReplyDto" alias="rDto"/>
+		<typeAlias type="com.biz.grank.domain.LikeDto" alias="lDto"/>
 	</typeAliases>
 </configuration>

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.biz.grank.domain.BoardDto;
+import com.biz.grank.domain.LikeDto;
 
 public interface BoardDao {
 
@@ -24,5 +25,7 @@ public interface BoardDao {
 	public void delete(int bno);
 
 	public void increaseViewCnt(int bno);
+
+	
 
 }

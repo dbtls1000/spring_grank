@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,9 +13,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.biz.grank.domain.BoardDto;
+import com.biz.grank.domain.LikeDto;
 import com.biz.grank.service.BoardService;
+import com.biz.grank.service.LikeService;
 import com.biz.grank.service.Pagination;
 
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +30,9 @@ public class BoardController {
 	
 	@Autowired
 	BoardService bService;
+	@Autowired
+	LikeService lService;
+	
 	
 	// 게시글 리스트 화면단
 	@GetMapping("list")
@@ -64,6 +71,20 @@ public class BoardController {
 	@GetMapping("view")
 	public String view(int bno, Model model,HttpSession httpSession) {
 		log.info(">>이전,다음글 번호 확인>>" + bService.readOne(bno));
+		
+		String userid = (String)httpSession.getAttribute("userid");
+		log.info("userid>>"+userid);
+		if(userid != null) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("userid", userid);
+			map.put("bno", bno);
+			if(lService.countByLike(map) == 0) {
+				lService.createLike(map);
+			}
+			model.addAttribute("lDto",lService.likeRead(map));
+		} else {
+			
+		}
 		bService.increaseViewCnt(bno, httpSession);
 		model.addAttribute("bDto", bService.readOne(bno));
 		return "board/view";
@@ -124,5 +145,34 @@ public class BoardController {
 	public String delete(int bno) {
 		bService.delete(bno);
 		return "redirect:/board/list";
+	}
+	// 게시글 좋아요 기능
+	@ResponseBody
+	@GetMapping("like")
+	public String like(int bno,HttpSession httpSession) {
+		String userid = (String)httpSession.getAttribute("userid");
+		JSONObject obj = (JSONObject) new JSONObject();
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("userid", userid);
+		map.put("bno", bno);
+		LikeDto lDto = lService.likeRead(map);
+		// 좋아요 체크 값
+		int like_check = lDto.getLike_check();
+		log.info("좋아요체크"+like_check);
+		// countByLike의 return값이 0이면 좋아요 테이블에 정보를 추가
+		if(lService.countByLike(map) == 0) {
+			lService.createLike(map);
+		}
+		if(like_check == 0) {
+			lService.like_check(map);
+			bService.like_cnt_up(bno);
+		} else {
+			lService.like_check_cansel(map);
+			bService.like_cnt_down(bno);
+		}
+		
+		obj.put("like_check", like_check);
+		return obj.toJSONString();
 	}
 }
