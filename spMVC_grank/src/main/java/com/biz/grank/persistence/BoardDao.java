@@ -23,4 +23,6 @@ public interface BoardDao {
 
 	public void delete(int bno);
 
+	public void increaseViewCnt(int bno);
+
 }

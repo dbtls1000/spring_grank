@@ -80,7 +80,7 @@
 .modal-box span{
     color: #fff;
 }
-.modal-box span.err-msg{
+.modal-box span.login-err-msg{
     position: relative;
     bottom: 25px;
     visibility: hidden;

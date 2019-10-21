@@ -3,6 +3,8 @@ package com.biz.grank.service;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import com.biz.grank.domain.BoardDto;
 
 public interface BoardService {
@@ -12,5 +14,5 @@ public interface BoardService {
 	public void save(BoardDto bDto);
 	public void answer(BoardDto bDto);
 	public void delete(int bno);
-	
+	public void increaseViewCnt(int bno, HttpSession httpSession);
 }

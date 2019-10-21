@@ -62,8 +62,9 @@ public class BoardController {
 	
 	// 상세 게시글 화면단
 	@GetMapping("view")
-	public String view(int bno, Model model) {
+	public String view(int bno, Model model,HttpSession httpSession) {
 		log.info(">>이전,다음글 번호 확인>>" + bService.readOne(bno));
+		bService.increaseViewCnt(bno, httpSession);
 		model.addAttribute("bDto", bService.readOne(bno));
 		return "board/view";
 	}

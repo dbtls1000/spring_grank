@@ -44,6 +44,9 @@
 	<update id="updateRestep" parameterType="bDto">
 		UPDATE tbl_board SET re_step = re_step + 1 WHERE ref = #{ref} AND re_step > #{re_step}
 	</update>
+	<update id="increaseViewCnt">
+		UPDATE tbl_board SET b_viewcnt = b_viewcnt + 1 WHERE bno = #{bno}
+	</update>
 	<delete id="delete">
 		DELETE FROM tbl_board WHERE bno = #{bno}
 	</delete>

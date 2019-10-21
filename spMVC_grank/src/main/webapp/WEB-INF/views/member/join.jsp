@@ -22,7 +22,7 @@
 	                    <span>아이디</span>
 	                </div>
 	                <div class="input-field">
-	                    <input class="join-input" id="join-id" type="text" name="userid" required="">
+	                    <input autocomplete="off" class="join-input" id="join-id" type="text" name="userid" required="">
 	                </div>
                 </div>
                 <div class="member_hidden">
@@ -45,19 +45,19 @@
                     <span>닉네임</span>
                 </div>
                 <div class="input-field">
-                    <input class="join-input" type="text" name="name" required="" value="${mDto.name}">
+                    <input autocomplete="off" class="join-input" type="text" name="name" required="" value="${mDto.name}">
                 </div>
                 <div class="join-label">
                     <span>전화번호</span>
                 </div>
                 <div class="input-field">
-                    <input class="join-input" type="text" name="phone" required=""  value="${mDto.phone}">
+                    <input autocomplete="off" class="join-input" type="text" name="phone" required=""  value="${mDto.phone}">
                 </div>
                 <div class="join-label">
                     <span>이메일</span>
                 </div>
                 <div class="input-field">
-                    <input class="join-input" type="text" name="email" required="" value="${mDto.email}">
+                    <input autocomplete="off" class="join-input" type="text" name="email" required="" value="${mDto.email}">
                 </div>
                 <div class="join-address">
                     <input class="address-btn" type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기">
@@ -68,7 +68,7 @@
                     <span>상세주소</span>
                 </div>
                 <div class="input-field">
-                    <input class="join-input" name="addr2" type="text" id="sample6_detailAddress" value="${mDto.addr2}">
+                    <input autocomplete="off" class="join-input" name="addr2" type="text" id="sample6_detailAddress" value="${mDto.addr2}">
                 </div>
                 <input type="hidden" id="sample6_extraAddress" placeholder="참고항목">
                 <input id="join-join-btn" type="button" value="회원가입">

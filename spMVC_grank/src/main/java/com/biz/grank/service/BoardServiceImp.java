@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;
@@ -75,5 +76,30 @@ public class BoardServiceImp implements BoardService {
 	public void delete(int bno) {
 		// TODO 게시글 삭제
 		bDao.delete(bno);
+	}
+
+	@Override
+	public void increaseViewCnt(int bno, HttpSession httpSession) {
+		// TODO Auto-generated method stub
+		long update_time = 0;
+		String name = bDao.readOne(bno).getB_writer();
+		// 로그인 되있으면 조회수+1 그외 변동x
+		if(httpSession.getAttribute("name")!=null) {
+			// "update_time_"+bno가 null이 아닌경우(조회수를 이미 1회 올린경우)
+			if(httpSession.getAttribute("update_time_"+bno) != null) {
+				// update_time에 세션으로부터 "update_time_"+bno값을 받아와 담는다
+				update_time = (long)httpSession.getAttribute("update_time_"+bno);
+			};
+			// 현재시각
+			long current_time = System.currentTimeMillis();
+			// 현재시각과 조회수를 올린시간의 차이가 24시간이 넘어가면
+			// 조회수 +1 그리고 "update_time_"+bno에 현재시각을 담기
+			if(current_time - update_time > 24*60*60*1000) {
+				bDao.increaseViewCnt(bno);
+				//조회수를 증가한 시간 session에 저장
+				httpSession.setAttribute("update_time_"+bno, current_time);
+			}
+			// 해당 게시글의 조회수 +1
+		}
 	}
 }
