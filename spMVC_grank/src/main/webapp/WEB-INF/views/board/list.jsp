@@ -3,6 +3,9 @@
 <%@ include file="../include/include.jsp"%>
 <link rel="stylesheet" type="text/css" href="${path}/resources/css/board-list.css?ver=20191018">
 <%@ include file="../include/header.jsp"%>
+<%
+	String message= request.getParameter("message");
+%>
 	<div class="wrapper">
 		<div class="wrapper-header">
 			<span class="header-text">자유 게시판</span>
@@ -80,6 +83,10 @@
 <%@ include file="../include/footer.jsp"%>
 <script>
 	$(function(){
+		var msg = "${message}"
+		if(msg == 'nologin') {
+			$('#modal-login').css('display', 'block');
+		}
 		$('#write-btn').click(function(){
 			location.href = "${path}/board/write";
 		})

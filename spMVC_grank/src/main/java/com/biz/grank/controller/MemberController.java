@@ -45,10 +45,13 @@ public class MemberController {
 	// 회원가입 수정 화면단
 	@GetMapping("update")
 	public String update(Model model,HttpSession httpSession) {
+		// httpSession에서 userid 값 가져오기
 		String userid = (String)httpSession.getAttribute("userid");
 		if(userid == null) {
+			// userid 값이 없으면 redirect:/
 			return "redirect:/";
 		} else {
+			// userid 값이 있으면 model에 userid 값과 일치한 값 담기
 			model.addAttribute("mDto",mService.viewMember(userid));
 			return "member/join";
 		}
@@ -58,9 +61,16 @@ public class MemberController {
 	// 마이페이지 화면단
 	@GetMapping("mypage")
 	public String mypage(Model model,HttpSession httpSession) {
+		// httpSession에서 userid 값 가져오기
 		String userid = (String)httpSession.getAttribute("userid");
-		model.addAttribute("mDto",mService.viewMember(userid));
-		return "member/mypage";
+		if(userid == null) {
+			// userid 값이 없으면 redirect:/
+			return "redirect:/";
+		} else {
+			// userid 값이 있으면 model에 userid 값과 일치한 값 담기
+			model.addAttribute("mDto",mService.viewMember(userid));
+			return "member/mypage";
+		}
 	}
 	// 비밀번호 변경 화면단
 	@GetMapping("member_password")
@@ -85,8 +95,8 @@ public class MemberController {
 	public String update(MemberDto mDto,HttpSession httpSession,Model model) {
 		String userid = (String)httpSession.getAttribute("userid");
 		mDto.setUserid(userid);
-		System.out.println(">>>>>>>>>>>>>>>>" + mDto);
 		mService.update(mDto);
+		// 회원 수정 후 model에 값 담기
 		model.addAttribute("mDto",mDto);
 		return "redirect:/member/mypage";
 	}
@@ -95,21 +105,23 @@ public class MemberController {
 	@PostMapping("delete")
 	public String delete(String userid ,HttpSession httpSession) {
 		mService.delete(userid);
+		// 회원 탈퇴 후 로그아웃
 		mService.logout(httpSession);
 		return "redirect:/";
 	}
 	// 로그아웃
+	@ResponseBody
 	@GetMapping("logout")
-	public String logout(HttpSession httpSession) {
+	public void logout(HttpSession httpSession) {
 		mService.logout(httpSession);
-		return "redirect:/";
 	}
 	// 비밀번호 변경
 	@PostMapping("psupdate")
 	public String psupdate(MemberDto mDto,Model model) {
-		
 		mService.psupdate(mDto);
+		// 비밀번호 변경후 mDto에서 userid 값 가져오기
 		String userid = mDto.getUserid();
+		// userid와 일치한 데이터 가져와 view에 담기
 		MemberDto view = mService.viewMember(userid);
 		model.addAttribute("mDto",view);
 		return "redirect:/member/mypage";

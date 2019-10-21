@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="include.jsp"%>
+<%
+	String uri = request.getParameter("uri");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -43,7 +46,10 @@
 	<%@ include file="login-modal.jsp"%>
 	<%@ include file="delete-modal.jsp"%>
 	<script>
+	
 		$(function() {
+			
+			
 			$('#home-img').click(function() {
 				location.href = '${path}/'
 			})
@@ -65,7 +71,14 @@
 				}
 			})
 			$('#logout-btn').click(function(){
-				location.href = "${path}/member/logout"
+				$.ajax({
+					url:'${path}/member/logout',
+					type:'GET',
+					success:function(){
+						location.reload();	
+					}
+				})
+				
 			})
 			$('#mypage-btn').click(function() {
 				location.href = "${path}/member/mypage?userid=${sessionScope.userid}"
@@ -85,19 +98,19 @@
 				$('#modal-login').css('display', 'none')
 				$('#login-id').val('');
 				$('#login-pw').val('');
-				$('.err-msg').css('visibility','hidden')
+				$('.login-err-msg').css('visibility','hidden')
 			})
-			$("#login-submit").click(
-					function() {
+			$("#login-submit").click(function() {
+				var uri = '${uri}'
 						var id = $.trim($('#login-id').val())
 						var pw = $.trim($('#login-pw').val())
 						if (id.length == 0 || id == '') {
-							$('#login-id').next().next().text('아이디를 입력해주세요')
+							$('.login-err-msg').text('아이디를 입력해주세요')
 									.css('visibility', 'visible')
 							return false;
 						}
 						if (pw.length == 0 || pw == '') {
-							$('#login-pw').next().next().text('비밀번호를 입력해주세요')
+							$('.login-err-msg').text('비밀번호를 입력해주세요')
 									.css('visibility', 'visible')
 							return false;
 						}
@@ -109,7 +122,11 @@
 							data : 'userid=' + id + '&passwd=' + pw,
 							success : function(data) {
 								if (data == '1') {
-									location.reload();
+									if(uri == ''){
+										location.reload();
+									} else{
+										location.href=uri;
+									}
 								} else if (data == '-1') {
 									$('#login-id').focus();
 									$('.err-msg').text(

@@ -3,6 +3,12 @@
 <%@ include file="../include/include.jsp"%>
 <link rel="stylesheet" type="text/css" href="${path}/resources/css/board-write.css?ver=20191015">
 	<%@ include file="../include/header.jsp"%>
+	<c:if test="${sessionScope.userid == null}">
+	<script>
+		alert("로그인 후 사용해주세요")
+		location.href="${path}/";
+	</script>
+</c:if>
 	<div class="wrapper">
 		<div class="wrapper-header">
 			<span class="header-text">게시글 작성</span>

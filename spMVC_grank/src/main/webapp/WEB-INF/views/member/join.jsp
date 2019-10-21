@@ -3,7 +3,16 @@
 <%@ include file="../include/include.jsp" %>
 <link rel="stylesheet" type="text/css" href="${path}/resources/css/join.css?ver=2019101701">
 <%@ include file="../include/header.jsp" %>
-
+<c:choose>
+	<c:when test="${mDto.userid == null}">
+		<c:if test="${sessionScope.userid != null}">
+			<script>
+				alert("로그아웃 후 사용해주세요");
+				location.href="${path}/";
+			</script>
+		</c:if>
+	</c:when>
+</c:choose>
 	<div class="join-wrapper">
         <div class="join-wrapper-header"><span class="join-header-text">회원가입</span></div>
         <div class="join-wrapper-content">

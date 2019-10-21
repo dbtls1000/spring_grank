@@ -7,12 +7,11 @@
 		<h2>로그인</h2>
 		<form>
 			<div class="inputBox">
-				<input id="login-id" type="text" name="" required=""> <label>UserId</label>
-				<span class="err-msg">test</span>
+				<input autocomplete="off" id="login-id" type="text" name="" required=""> <label>UserId</label>
 			</div>
 			<div class="inputBox">
 				<input id="login-pw" type="password" required="" name=""> <label>Password</label>
-				<span class="err-msg">test</span>
+				<span class="login-err-msg">test</span>
 			</div>
 			<input id="login-submit" type="button" value="로그인"><br>
 			<div id="login-nav">

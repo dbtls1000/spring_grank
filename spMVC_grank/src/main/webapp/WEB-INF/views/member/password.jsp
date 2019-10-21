@@ -3,6 +3,12 @@
 <%@ include file="../include/include.jsp"%>
 <%@ include file="../include/header.jsp"%>
 <link rel="stylesheet" type="text/css" href="${path}/resources/css/member_password.css?ver=2019101703">
+<c:if test="${sessionScope.userid == null}">
+	<script>
+		alert("로그인 후 사용해주세요")
+		location.href="${path}/";
+	</script>
+</c:if>
 <div class="wrapper member_wrapper">
     <div class="wrapper-header">
         <span class="header-text">비밀번호 변경</span>
@@ -54,6 +60,7 @@ $(function() {
 			state = ajaxPassCheck(user,pass);
 		}
 	})
+	
 	$('#password_tbn').click(function() {
 		if(state) {
 			$('#mem_uppass').submit();

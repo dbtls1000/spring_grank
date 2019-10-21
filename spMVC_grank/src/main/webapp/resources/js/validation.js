@@ -7,10 +7,10 @@ function ajaxPassCheck(user, pass) {
 		contentType: "application/json",
 		success : function(data) {
 			if(data == 1) {
-				$('.member-delete-err').text('비밀번호가 일치합니다.').css('visibility','visible').css('color','blue');
+//				$('.member-delete-err').text('비밀번호가 일치합니다.').css('visibility','visible').css('color','blue');
 				return_val = true;
 			} else {
-				$('.member-delete-err').text('비밀번호가 일치하지 않습니다.').css('visibility','visible');
+//				$('.member-delete-err').text('비밀번호가 일치하지 않습니다.').css('visibility','visible');
 				return_val = false;
 			}
 		},

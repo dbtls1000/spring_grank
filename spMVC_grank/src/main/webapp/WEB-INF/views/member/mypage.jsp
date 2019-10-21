@@ -3,6 +3,7 @@
 <%@ include file="../include/include.jsp"%>
 <link rel="stylesheet" type="text/css" href="${path}/resources/css/mypage.css?ver=2019101703">
 <%@ include file="../include/header.jsp"%>
+
 <div class="wrapper">
 	<div class="wrapper-header">
 		<span class="header-text">마이 페이지</span>
