@@ -9,7 +9,8 @@
 			<span class="header-text">상세 게시글</span>
 		</div>
 		<div id="view_an_btn">
-			<a class="a-button a-common">이전글</a> <a class="a-button a-common">다음글</a>
+			<a class="a-button a-common" id="board-prev-btn">이전글</a>
+			<a class="a-button a-common" id="board-next-btn">다음글</a>
 		</div>
 		<table class="board-view">
 			<colgroup>
@@ -41,7 +42,7 @@
 		</table>
 		<div class="view_button">
 			<ul>
-				<li><a class="a-button a-common"">목록</a></li>
+				<li><a class="a-button a-common" id="board-list-btn">목록</a></li>
 				<c:if test="${!empty sessionScope.name}">
 					<li><a class="a-button a-common" id="board-answer-btn">답변</a></li>
 				</c:if>
@@ -72,6 +73,10 @@
 	// 페이지가 준비되면 메서드 호출
 	$(document).ready(function(){
 		comment_list();
+	})
+	// 목록버튼 클릭시 이벤트
+	$(document).on('click','#board-list-btn',function(){
+		location.href = "${path}/board/list"
 	})
 	// 수정버튼 클릭시 이벤트
 	$(document).on('click','#board-update-btn',function(){
@@ -135,28 +140,55 @@
 			}
 		})
 	})
+	// 댓글수정 버튼 클릭시 이벤트
 	$(document).on('click','#reply-update-btn',function(){
 		var rno = $(this).attr('data-rno');
 		var bno = '${bDto.bno}';
 		var content = $(this).attr('data-content');
 		console.log(rno+","+content+","+bno);
 		var htmls = '';
+		// 수정버튼 클릭시 기존의 댓글 폼을 없애고 댓글을 등록하는 폼에 댓글내용을 담아 새로 생성해준다.
 		htmls += '<form id="frm_reply" method="POST">'
 		htmls += '<div class="reply-info">'
 		htmls += '<span>${sessionScope.name}</span><span id="reply-err">댓글을 공백없이 입력해주세요</span>'
 		htmls += '</div>'
 		htmls += '<div class="comment-text" style="border-bottom:1px solid grey">'
+		// 댓글내용을 담는부분
 		htmls += '<textarea style="width:860px;" name="r_content" id="txt" cols="30" rows="2">' + content + '</textarea>'
 		htmls += '<a style="margin-left:5px;" class="a-button a-comment comment-btn" id="board-reply-btn"><i class="fas fa-pencil-alt"></i></a>'
+		// 수정 취소하는 버튼도 생성
 		htmls += '<a style="margin-left:5px;" class="a-button a-delete-comment comment-btn" id="board-cancel-btn"><i class="fas fa-times"></i></a>'
 		htmls += '</div>'
+		// bno값을 보낼 input태그를 hidden으로 생성
 		htmls += '<input type="hidden" id="re_bno" name="bno">'
+		// rno값을 보낼 input태그를 hidden으로 생성
 		htmls += '<input type="hidden" id="rno" name="rno" value="'+rno+'">'
 		htmls += '</form>'
 		$(this).parent().parent().parent().parent().html(htmls);
+		// 기존 댓글폼 삭제
 		$(this).parent().parent().parent().remove();
 	})
 	$(document).on('click','#board-cancel-btn',function(){
 		comment_list();
+	})
+	// 이전글 버튼 클릭시
+	$(document).on('click','#board-prev-btn',function(){
+		var prev = '${bDto.prev_bno}'
+		// prev가 0이거나 null이면 이전 게시글이 없는것
+		if(prev == '' || prev == 0){
+			alert('이전 게시글이 없습니다.');
+		}else{
+			location.href = "${path}/board/view?bno=" + prev;
+		}
+	})
+	// 다음글 버튼 클릭시
+	$(document).on('click','#board-next-btn',function(){
+		var next = '${bDto.next_bno}'
+		// next가 0이거나 null이면 다음 게시글이 없는것
+		if(next == '' || next == 0){
+			alert('다음 게시글이 없습니다.');
+		} else {
+			location.href = "${path}/board/view?bno=" + next;	
+		}
 	})
 </script>

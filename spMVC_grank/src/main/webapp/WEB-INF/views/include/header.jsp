@@ -83,6 +83,9 @@
 			})
 			$('.modal-close').click(function() {
 				$('#modal-login').css('display', 'none')
+				$('#login-id').val('');
+				$('#login-pw').val('');
+				$('.err-msg').css('visibility','hidden')
 			})
 			$("#login-submit").click(
 					function() {
@@ -91,8 +94,13 @@
 						if (id.length == 0 || id == '') {
 							$('#login-id').next().next().text('아이디를 입력해주세요')
 									.css('visibility', 'visible')
+							return false;
 						}
-
+						if (pw.length == 0 || pw == '') {
+							$('#login-pw').next().next().text('비밀번호를 입력해주세요')
+									.css('visibility', 'visible')
+							return false;
+						}
 						$.ajax({
 							url : '${path}/member/login',
 							type : 'POST',

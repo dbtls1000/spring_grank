@@ -51,7 +51,7 @@ public class BoardController {
 		map.put("start", start);
 		map.put("end", end);
 		
-		
+		// view단에서 사용할 변수들 model에 담기
 		model.addAttribute("blist",bService.listAll(map));
 		model.addAttribute("search_option",search_option);
 		model.addAttribute("keyword",keyword);
@@ -63,6 +63,7 @@ public class BoardController {
 	// 상세 게시글 화면단
 	@GetMapping("view")
 	public String view(int bno, Model model) {
+		log.info(">>이전,다음글 번호 확인>>" + bService.readOne(bno));
 		model.addAttribute("bDto", bService.readOne(bno));
 		return "board/view";
 	}
@@ -85,8 +86,9 @@ public class BoardController {
 		// name을 bDto의 b_writer에 담기
 		bDto.setB_writer(name);
 		// bno값에 따른 작성/수정
+		log.info(">>b_writer>>" + bDto);
 		bService.save(bDto);
-		return "redirect:/";
+		return "redirect:/board/view?bno="+bDto.getBno();
 	}
 	
 	// 게시글 답변 화면단
@@ -106,7 +108,6 @@ public class BoardController {
 		String name = (String)httpSession.getAttribute("name");
 		// name을 bDto의 b_writer에 담기
 		bDto.setB_writer(name);
-		bDto.setB_writer("테스터");
 		// 답변을 달고자하는 게시글의 정보를 가져와 ref,re_step,re_level을 set한다
 		BoardDto pDto = bService.readOne(bDto.getBno());
 		bDto.setRef(pDto.getRef());
@@ -114,7 +115,7 @@ public class BoardController {
 		bDto.setRe_level(pDto.getRe_level());
 		
 		bService.answer(bDto);
-		return "redirect:/";
+		return "redirect:/board/view?bno="+bDto.getBno();
 	}
 	
 	// 게시글 삭제 실행
