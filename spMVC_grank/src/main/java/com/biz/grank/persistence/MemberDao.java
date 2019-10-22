@@ -22,5 +22,11 @@ public interface MemberDao {
 
 	void psupdate(MemberDto mDto);
 
+	int idCheck(String userid);
+
+	String ajaxEmailCheck(String email);
+
+	String ajaxPswordCheck(Map<String, Object> map);
+
 
 }

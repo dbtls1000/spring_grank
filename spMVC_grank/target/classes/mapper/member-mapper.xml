@@ -24,6 +24,11 @@
 		zipcode = #{zipcode}, addr1 = #{addr1}, addr2 = #{addr2}
 		WHERE userid = #{userid}
    </update>
+   <!-- id 중복 체크 -->
+   <select id="idCheck" resultType="int">
+		SELECT COUNT(userid) FROM tbl_member
+		WHERE userid = #{userid}
+   </select>
    <!-- 비밀번호 체크 -->
    <select id="passCheck" resultType="int">
 		SELECT COUNT(*) FROM tbl_member
@@ -38,4 +43,13 @@
 		UPDATE tbl_member SET passwd = #{passwd}
 		WHERE userid = #{userid}
    </update>
+   <!-- 이메일 체크 후 아이디 값  가져오기 -->
+   <select id="ajaxEmailCheck" resultType="string">
+		SELECT userid FROM tbl_member
+		WHERE email = #{email}
+   </select>
+   <select id="ajaxPswordCheck" resultType="string">
+		SELECT passwd FROM tbl_member
+		WHERE userid = #{userid} AND email = #{email}
+   </select>
 </mapper>

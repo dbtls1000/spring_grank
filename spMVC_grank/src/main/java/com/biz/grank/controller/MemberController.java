@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.biz.grank.domain.MemberDto;
@@ -82,6 +83,13 @@ public class MemberController {
 	public String member_delete() {
 		return "member/member_delete";
 	}
+	// id 찾기 화면단
+	@GetMapping("login_check")
+	public String login_idcheck(@RequestParam(defaultValue = "idcheck") String code, Model model) {
+		System.out.println(code);
+		model.addAttribute("code",code);
+		return "member/login_check";
+	}
 	// 회원가입
 	@PostMapping("join")
 	public String join(MemberDto mDto) {
@@ -126,6 +134,12 @@ public class MemberController {
 		model.addAttribute("mDto",view);
 		return "redirect:/member/mypage";
 	}
+	// id 중복 체크
+	@ResponseBody
+	@PostMapping("idCheck")
+	public int idCheck(String userid) {
+		return mService.idCheck(userid);
+	}
 	// 회원 탈퇴 비밀번호 확인
 	@ResponseBody
 	@PostMapping("passCheck")
@@ -134,5 +148,31 @@ public class MemberController {
 		map.put("userid",userid);
 		map.put("passwd",passwd);
 		return mService.passCheck(map);
+	}
+	// 아이디 찾기 이메일 확인 후 아이디 값 가져오기
+	@ResponseBody
+	@PostMapping("emailcheck")
+	public String ajaxEmailCheck(String email) {
+		
+		return mService.ajaxEmailCheck(email);
+	}
+	// 비밀번호 찾기 확인 후 비밀번호 값 가져오기
+	@ResponseBody
+	@PostMapping("pswordcheck")
+	public String ajaxPswordCheck(String userid, String email) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("userid",userid);
+		map.put("email",email);
+		String password = mService.ajaxPswordCheck(map);
+		String randomps = null;
+		if(password != null) {
+			// 비밀번호 랜덤
+			randomps = mService.passWordRandom();
+			MemberDto mDto = new MemberDto();
+			mDto.setUserid(userid);
+			mDto.setPasswd(randomps);
+			mService.psupdate(mDto);
+		}
+		return randomps;
 	}
 }

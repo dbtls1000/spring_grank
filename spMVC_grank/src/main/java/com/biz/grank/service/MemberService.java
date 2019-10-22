@@ -15,4 +15,8 @@ public interface MemberService {
 	public int passCheck(Map<String, Object> map);
 	public void delete(String userid);
 	public void psupdate(MemberDto mDto);
+	public int idCheck(String userid);
+	public String ajaxEmailCheck(String email);
+	public String ajaxPswordCheck(Map<String, Object> map);
+	public String passWordRandom();
 }

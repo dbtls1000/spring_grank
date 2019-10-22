@@ -15,7 +15,7 @@
 			</div>
 			<input id="login-submit" type="button" value="로그인"><br>
 			<div id="login-nav">
-				<span>회원가입</span> <span>｜</span> <span>아이디찾기</span> <span>｜</span> <span>비밀번호찾기</span>
+				<span class="login-join-btn">회원가입</span> <span>｜</span> <span class="login-idcheck">아이디찾기</span> <span>｜</span> <span class="login-pscheck">비밀번호찾기</span>
 			</div>
 		</form>
 	</div>

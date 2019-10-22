@@ -97,10 +97,23 @@
 			// 로그인버튼 클릭시 모달창 출력
 			$('#login-btn').click(function() {
 				$('#modal-login').css('display', 'block')
+				$("#login-id").focus()
 			})
 			// 회원가입버튼 클릭시 이동
 			$('#join-btn').click(function() {
 				location.href = "${path}/member/join"
+			})
+			// 로그인 모달창에서 회원가입 클릭시 이동
+			$('.login-join-btn').click(function() {
+				location.href = "${path}/member/join"
+			})
+			// 로그인 모달창에서 아이디 찾기 클릭시 이동
+			$('.login-idcheck').click(function() {
+				location.href = "${path}/member/login_check?code=idcheck"
+			})
+			// 로그인 모달창에서 비밀번호 찾기 클릭시 이동
+			$('.login-pscheck').click(function() {
+				location.href = "${path}/member/login_check?code=pscheck"
 			})
 			// 모달창 닫기 클릭시 input태그의 값과 유효성검사 경고메세지 숨김
 			$('.modal-close').click(function() {

@@ -89,3 +89,6 @@
 	float:right;
 	cursor: pointer;
 }
+.login-join-btn, .login-idcheck, .login-pscheck {
+	cursor: pointer;
+}

@@ -1,6 +1,7 @@
 package com.biz.grank.service;
 
 import java.util.Map;
+import java.util.Random;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
@@ -131,6 +132,42 @@ public class MemberServiceImp implements MemberService {
 		String cryptPassword = passwordEncoder.encode(strPassword);
 		mDto.setPasswd(cryptPassword);
 		mDao.psupdate(mDto);
+	}
+
+	@Override
+	public int idCheck(String userid) {
+		// TODO id 중복 체크
+		return mDao.idCheck(userid);
+	}
+
+	@Override
+	public String ajaxEmailCheck(String email) {
+		// TODO 이메일로 아이디가 있는지 체크 후 아이디 가져오기
+		return mDao.ajaxEmailCheck(email);
+	}
+
+	@Override
+	public String ajaxPswordCheck(Map<String, Object> map) {
+		// TODO 아이디와 이메일이 맞으면 비밀번호 가져오기
+		return mDao.ajaxPswordCheck(map);
+	}
+
+	@Override
+	public String passWordRandom() {
+		// TODO 비밀번호 랜덤
+		Random rnd = new Random();
+		StringBuffer buf = new StringBuffer();
+		
+		for(int i = 0; i<8;i++) {
+			if (rnd.nextBoolean()) {
+				buf.append((char)((int)(rnd.nextInt(26))+97));
+			} else {
+				buf.append((rnd.nextInt(10)));
+			}
+		}
+		String randomps = buf.toString();
+		log.info(">>>>>>>>>>>>>>>>>."+randomps);
+		return randomps;
 	}
 
 

@@ -1,0 +1,25 @@
+@charset "UTF-8";
+div.login-check {
+	width:600px;
+}
+
+div.login-check-main {
+	margin-left: 20px;
+}
+div.login-pwcheck-email {
+    display: none;
+}
+input.login-check-input {
+    width: 540px;
+    height: 50px;
+    margin-bottom: 20px;
+}
+div.login-check-btn {
+	text-align: center;
+}
+div.email-checkid {
+	margin-top: 20px;
+}
+span#idcheck, #pscheck {
+	cursor: pointer;
+}

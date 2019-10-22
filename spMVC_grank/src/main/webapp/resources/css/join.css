@@ -76,3 +76,9 @@ div.join-wrapper-content {
         margin-bottom: 30px;
         background: #00b894;
 }
+div.join-err {
+	display: none;
+	margin-top: 15px;
+	font-size: 14px;
+	color: red;
+}

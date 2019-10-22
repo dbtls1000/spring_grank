@@ -23,6 +23,9 @@
 	                </div>
 	                <div class="input-field">
 	                    <input autocomplete="off" class="join-input" id="join-id" type="text" name="userid" required="">
+	                	<div class="join-err">
+	                		<span></span>
+	                	</div>
 	                </div>
                 </div>
                 <div class="member_hidden">
@@ -30,7 +33,10 @@
 	                    <span>비밀번호</span>
 	                </div>
 	                <div class="input-field">
-	                    <input class="join-input" type="password" name="passwd" required="">
+	                    <input class="join-input" id="join-ps" type="password" name="passwd" required="">
+	                	<div class="join-err">
+	                		<span></span>
+	                	</div>
 	                </div>
                 </div>
                 <div class="member_hidden">
@@ -38,26 +44,38 @@
 	                    <span>비밀번호확인</span>
 	                </div>
 	                <div class="input-field">
-	                    <input class="join-input" type="password" name="" required="">
+	                    <input class="join-input"  id="join-rps" type="password" name="" required="">
+	                	<div class="join-err">
+	                		<span></span>
+	                	</div>
 	                </div>
                 </div>
                 <div class="join-label">
                     <span>닉네임</span>
                 </div>
                 <div class="input-field">
-                    <input autocomplete="off" class="join-input" type="text" name="name" required="" value="${mDto.name}">
+                    <input autocomplete="off" class="join-input" id="join-name" type="text" name="name" required="" value="${mDto.name}">
+                	<div class="join-err">
+	                		<span></span>
+	                	</div>
                 </div>
                 <div class="join-label">
                     <span>전화번호</span>
                 </div>
                 <div class="input-field">
-                    <input autocomplete="off" class="join-input" type="text" name="phone" required=""  value="${mDto.phone}">
+                    <input autocomplete="off" class="join-input" id="join-phone" type="text" name="phone" required=""  value="${mDto.phone}">
+                	<div class="join-err">
+	                		<span></span>
+	                	</div>
                 </div>
                 <div class="join-label">
                     <span>이메일</span>
                 </div>
                 <div class="input-field">
-                    <input autocomplete="off" class="join-input" type="text" name="email" required="" value="${mDto.email}">
+                    <input autocomplete="off" class="join-input" id="join-email" type="text" name="email" required="" value="${mDto.email}">
+                	<div class="join-err">
+	                		<span></span>
+	                	</div>
                 </div>
                 <div class="join-address">
                     <input class="address-btn" type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기">
@@ -69,6 +87,9 @@
                 </div>
                 <div class="input-field">
                     <input autocomplete="off" class="join-input" name="addr2" type="text" id="sample6_detailAddress" value="${mDto.addr2}">
+                	<div class="join-err">
+	                		<span></span>
+	                	</div>
                 </div>
                 <input type="hidden" id="sample6_extraAddress" placeholder="참고항목">
                 <input id="join-join-btn" type="button" value="회원가입">
@@ -78,6 +99,7 @@
 <%@ include file="../include/footer.jsp" %>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="${path}/resources/js/daumpost.js"></script>
+<script type="text/javascript" src="${path}/resources/js/validation.js"></script>
 <script>
 $(function() {
 	$('.join-input').focus(function(){
@@ -88,10 +110,13 @@ $(function() {
     })
 	
     var id = '${sessionScope.userid}';
+    // 회원 가입 및 수정
 	$('#join-join-btn').click(function() {
 		if(id != '') {
+			// id가 있으면 회원 수정
 			$('#frm_mem').action="${path}/member/update";
 		} else {
+			// id가 없으면 회원 가입
 			$('#frm_mem').action="${path}/member/join";
 		}
 		$('#frm_mem').submit();
@@ -109,6 +134,19 @@ $(function() {
 		$('.join-header-text').text('회원정보수정')
 		$('#join-join-btn').val("회원수정")
 	}
+    $('#join-id').blur(function() {
+		var memid = $.trim($(this).val());
+		var checkResult = joinValidate.checkId(memid);
+		
+		if(checkResult.code != 0) {
+			$(this).next().text(checkResult.desc).css("display","block")
+		} else {
+			// ajax로 ID 중복 체크
+			if(ajaxIdCheck(memid)) {
+				
+			}
+		}
+	})
 })
 
 </script>
