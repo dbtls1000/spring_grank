@@ -8,46 +8,94 @@
 	display:flex;
 	
 }
-
 .c-cards a{
-text-decoration:none;
-color:black;
+	text-decoration:none;
+	color:black;
+}
+.game-nav{
+	display: flex;
+	width:900px;
+	justify-content: space-between;	
+}
+.game-nav li{
+	list-style:none;
+	cursor: pointer;
 }
 </style>
 <%@ include file="../include/header.jsp" %>
 	   <div class="wrapper">
         <div class="wrapper-header"><span class="header-text">게임평가 순위</span></div>
-        	<article class="flex-wrapper">
-	        	<c:forEach items="${gList}" var="g">
-			        <div class="c-cards">
-            			<a class="c-card" href="#">
-                		<span class="card-header" >
-                		<h3>${g.game_name}</h3>
-                    	<span class="card-title">
-                    	<img src='${g.img_src}'>
-                    </span>
-		                </span>
-		                <span class="card-summary">
-		                   
-		                </span>
-		                <span class="card-meta">
-		                	   <div>플랫폼 : ${g.platform}</div>
-		                       <div>유저 평점: ${g.u_score}</div> 
-		                       <div>전문가 평점: ${g.m_score}</div>
-		                </span>
-            			</a>
-            		</div>
-					</c:forEach>
-		    </article>
-		    <div ><button type="submit" id="more" >more...</button></div>
-		    <input type="hidden" id="limit-count" value="10">
-	</div>
+            <div class="flex-game">
+                <ul class="game-nav">
+                    <li class="platform"><input class="input" type="hidden" value="ALL">ALL</li>
+                    <li class="platform"><input class="input" type="hidden" value="PS4">PS4</li>
+                    <li class="platform"><input class="input" type="hidden" value="XONE">XBOX</li>
+                    <li class="platform"><input class="input" type="hidden" value="Switch">SWITCH</li>
+                    <li class="platform"><input class="input" type="hidden" value="PC">PC</li>
+                </ul>
+            </div>
+		    <div id="rankmoreviewlist"></div>
+		    <div>
+		    <div id="platformlist"></div>
+				<a class="rankmoreviewlist a-button a-common">more<i class="fas fa-plus"></i></a>
+			</div>
+		    <input type="hidden" id="limit-count" value="20">
+		</div>
 <script>
-	$(document).on('click','#more',function(){
+	// rankmoreviewlist 생성
+	function rankmoreviewlist() {
+		$.ajax({
+			url : '${path}/game/rankmoreviewlist',
+			type : 'GET',
+			success : function(page) {
+				$('#rankmoreviewlist').html(page);
+			},
+			error : function() {
+				alert('system error');
+			}
+		})
+	}
+	
+	// 클릭 시 20개씩 list 보여줌
+	$(document).on('click', '.rankmoreviewlist' ,function(){
 		var count = Number($("#limit-count").val());
-		count += 10;
+		var max = ${gSize};
+		count += 20;
+		
+		if(count > max){
+			count = max;
+			$('.rankmoreviewlist').remove();
+		}
 		$('#limit-count').val(count);
-		alert(count)
+		
+		$.ajax({
+			url : '${path}/game/rankmoreviewlist?count='+count,
+			type : 'GET',
+			success : function(page) {
+				$('#rankmoreviewlist').html(page);
+			},
+			error : function() {
+				alert('system error!');
+			}
+		})
 	})
+	
+	$(document).ready(function(){
+		rankmoreviewlist();
+	})
+	
+	$(document).on('click', '.platform', function(){
+		var platform =$(this).children('input').val();
+ 		$.ajax({
+			url : '${path}/game/rankmoreview?platform'+platform,
+			type : 'GET',
+			success:function(page){
+				$('#rankmoreviewlist').html(page);
+			},
+			error:function(){
+				alert('system error');
+			}
+		})
+ 	})
 </script>
 <%@ include file="../include/footer.jsp" %>

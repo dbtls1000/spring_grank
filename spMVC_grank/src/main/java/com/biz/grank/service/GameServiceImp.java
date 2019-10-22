@@ -48,4 +48,20 @@ public class GameServiceImp implements GameService {
 		return gList;
 	}
 
+	// 5. 게임평가순위리스트 몇 건만 출력
+	@Override
+	public List<GameRankDto> gMoreView(int count) {
+		List<GameRankDto> gList = gDao.gMoreView(count);
+		return gList;
+	}
+
+	// 6. 출시예정작 몇 건만 출력
+	@Override
+	public List<ComingSoonDto> cMoreView(int count) {
+		List<ComingSoonDto> cList = gDao.cMoreView(count);
+		return cList;
+	}
+
+
+
 }

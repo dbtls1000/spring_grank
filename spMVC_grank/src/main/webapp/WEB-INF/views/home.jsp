@@ -36,7 +36,7 @@
             		</div>
 					</c:forEach>
 		    </article>
-		      <div class="right"><span class="more"><a href="${path}/game/comingsoonmoreview">more..</a></span></div>
+		      <div class="right"><span class="more a-button a-common"><a href="${path}/game/comingsoonmoreview">more..</a></span></div>
 	    </div>
 
     <!-- 게임평가 순위 -->
@@ -46,7 +46,7 @@
             <div class="flex-item item1">
      			<div id="gameranklist" class="gameranklist">
      			</div>
-                <div class="right"><span class="more"><a href ="${path}/game/rankmoreview">more..</a></span></div>
+                <div class="right"><span class="more a-button a-common more"><a href ="${path}/game/rankmoreview">more..</a></span></div>
             </div>
             <div class="flex-item item2">
                 <ul>
@@ -67,6 +67,7 @@
 	
  	// 게임순위 리스트 띄워주는 Ajax메소드 생성
  	$(document).on('click','.platform',function(){
+ 		// 플랫폼별로 클릭했을 때 보여주기 위해 변수를 받아옴
  		var platform = $(this).children('input').val();
 		$.ajax({
 			url:'${path}/grank?platform='+platform,
@@ -75,7 +76,7 @@
 				$('#gameranklist').html(page);
 			},
 			error:function(){
-				alert('error')
+				alert('error');
 			}
 		})
  	})
