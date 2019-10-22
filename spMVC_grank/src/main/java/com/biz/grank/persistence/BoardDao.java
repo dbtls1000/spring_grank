@@ -26,6 +26,10 @@ public interface BoardDao {
 
 	public void increaseViewCnt(int bno);
 
+	public void like_cnt_up(int bno);
+
+	public void like_cnt_down(int bno);
+
 	
 
 }

@@ -48,21 +48,24 @@
 	<script>
 	
 		$(function() {
-			
-			
+			// 로고 클릭시
 			$('#home-img').click(function() {
 				location.href = '${path}/'
 			})
+			// 검색박스 클릭시
 			$('.s-box-button').click(function() {
 				$('.s-box-input').toggleClass('inclicked')
 				$('.s-box-button').toggleClass('close')
 			})
+			// Community버튼 클릭시
 			$('#community-btn').click(function() {
 				location.href = "${path}/board/list"
 			})
+			// 게임버튼클릭시 드랍다운메뉴
 			$('#game-btn').click(function() {
 				$('#game-dropdown').toggleClass('active')
 			})
+			// 윈도우를 스크롤하면 스크롤위치에따라 top버튼이 나왔다 사라짐
 			$(window).scroll(function() {
 				if ($(this).scrollTop() > 40) {
 					$('#top-btn').fadeIn()
@@ -70,6 +73,7 @@
 					$('#top-btn').fadeOut()
 				}
 			})
+			// 로그아웃 버튼 클릭시
 			$('#logout-btn').click(function(){
 				$.ajax({
 					url:'${path}/member/logout',
@@ -80,67 +84,72 @@
 				})
 				
 			})
+			// 마이페이지 버튼 클릭시
 			$('#mypage-btn').click(function() {
 				location.href = "${path}/member/mypage?userid=${sessionScope.userid}"
 			})
+			// 탑버튼 클릭시 상단으로 이동 0.4초
 			$('#top-btn').click(function() {
 				$('html,body').animate({
 					scrollTop : 0
 				}, 400)
 			})
+			// 로그인버튼 클릭시 모달창 출력
 			$('#login-btn').click(function() {
 				$('#modal-login').css('display', 'block')
 			})
+			// 회원가입버튼 클릭시 이동
 			$('#join-btn').click(function() {
 				location.href = "${path}/member/join"
 			})
+			// 모달창 닫기 클릭시 input태그의 값과 유효성검사 경고메세지 숨김
 			$('.modal-close').click(function() {
 				$('#modal-login').css('display', 'none')
 				$('#login-id').val('');
 				$('#login-pw').val('');
 				$('.login-err-msg').css('visibility','hidden')
 			})
+			// 로그인모달창의 로그인버튼 클릭시
 			$("#login-submit").click(function() {
 				var uri = '${uri}'
-						var id = $.trim($('#login-id').val())
-						var pw = $.trim($('#login-pw').val())
-						if (id.length == 0 || id == '') {
-							$('.login-err-msg').text('아이디를 입력해주세요')
-									.css('visibility', 'visible')
-							return false;
-						}
-						if (pw.length == 0 || pw == '') {
-							$('.login-err-msg').text('비밀번호를 입력해주세요')
-									.css('visibility', 'visible')
-							return false;
-						}
-						$.ajax({
-							url : '${path}/member/login',
-							type : 'POST',
-							async : true,
-							dataType : 'text',
-							data : 'userid=' + id + '&passwd=' + pw,
-							success : function(data) {
-								if (data == '1') {
-									if(uri == ''){
-										location.reload();
-									} else{
-										location.href=uri;
-									}
-								} else if (data == '-1') {
-									$('#login-id').focus();
-									$('.err-msg').text(
-											'회원 아이디 또는 비밀번호가 일치하지 않습니다').css(
-											'visibility', 'visible');
-								} else {
-									alert("Error")
-								}
-							},
-							error : function() {
-								alert("System Error")
+				var id = $.trim($('#login-id').val())
+				var pw = $.trim($('#login-pw').val())
+				if (id.length == 0 || id == '') {
+					$('.login-err-msg').text('아이디를 입력해주세요')
+							.css('visibility', 'visible')
+					return false;
+				}
+				if (pw.length == 0 || pw == '') {
+					$('.login-err-msg').text('비밀번호를 입력해주세요')
+							.css('visibility', 'visible')
+					return false;
+				}
+				$.ajax({
+					url : '${path}/member/login',
+					type : 'POST',
+					async : true,
+					dataType : 'text',
+					data : 'userid=' + id + '&passwd=' + pw,
+					success : function(data) {
+						if (data == '1') {
+							if(uri == ''){
+								location.reload();
+							} else{
+								location.href=uri;
 							}
-						})
-
-					})
+						} else if (data == '-1') {
+							$('#login-id').focus();
+							$('.err-msg').text(
+									'회원 아이디 또는 비밀번호가 일치하지 않습니다').css(
+									'visibility', 'visible');
+						} else {
+							alert("Error")
+						}
+					},
+					error : function() {
+						alert("System Error")
+					}
+				})
+			})
 		})
 	</script>

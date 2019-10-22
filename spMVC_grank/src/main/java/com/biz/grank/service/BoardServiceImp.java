@@ -106,14 +106,14 @@ public class BoardServiceImp implements BoardService {
 
 	@Override
 	public void like_cnt_up(int bno) {
-		// TODO Auto-generated method stub
-		
+		// TODO 좋아요를 누를 경우 like_cnt + 1
+		bDao.like_cnt_up(bno);
 	}
 
 	@Override
 	public void like_cnt_down(int bno) {
-		// TODO Auto-generated method stub
-		
+		// TODO 좋아요를 취소할 경우 like_cnt - 1
+		bDao.like_cnt_down(bno);
 	}
 
 }

@@ -71,20 +71,22 @@ public class BoardController {
 	@GetMapping("view")
 	public String view(int bno, Model model,HttpSession httpSession) {
 		log.info(">>이전,다음글 번호 확인>>" + bService.readOne(bno));
-		
+		// 세션으로부터 userid값 받아오기
 		String userid = (String)httpSession.getAttribute("userid");
-		log.info("userid>>"+userid);
+		// userid가 null값이 아니면(로그인 되있다면)
 		if(userid != null) {
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("userid", userid);
 			map.put("bno", bno);
+			// countByLike함수를 통해 해당유저의 해당게시글 좋아요 정보(likeno)이 있는지 없는지 확인
+			// 0이면 없으므로 좋아요 정보를 새로 생성한다.
 			if(lService.countByLike(map) == 0) {
 				lService.createLike(map);
 			}
+			// 해당게시글의 좋아요를 체크했는지 안했는지 view단으로 보내주기위한 model
 			model.addAttribute("lDto",lService.likeRead(map));
-		} else {
-			
 		}
+		// 조회수 + 1
 		bService.increaseViewCnt(bno, httpSession);
 		model.addAttribute("bDto", bService.readOne(bno));
 		return "board/view";
@@ -146,10 +148,12 @@ public class BoardController {
 		bService.delete(bno);
 		return "redirect:/board/list";
 	}
-	// 게시글 좋아요 기능
+	
+	// 게시글 좋아요 기능(Ajax)
 	@ResponseBody
 	@GetMapping("like")
 	public String like(int bno,HttpSession httpSession) {
+		// 세션으로부터 userid값 받아오기
 		String userid = (String)httpSession.getAttribute("userid");
 		JSONObject obj = (JSONObject) new JSONObject();
 		
@@ -160,18 +164,21 @@ public class BoardController {
 		// 좋아요 체크 값
 		int like_check = lDto.getLike_check();
 		log.info("좋아요체크"+like_check);
-		// countByLike의 return값이 0이면 좋아요 테이블에 정보를 추가
+		// countByLike함수를 통해 해당유저의 해당게시글 좋아요 정보(likeno)이 있는지 없는지 확인
+		// 0이면 없으므로 좋아요 정보를 새로 생성한다.
 		if(lService.countByLike(map) == 0) {
 			lService.createLike(map);
 		}
+		// like_check가 0이면 like_check을 1로 변경 & like_cnt를 +1
 		if(like_check == 0) {
 			lService.like_check(map);
 			bService.like_cnt_up(bno);
-		} else {
+		} else { // like_check가 0이 아니면(1일경우) like_check을 0으로 변경 & like_cnt를 -1
 			lService.like_check_cansel(map);
 			bService.like_cnt_down(bno);
 		}
 		
+		// obj에 like_check을 put
 		obj.put("like_check", like_check);
 		return obj.toJSONString();
 	}
