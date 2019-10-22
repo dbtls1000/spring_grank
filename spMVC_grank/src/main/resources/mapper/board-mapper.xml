@@ -12,12 +12,14 @@
 		<include refid="header"/>
 		SELECT * FROM tbl_board
 		<include refid="search"></include> 
-		ORDER BY bno desc 
+		<if test="sort_option == 'new'">ORDER BY ref desc, re_step</if>
+		<if test="sort_option == 'reply'">ORDER BY b_replycnt desc,ref desc, re_step</if>
+		<if test="sort_option == 'view'">ORDER BY b_viewcnt desc,ref desc, re_step</if> 
 		<include refid="footer"/>
 	</select>
 	<select id="readOne" resultType="bDto">
 		SELECT * FROM (
-			SELECT bno, b_writer, b_title, b_content, b_viewcnt, b_replycnt, b_regdate, b_platform,
+			SELECT bno, b_writer, b_title, b_content, b_viewcnt, b_replycnt, b_regdate, b_platform,ref,re_step,re_level,
 				LEAD(bno,1) OVER(ORDER BY bno) next_bno,
 				LAG(bno,1) OVER(ORDER BY bno) prev_bno
 			FROM tbl_board)

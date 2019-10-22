@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.biz.grank.persistence.FileDao">
+	<select id="read" resultType="fDto">
+		SELECT * FROM tbl_file WHERE fno = #{fno}
+	</select>
+	<select id="readByBno" resultType="fDto">
+		SELECT * FROM tbl_file WHERE bno = #{bno}
+	</select>
+	<insert id="insert">
+		INSERT INTO tbl_file(fno,bno,origin_name,file_name) 
+		VALUES(seq_file.NEXTVAL,#{bno},#{origin_name},#{file_name})
+	</insert>
+	<delete id="delete">
+		DELETE FROM tbl_file WHERE fno = #{fno}
+	</delete>
+	<delete id="deletes">
+		DELETE FROM tbl_file WHERE bno = #{bno}
+	</delete>
+</mapper>

@@ -47,3 +47,19 @@
 .title-file{
 	margin-top:20px;
 }
+.board-write-err{
+	visibility: hidden;
+}
+.drag-box{
+	width:960px;
+	height:200px;
+	display:flex;
+	justify-content:center;
+	align-items:center;
+	margin: 15px auto;
+	border:1px solid #00b894;
+	box-sizing: border-box;
+}
+.drag-box span{
+	font-size: 30px;
+}

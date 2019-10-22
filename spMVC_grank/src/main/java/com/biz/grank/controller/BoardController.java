@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.biz.grank.domain.BoardDto;
 import com.biz.grank.domain.LikeDto;
+import com.biz.grank.service.AjaxFileService;
 import com.biz.grank.service.BoardService;
 import com.biz.grank.service.LikeService;
 import com.biz.grank.service.Pagination;
@@ -32,13 +33,15 @@ public class BoardController {
 	BoardService bService;
 	@Autowired
 	LikeService lService;
-	
+	@Autowired
+	AjaxFileService afService;
 	
 	// 게시글 리스트 화면단
 	@GetMapping("list")
 	public String list(@RequestParam(defaultValue = "1")int curPage,
 						@RequestParam(defaultValue = "title_content")String search_option,
 						@RequestParam(defaultValue = "") String keyword,
+						@RequestParam(defaultValue = "new") String sort_option,
 						Model model) {
 		log.info(">>>>"+search_option);
 		log.info(">>>>"+keyword);
@@ -47,6 +50,7 @@ public class BoardController {
 		map.put("search_option", search_option);
 		// 조건문에서 keyword 앞뒤로 %를 붙여 검색하기 위해 설정
 		map.put("keyword", "%"+keyword+"%");
+		map.put("sort_option",sort_option);
 		// 페이지네이션을 위한 게시글 수
 		int count = bService.countList(map);
 		Pagination page = new Pagination(count, curPage);
@@ -59,6 +63,7 @@ public class BoardController {
 		map.put("end", end);
 		
 		// view단에서 사용할 변수들 model에 담기
+		model.addAttribute("sort",sort_option);
 		model.addAttribute("blist",bService.listAll(map));
 		model.addAttribute("search_option",search_option);
 		model.addAttribute("keyword",keyword);
@@ -88,6 +93,8 @@ public class BoardController {
 		}
 		// 조회수 + 1
 		bService.increaseViewCnt(bno, httpSession);
+		log.info("파일리스트"+afService.readByBno(bno));
+		model.addAttribute("fList", afService.readByBno(bno));
 		model.addAttribute("bDto", bService.readOne(bno));
 		return "board/view";
 	}

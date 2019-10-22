@@ -1,6 +1,7 @@
 package com.biz.grank.domain;
 
 import java.util.Date;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,4 +29,5 @@ public class BoardDto {
 	private int prev_bno; // 이전 게시글 번호
 	private int next_bno; // 다음 게시글 번호
 	private int like_cnt; // 게시글 좋아요 수
+	private List<String> board_files;
 }

@@ -52,6 +52,11 @@
 					${bDto.b_content}		
 				</p></td>
 			</tr>
+			<c:forEach items="${fList}" var="f">
+				<tr>
+					<td colspan="4"><img src="${path}/images/${f.file_name}"></td>
+				</tr>
+			</c:forEach>
 		</table>
 		<div class="view_button">
 			<ul>
@@ -73,6 +78,7 @@
 	</div>
 	<%@ include file="../include/footer.jsp"%>
 <script>
+	
 	// 댓글을 띄어주는 Ajax메서드 생성
 	function comment_list(){
 		$.ajax({

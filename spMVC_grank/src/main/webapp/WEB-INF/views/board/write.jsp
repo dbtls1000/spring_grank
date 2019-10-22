@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="../include/include.jsp"%>
-<link rel="stylesheet" type="text/css" href="${path}/resources/css/board-write.css?ver=20191015">
+<link rel="stylesheet" type="text/css" href="${path}/resources/css/board-write.css?ver=2019102201">
 	<%@ include file="../include/header.jsp"%>
 	<c:if test="${sessionScope.userid == null}">
 	<script>
@@ -27,7 +27,7 @@
 				</div>
 				<div class="title-input">
 					<label class="title-label" for="">제목</label> <input
-						class="title-in title-title-input" name="b_title" type="text" value="${bDto.b_title}">
+						class="title-in title-title-input" id="b_title" name="b_title" type="text" value="${bDto.b_title}">
 				</div>
 				<div>
 					<textarea id="title-text" class="title-text" cols="30" rows="10" name="b_content">${bDto.b_content }</textarea>
@@ -42,8 +42,10 @@
 						});
 					</script>
 				</div>
+				<div class="drag-box"><span>파일을 Drag해주세요.</span></div>
+				<div class="image_box"></div>
 				<div class="between title-file">
-					<input type="file">
+					<span class="board-write-err">test</span>
 					<div class="btn">
 						<a class="a-button a-common" id="board-write-btn">등록</a> <a class="a-button a-common"
 							id="cancel-btn">취소</a>
@@ -55,17 +57,35 @@
 <%@ include file="../include/footer.jsp"%>
 <script>
 	$(function(){
+		// 게시글 작성 버튼 클릭시
 		$('#board-write-btn').click(function(){
 			oEditors.getById["title-text"].exec("UPDATE_CONTENTS_FIELD", []);
 			var content = $('#title-text').val();
+			var title = $.trim($('#b_title').val());
 			var regEmpty = /\s/g;
 			var text = content.replace(/[<][^>]*[>]/gi,"");
 			var flag = '${flag}'
-			
+			if(title == '' || title.length == 0){
+				$('.board-write-err').text('제목은 필수 입력 항목입니다.')
+									.css('visibility','visible')
+									.css('color','crimson')
+									.css('font-weight','bold');
+				$('#b_title').focus();
+				return false;
+			}
+			if(text == '' || text == null){
+				$('.board-write-err').text('내용은 필수 입력 항목입니다.')
+									.css('visibility','visible')
+									.css('color','crimson')
+									.css('font-weight','bold');
+				$('#title-text').focus();
+				return false;
+			}
+			// flag값이 answer인지 아닌지에 따라 form의 action변경
 			if(flag == 'answer'){
-				$('#frm_board').action = '${path}/board/write'	
+				$('#frm_board').action = '${path}/board/answer'	
 			}else{
-				$('#frm_board').action = '${path}/board/answer'
+				$('#frm_board').action = '${path}/board/write'
 			}
 			$('#frm_board').submit()
 			
@@ -89,7 +109,69 @@
 				}
 			}
 			
-		})			
+		})
+		// dragover drop 이벤트는 jquery에 함수가 만들어지지 않은 상태이므로
+		// on을 이용해서 이벤트를 핸들링 해야 한다.
+		$(".drag-box").on('dragover', function () {
+			$(".drag-box span").text("파일을 내려 놓으세요.")
+			return false
+		})
+		$('.drag-box').on('drop',function(evt){
+			evt.preventDefault();
+			$(".drag-box span").text('파일을 등록하는 중.')
+			// drop한 파일들의 정보를 얻기 위한 js클래스
+			var files = evt.originalEvent.dataTransfer.files
+			// input form과 file을 함께 ajax로 업로드하기 위한 클래스
+			var formData = new FormData();
+			for(var i = 0; i <files.length; i++){
+				var file_name = files[i].name;
+				if(/(\.gif|\.jpg|\.jpeg|\.png)$/i.test(file_name) == false){
+					alert("업로드는 *.jpg, *.gif *.jpeg *.png 파일만 가능합니다")
+					$(".drag-box span").css("color","crimson")
+					$(".drag-box span").text("파일 업로드 실패.")
+					return false;
+				}
+				formData.append('files',files[i]);
+			}
+			// 업로드할 첫번째 파일 1개를 formData객체에 추가
+			
+			$.ajax({
+				url : "${path}/ajaxfile/fileup",
+				method : "POST",
+				data:formData,
+				processData:false,
+				contentType:false,
+				success:function(result){
+					for(var i = 0 ; i < result.length ; i++){
+						$(".image_box").append(
+							$("<img/>",{
+								src : "${path}/images/" + result[i].file_name,
+								width : "150px",
+								class : "image-item"
+							})
+						)
+						/* 파일을 drag해서 업로드를 수행한 후
+							게시판을 작성하고 저장을 누를 때
+							업로드한 파일이름 리스트를 input box에 담아서
+							서버로 전송하기 위해ajax로 받은 json형태의 파일 이름리스트를
+							input type:hidden으로 form에 추가한다.
+						*/
+						
+						$(".image_box").append(
+							$("<input/>",{
+								type:"hidden",
+								name:"board_files",
+								value:result[i].file_name
+							})
+						)
+					}
+					
+					$(".drag-box span").css("color","blue")
+					$(".drag-box span").text("파일 업로드 성공")
+				}
+			})
+			
+		})
 	})
 	
 </script>
