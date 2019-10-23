@@ -11,7 +11,8 @@ b_regdate date default sysdate,
 b_platform varchar2(30) not null,
 ref number not null,
 re_step number not null,
-re_level number not null
+re_level number not null,
+like_cnt number
 );
 alter table tbl_board add CONSTRAINT tbl_board_pk_bno primary key(bno);
 drop SEQUENCE seq_board;
