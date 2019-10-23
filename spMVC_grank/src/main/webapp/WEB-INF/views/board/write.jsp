@@ -43,7 +43,16 @@
 					</script>
 				</div>
 				<div class="drag-box"><span>파일을 Drag해주세요.</span></div>
-				<div class="image_box"></div>
+				<div class="image_box">
+					<c:forEach items="${fList}" var="f">
+					<div style="display:inline-block;text-align: right;">
+						<span data-fno="${f.fno}" class="image-delete" style="cursor:pointer;"><i class="fas fa-times"></i></span>
+						<div>
+							<img width="150px" src="${path}/images/${f.file_name}">
+						</div>
+					</div>
+					</c:forEach>
+				</div>
 				<div class="between title-file">
 					<span class="board-write-err">test</span>
 					<div class="btn">
@@ -116,7 +125,9 @@
 			$(".drag-box span").text("파일을 내려 놓으세요.")
 			return false
 		})
+		// drag-box에 파일을 끌어다 놓은 경우 이벤트
 		$('.drag-box').on('drop',function(evt){
+			// 웹페이지에 이미지를 드랍하는 경우 전체화면으로 이미지가 출력되는것을 막음
 			evt.preventDefault();
 			$(".drag-box span").text('파일을 등록하는 중.')
 			// drop한 파일들의 정보를 얻기 위한 js클래스
@@ -125,24 +136,26 @@
 			var formData = new FormData();
 			for(var i = 0; i <files.length; i++){
 				var file_name = files[i].name;
+				// .jpg .gif .jpeg .png파일이 아닐경우 false
 				if(/(\.gif|\.jpg|\.jpeg|\.png)$/i.test(file_name) == false){
 					alert("업로드는 *.jpg, *.gif *.jpeg *.png 파일만 가능합니다")
 					$(".drag-box span").css("color","crimson")
 					$(".drag-box span").text("파일 업로드 실패.")
 					return false;
 				}
+				// formData에 'files'라는 key값으로 담기
 				formData.append('files',files[i]);
 			}
 			// 업로드할 첫번째 파일 1개를 formData객체에 추가
-			
 			$.ajax({
 				url : "${path}/ajaxfile/fileup",
 				method : "POST",
-				data:formData,
+				data:formData, // formData를 보냄
 				processData:false,
 				contentType:false,
 				success:function(result){
 					for(var i = 0 ; i < result.length ; i++){
+						// 이미지를 담은 태그를 업로드한만큼 생성
 						$(".image_box").append(
 							$("<img/>",{
 								src : "${path}/images/" + result[i].file_name,
@@ -156,7 +169,7 @@
 							서버로 전송하기 위해ajax로 받은 json형태의 파일 이름리스트를
 							input type:hidden으로 form에 추가한다.
 						*/
-						
+						// form으로 보낼 정보를 input type="hidden"으로 생성해서 담기
 						$(".image_box").append(
 							$("<input/>",{
 								type:"hidden",
@@ -171,6 +184,35 @@
 				}
 			})
 			
+		})
+		// 이미지 삭제 버튼 클릭시
+		$('.image-delete').click(function(){
+			// 파일의 PK값 가져오기
+			var fno = $(this).attr('data-fno');
+			// ajax처리 이후 삭제할 태그를 변수에 담기
+			var tag = $(this).parent();
+			$('.delete-modal').css('display','block');
+			$('.delete-comment').text('이미지를 삭제하시겠습니까?');
+			$('#confirm-yes').click(function(){
+				$.ajax({
+					url : "${path}/ajaxfile/delete?fno="+fno,
+					method : "GET"
+				})
+				.done(function(result){
+					if(result == "OK"){
+						// done에서 this는 대상이 ajax가 되어서
+						// 위에서 선언한 tag라는 변수를 사용한다.
+						$(tag).remove()
+						$('.delete-modal').css('display','none');
+					} else if(result == "FAIL"){
+						alert("파일을 삭제할 수 없습니다")
+					}
+				})
+			})
+		})
+		// delete-modal 아니오버튼 클릭시 이벤트
+		$(document).on('click','#confirm-no',function(){
+			$('.delete-modal').css('display','none');
 		})
 	})
 	

@@ -17,6 +17,9 @@ import com.biz.grank.domain.BoardDto;
 import com.biz.grank.domain.FileDto;
 import com.biz.grank.persistence.FileDao;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class AjaxFileServiceImp implements AjaxFileService {
 
@@ -35,12 +38,15 @@ public class AjaxFileServiceImp implements AjaxFileService {
 	@Override
 	public List<FileDto> upLoads(MultipartHttpServletRequest files) {
 		// TODO Auto-generated method stub
+		// board/write.jsp에서 formData.append('files',files[i])로 추가한 files를 리스트에 담는다.
 		List<MultipartFile> fileList = files.getFiles("files");
 		List<FileDto> fileDtoList = new ArrayList<FileDto>();
 		for(MultipartFile file : fileList) {
 			
+			// upLoad 메서드 호출
 			String saveName = this.upLoad(file);
 			
+			// fildDtoList에 원본이름과 저장할이름을 넣는다.
 			fileDtoList.add(FileDto.builder()
 			.origin_name(file.getOriginalFilename())
 			.file_name(saveName).build());
@@ -51,8 +57,7 @@ public class AjaxFileServiceImp implements AjaxFileService {
 
 	public String upLoad(MultipartFile file) {
 		// TODO Auto-generated method stub
-		// 업로드할 파일 정보가 없으면
-		// 더이상 코드 진행x
+		// 업로드할 파일 정보가 없으면 코드 진행x
 		if(file.isEmpty() || file ==null) return null;
 		// 파일의 원본이름
 		String originName = file.getOriginalFilename();
@@ -69,6 +74,7 @@ public class AjaxFileServiceImp implements AjaxFileService {
 		File saveFile = new File(upLoadFolder,saveName);
 		
 		try {
+			// 파일을 업로드폴더에 업로드
 			file.transferTo(saveFile);
 		} catch (IllegalStateException | IOException e) {
 			// TODO Auto-generated catch block
@@ -80,6 +86,7 @@ public class AjaxFileServiceImp implements AjaxFileService {
 	@Override
 	public boolean file_delete(int fno) {
 		// TODO Auto-generated method stub
+		log.info(">>fno>>"+fno);
 		// 1.파일정보 추출
 		FileDto fileVO = fDao.read(fno);
 		// 2.파일의 물리적 경로 생성 
@@ -96,7 +103,7 @@ public class AjaxFileServiceImp implements AjaxFileService {
 	}
 
 	
-	@Transactional
+	@Override
 	public void insert(BoardDto bDto) {
 		// TODO Auto-generated method stub
 		List<String> board_files = bDto.getBoard_files();
@@ -104,8 +111,9 @@ public class AjaxFileServiceImp implements AjaxFileService {
 		if(board_files == null) return;
 		
 		for(String file_name : board_files) {
-			// UUID를 제거하고 origin이름을 추출
+			// 해당게시글의 bno값을 가져오기
 			int bno = bDto.getBno();
+			// UUID를 제거하고 origin이름을 추출
 			String file_origin_name = file_name.substring(37);
 			FileDto fDto = FileDto.builder()
 							.file_name(file_name)
@@ -118,20 +126,20 @@ public class AjaxFileServiceImp implements AjaxFileService {
 	
 	@Override
 	public void files_delete(int bno) {
-		// TODO Auto-generated method stub
-		List<FileDto> fileList = fDao.readByBno(bno);
-		for(FileDto fileVO : fileList) {
-			//1.File객체생성
-			File delFile = new File(upLoadFolder, fileVO.getFile_name());
-			//2.실제파일을 삭제
-			if(delFile.exists()) delFile.delete();
-		}
-		fDao.deletes(bno);
+//		// TODO Auto-generated method stub
+//		List<FileDto> fileList = fDao.readByBno(bno);
+//		for(FileDto fileVO : fileList) {
+//			//1.File객체생성
+//			File delFile = new File(upLoadFolder, fileVO.getFile_name());
+//			//2.실제파일을 삭제
+//			if(delFile.exists()) delFile.delete();
+//		}
+//		fDao.deletes(bno);
 	}
 
 	@Override
 	public List<FileDto> readByBno(int bno) {
-		// TODO Auto-generated method stub
+		// TODO bno값으로 file리스트 가져오기
 		return fDao.readByBno(bno);
 	}
 }

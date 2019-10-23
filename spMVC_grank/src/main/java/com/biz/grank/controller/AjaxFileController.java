@@ -13,6 +13,9 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.biz.grank.domain.FileDto;
 import com.biz.grank.service.AjaxFileService;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
 @RequestMapping("ajaxfile/*")
 public class AjaxFileController {
@@ -22,18 +25,20 @@ public class AjaxFileController {
 	
 	@ResponseBody
 	@PostMapping("fileup")
-	public List<FileDto> files_up(MultipartHttpServletRequest files) {
+	public List<FileDto> file_up(MultipartHttpServletRequest files) {
 		List<FileDto> fileDtoList = afService.upLoads(files);
 		return fileDtoList;
 	}
 	
 	@ResponseBody
 	@GetMapping("delete")
-	public String file_delete(int fno) {
-		
+	public String delete(int fno) {
+		log.info(">>fno>>"+fno);
 		boolean okDelete = afService.file_delete(fno);
 		
+		// okDelete가 true면 OK를 리턴
 		if(okDelete) return "OK";
+		// false일 경우 FAIL을 리턴
 		else return "FAIL";
 	}
 }

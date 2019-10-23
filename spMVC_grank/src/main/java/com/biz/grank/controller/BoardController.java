@@ -104,6 +104,7 @@ public class BoardController {
 	public String write(@RequestParam(defaultValue = "0")int bno, Model model) {
 		// bno가 0이 아니면 write.jsp를 수정으로 사용 model에 단건 정보 담기
 		if(bno != 0) {
+			model.addAttribute("fList", afService.readByBno(bno));
 			model.addAttribute("bDto",bService.readOne(bno));
 		}
 		return "board/write";

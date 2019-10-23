@@ -61,6 +61,7 @@ public class BoardServiceImp implements BoardService {
 			afService.insert(bDto);
 		} else { // 0이 아니면 수정
 			bDao.update(bDto);
+			afService.insert(bDto);
 		}
 	}
 	
