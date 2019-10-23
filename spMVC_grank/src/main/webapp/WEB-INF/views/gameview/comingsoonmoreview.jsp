@@ -3,28 +3,17 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fnt"%>
 <c:set var="path" value="${pageContext.request.contextPath}" />
+<link rel="stylesheet" type="text/css" href="${path}/resources/css/gcard.css?ver=2019102301">
 <%@ include file="../include/header.jsp"%>
 <!-- 출시 예정작 -->
 <div class="wrapper">
 	<div class="wrapper-header">
 		<span class="header-text">출시예정작</span>
 	</div>
-	<article class="flex-wrapper">
-		<c:forEach items="${cList}" var="c">
-			<div class="c-cards">
-				<a class="c-card" href="#"> <span class="card-header"> <img
-						src='${c.c_img}'> <span class="card-title">
-							<h3>${c.c_name}</h3>
-					</span>
-				</span> <span class="card-summary"> ${c.platform} </span> <span
-					class="card-meta"> ${c.c_date} </span>
-				</a>
-			</div>
-		</c:forEach>
-	</article>
-	<div id="comingsoonmoreviewlist"></div>
-	<div>
-		<a class="comingsoonmerviewlist a-button a-common">more<i class="fas fa-plus"></i></a>
+	<div id="comingsoonmoreviewlist">
+	</div>
+	<div class="more">
+		<a class="comingsoonmerviewlist a-button a-common">More+</a>
 	</div>
 	<input type="hidden" id="limit-cnt" value="20">
 </div>
@@ -48,7 +37,7 @@
 		// cSize 값
 		var max = ${cSize};
 		cnt += 20;
-		// cnt가 csize보다 커지면 cnt = max;  max 906 일 때 cnt가 906값을 초과하면 cnt에 906을 넣어줌
+		// cnt가 csize보다 커지면 cnt = max;  max 906 일 때 cnt가 size를 초과하면 cnt에 size를 넣어줌
 		if(cnt > max){
 			cnt = max;
 			// cnt에 max값이 들어가면 버튼제거

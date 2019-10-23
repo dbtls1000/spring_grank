@@ -5,17 +5,15 @@
 <c:set var="path" value="${pageContext.request.contextPath}" />
 
 <div class="flex-wrapper">
-	<div class="flex-item item1">
-		<c:forEach items="${gList}" var="g">
-			<div class="card">
-				<div>
-					<img src="${g.img_src}" alt="">
-				</div>
-				<div class="center">${g.platform}</div>
-				<div class="center">${g.game_name}</div>
-				<div class="center">${g.m_score}</div>
-				<div class="center">${g.u_score}</div>
+	<c:forEach items="${gList}" var="g">
+		<div class="g-card">
+			<div class="g-card-item g-card-header">${g.platform}</div>
+			<div class="g-card-item">
+				<img src="${g.img_src}">
 			</div>
-		</c:forEach>
-	</div>
+			<div class="g-card-item g-card-content game-name"> 게임명 : ${g.game_name}</div>
+			<div class="g-card-item g-card-content">유저 평점: ${g.u_score}</div>
+			<div class="g-card-item g-card-content">전문가 평점: ${g.m_score}</div>
+		</div>
+	</c:forEach>
 </div>

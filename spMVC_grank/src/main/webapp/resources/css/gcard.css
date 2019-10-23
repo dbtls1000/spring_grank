@@ -1,0 +1,43 @@
+@charset "UTF-8";
+
+.flex-wrapper {
+	width: 980px;
+	margin: 0 auto;
+	display: flex;
+	justify-content: space-around;
+	flex-wrap: wrap;
+}
+
+div.g-card {
+	width: 170px;
+	height: 300px;
+	margin: 20px 10px;
+}
+
+.g-card-item {
+	text-align: center;
+	width: 170px;
+}
+
+.g-card-item img {
+	width: 170px;
+	height: 160px;
+}
+
+.g-card-header {
+	font-weight: bold;
+}
+
+.g-card-content {
+	font-size: 13px;
+}
+
+.game-name {
+	font-weight: bold;
+	color: cadetblue;
+}
+
+.a-common{
+	text-align: center;
+	justify-content: center;
+}

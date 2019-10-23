@@ -18,6 +18,8 @@
 		<div class="dropdown">
 			<button id="game-btn">Game</button>
 			<ul id="game-dropdown">
+				<li><a href="#">Commingsoon</a></li>
+				<li><a href="#">All</a></li>
 				<li><a href="#">PS4</a></li>
 				<li><a href="#">XBOX</a></li>
 				<li><a href="#">SWITCH</a></li>

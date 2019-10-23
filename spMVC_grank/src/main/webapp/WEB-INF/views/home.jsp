@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file="include/include.jsp" %>
 <link rel="stylesheet" type="text/css" href="${path}/resources/css/searchbox.css?ver=2019101811">
+<link rel="stylesheet" type="text/css" href="${path}/resources/css/gcard.css?ver=20191023">
 <%@ include file="include/header.jsp" %>
 <div style="height: 110px;"></div>
 	<!-- 검색기능 box -->
@@ -14,48 +15,37 @@
         </div>
     </div>
     <!-- 출시 예정작 -->
-    <div class="wrapper">
+	 <div class="wrapper">
         <div class="wrapper-header"><span class="header-text">출시예정작</span></div>
-        	<article class="flex-wrapper">
-	        	<c:forEach items="${cList}" var="c">
-			        <div class="c-cards">
-            			<a class="c-card" href="#">
-                		<span class="card-header" >
-                		<img src='${c.c_img}'>
-                    	<span class="card-title">
-                        <h3>${c.c_name}</h3>
-                    </span>
-		                </span>
-		                <span class="card-summary">
-		                        ${c.platform}
-		                </span>
-		                <span class="card-meta">
-		                        ${c.c_date}
-		                </span>
-            			</a>
-            		</div>
-					</c:forEach>
-		    </article>
-		      <div class="right"><span class="more a-button a-common"><a href="${path}/game/comingsoonmoreview">more..</a></span></div>
-	    </div>
-
+        <div id="g-list">
+            <div class="flex-wrapper">
+            	<c:forEach items="${cList}" var="c">
+                <div class="g-card">
+                    <div class="g-card-item g-card-header">${c.platform}</div>
+                    <div class="g-card-item"><img src="${c.c_img}"></div>
+                    <div class="g-card-item g-card-content game-name">${c.c_name}</div>
+                    <div class="g-card-item g-card-content">날짜 :  ${c.c_date}</div>
+                </div>
+                </c:forEach>
+                <div class="more"><a class="a-button a-common" href="${path}/game/comingsoonmoreview">more+</a></div>
+            </div>
+        </div>
+    </div>
     <!-- 게임평가 순위 -->
     <div class="wrapper">
         <div class="wrapper-header"><span class="header-text">게임평가 순위</span></div>
-        <div class="flex-wrapper">
+            <ul class="home-game-nav">
+                <li><span class="platform"><input class="input" type="hidden" value="PS4">PS4</span></li>
+                <li><span class="platform"><input class="input" type="hidden" value="XONE">XBOX</span></li>
+                <li><span class="platform"><input class="input" type="hidden" value="Switch">SWITCH</span></li>
+               <li><span class="platform"><input class="input" type="hidden" value="PC">PC</span></li>
+            </ul>
+        <div>
             <div class="flex-item item1">
      			<div id="gameranklist" class="gameranklist">
      			</div>
-                <div class="right"><span class="more a-button a-common more"><a href ="${path}/game/rankmoreview">more..</a></span></div>
             </div>
-            <div class="flex-item item2">
-                <ul>
-                    <li class="platform"><input class="input" type="hidden" value="PS4">PS4</li>
-                    <li class="platform"><input class="input" type="hidden" value="XONE">XBOX</li>
-                    <li class="platform"><input class="input" type="hidden" value="Switch">SWITCH</li>
-                    <li class="platform"><input class="input" type="hidden" value="PC">PC</li>
-                </ul>
-            </div>
+            <div class="more"><a class="a-button a-common" href ="${path}/game/rankmoreview">more+</a></div>
         </div>
     </div>
     <!-- 오늘의 화제글 -->

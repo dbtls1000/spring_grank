@@ -1,6 +1,8 @@
 package com.biz.grank.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,16 +37,22 @@ public class GameController {
 	}
 	
 	@RequestMapping(value ="rankmoreview", method = RequestMethod.GET)
-	public String RankMoreView(Model model) {
-		List<GameRankDto> gList = gameService.gFindAll();
+	public String RankMoreView(@RequestParam(defaultValue = "all")String platform,Model model) {
+		List<GameRankDto> gList = gameService.gFindPlatform(platform);
 		int gSize = gList.size();
+		model.addAttribute("gList", gList);
 		model.addAttribute("gSize", gSize);
 		return "gameview/rankmoreview";
 	}
 	
 	@RequestMapping(value = "rankmoreviewlist", method = RequestMethod.GET)
-	public String RankMoreViewList(@RequestParam(defaultValue = "20")int count, Model model) {
-		List<GameRankDto> gList = gameService.gMoreView(count);
+	public String RankMoreViewList(@RequestParam(defaultValue = "20")int count,
+								   @RequestParam(defaultValue = "all")String platform,
+								   Model model) {
+		Map<String, Object> gMap = new HashMap<String, Object>();
+		gMap.put("count", count);
+		gMap.put("platform", platform);
+		List<GameRankDto> gList = gameService.gMoreView(gMap);
 		model.addAttribute("gList", gList);
 		return "gameview/rankmoreviewlist";
 	}
@@ -56,15 +64,6 @@ public class GameController {
 		return "gameview/comingsoonmoreviewlist";
 		
 	}
-	
-	
-	@RequestMapping(value = "platformlist", method = RequestMethod.GET)
-	public String PlatformList(Model model) {
-		List<GameRankDto> gList = gameService.gFindAll();
-		model.addAttribute("gList", gList);
-		return "gameview/platformlist";
-	}
-
 	
 
 }

@@ -1,6 +1,7 @@
 package com.biz.grank.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,17 +42,19 @@ public class GameServiceImp implements GameService {
 		return gList;
 	}
 
-	// 4. 게임평가순위리스트 모든 건 수 출력
+	// 4. 게임평가순위리스트 size 구하는 메소드
 	@Override
-	public List<GameRankDto> gFindAll() {
-		List<GameRankDto> gList = gDao.gFindAll();
+	public List<GameRankDto> gFindPlatform(String platform) {
+		List<GameRankDto> gList = gDao.gFindPlatform(platform);
 		return gList;
 	}
 
 	// 5. 게임평가순위리스트 몇 건만 출력
 	@Override
-	public List<GameRankDto> gMoreView(int count) {
-		List<GameRankDto> gList = gDao.gMoreView(count);
+	public List<GameRankDto> gMoreView(Map<String, Object> gMap) {
+		log.info(">>>platform>>>"+gMap.get("platform"));
+		log.info(">>>count>>>"+gMap.get("count"));
+		List<GameRankDto> gList = gDao.gMoreView(gMap);
 		return gList;
 	}
 

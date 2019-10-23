@@ -1,6 +1,7 @@
 package com.biz.grank.persistence;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -32,7 +33,7 @@ public class GameDao {
 	// 2. 출시예정작 n건만 가져오는 리스트
 	public List<ComingSoonDto> cFindLimit() {
 		// 1) 컬렉션에서 가져올 데이터 쿼리문 작성
-		BasicQuery query = (BasicQuery) new BasicQuery("{}, platform:'platform', c_img:'c_img', c_name:'c_name', c_date:'c_date'").limit(6);
+		BasicQuery query = (BasicQuery) new BasicQuery("{}, platform:'platform', c_img:'c_img', c_name:'c_name', c_date:'c_date'").limit(5);
 		// 2) 쿼리문 리스트에 저장
 		List<ComingSoonDto> cList = mongoOper.find(query, ComingSoonDto.class, "comingsoon");		
 		return cList;
@@ -50,16 +51,26 @@ public class GameDao {
 		
 	}
 	
-	// 4. 게임평가순위리스트 모든 건 수 출력
-	public List<GameRankDto> gFindAll(){
-		List<GameRankDto> gList = mongoOper.findAll(GameRankDto.class, "metascore");		
+	// 4. 게임평가순위리스트 size 구하는 메소드
+	public List<GameRankDto> gFindPlatform(String platform){
+		BasicQuery query = (BasicQuery) new BasicQuery("{'platform':'"+platform+"'}, platform:'platform', game_code:'game_code', m_score:'m_score', game_name:'game_name', u_score:'u_score', img_src:'img_src' " );
+		List<GameRankDto> gList = mongoOper.find(query, GameRankDto.class, "metascore");		
 		return gList;
 		}
 	
 	// 5. 게임평가순위리스트 count건만 출력 
-	public List<GameRankDto> gMoreView(int count) {
-		BasicQuery query = (BasicQuery) new BasicQuery("{}, platform:'platform', game_code:'game_code', m_score:'m_score', game_name:'game_name', u_score:'u_score', img_src:'img_src' ").limit(count);
+	public List<GameRankDto> gMoreView(Map<String, Object> gMap) {
+		BasicQuery query = (BasicQuery) new BasicQuery("{},");
+		log.info(">>>>>>>>"+gMap.get("platform"));
+		if(gMap.get("platform").equals("all")) {
+			query = (BasicQuery) new BasicQuery("{}, platform:'platform', game_code:'game_code', m_score:'m_score', game_name:'game_name', u_score:'u_score', img_src:'img_src' ").limit((int) gMap.get("count"));
+		} else {
+			query = (BasicQuery) new BasicQuery("{'platform':'"+gMap.get("platform")+"'}, platform:'platform', game_code:'game_code', m_score:'m_score', game_name:'game_name', u_score:'u_score', img_src:'img_src' ").limit((int) gMap.get("count"));
+		}
 		List<GameRankDto> gList = mongoOper.find(query,	GameRankDto.class, "metascore");
+		for(GameRankDto gDto:gList) {
+			log.info(">>>>"+gDto.getGame_code());
+		}
 		return gList;
 	}
 	

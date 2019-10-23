@@ -3,25 +3,17 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fnt"%>
 <c:set var="path" value="${pageContext.request.contextPath}" />
-    <!-- 출시 예정작 -->
-        	<article class="flex-wrapper">
-	        	<c:forEach items="${cList}" var="c">
-			        <div class="c-cards">
-            			<a class="c-card" href="#">
-                		<span class="card-header" >
-                		<img src='${c.c_img}'>
-                    	<span class="card-title">
-                        <h3>${c.c_name}</h3>
-                    </span>
-		                </span>
-		                <span class="card-summary">
-		                        ${c.platform}
-		                </span>
-		                <span class="card-meta">
-		                        ${c.c_date}
-		                </span>
-            			</a>
-            		</div>
-					</c:forEach>
-		    </article>
 
+<!-- 출시 예정작 -->
+<div class="flex-wrapper">
+	<c:forEach items="${cList}" var="c">
+		<div class="g-card">
+			<div class="g-card-item g-card-header">${c.platform}</div>
+			<div class="g-card-item">
+				<img src="${c.c_img}">
+			</div>
+			<div class="g-card-item g-card-content game-name">${c.c_name}</div>
+			<div class="g-card-item g-card-content">날짜 : ${c.c_date}</div>
+		</div>
+	</c:forEach>
+</div>
