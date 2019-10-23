@@ -21,7 +21,6 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 		// TODO Auto-generated method stub
 		// session 체크 값이 있으면 통과
 		HttpSession httpSession = request.getSession();
-		
 		if(httpSession.getAttribute("userid") == null) {
 			// 이전 페이지 가져오기
 			String referer = request.getHeader("referer");

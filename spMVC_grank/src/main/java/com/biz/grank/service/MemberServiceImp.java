@@ -156,18 +156,29 @@ public class MemberServiceImp implements MemberService {
 	public String passWordRandom() {
 		// TODO 비밀번호 랜덤
 		Random rnd = new Random();
+		// StringBuffer는 가변 클래스라고 한다.
 		StringBuffer buf = new StringBuffer();
 		
 		for(int i = 0; i<8;i++) {
+			// mextBoolean은 true, false를 랜덤 발생
 			if (rnd.nextBoolean()) {
+				// append는 전달되 값을 문자열로 변환하고 문자열의 마지막에 추가한다.
+				// true일때 소문자를
 				buf.append((char)((int)(rnd.nextInt(26))+97));
 			} else {
+				// false일때 숫자를
 				buf.append((rnd.nextInt(10)));
 			}
 		}
+		// StringBuffer을 String로 변환
 		String randomps = buf.toString();
-		log.info(">>>>>>>>>>>>>>>>>."+randomps);
 		return randomps;
+	}
+
+	@Override
+	public int ajaxNameCheck(String name) {
+		// TODO 닉네임 중복 체크
+		return mDao.ajaxNameCheck(name);
 	}
 
 

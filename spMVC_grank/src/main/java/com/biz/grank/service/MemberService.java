@@ -19,4 +19,5 @@ public interface MemberService {
 	public String ajaxEmailCheck(String email);
 	public String ajaxPswordCheck(Map<String, Object> map);
 	public String passWordRandom();
+	public int ajaxNameCheck(String name);
 }

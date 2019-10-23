@@ -43,13 +43,19 @@
 		UPDATE tbl_member SET passwd = #{passwd}
 		WHERE userid = #{userid}
    </update>
-   <!-- 이메일 체크 후 아이디 값  가져오기 -->
+   <!-- 이메일로 아이디가 있는지 체크 -->
    <select id="ajaxEmailCheck" resultType="string">
 		SELECT userid FROM tbl_member
 		WHERE email = #{email}
    </select>
+   <!-- 아이디와 이메일로 비밀번호 있는지 체크 -->
    <select id="ajaxPswordCheck" resultType="string">
 		SELECT passwd FROM tbl_member
 		WHERE userid = #{userid} AND email = #{email}
+   </select>
+   <!-- 닉네임 중복 체크 -->
+   <select id="ajaxNameCheck" resultType="int">
+		SELECT COUNT(name) FROM tbl_member
+		WHERE name = #{name}
    </select>
 </mapper>

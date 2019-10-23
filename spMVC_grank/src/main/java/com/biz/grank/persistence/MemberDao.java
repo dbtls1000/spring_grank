@@ -28,5 +28,7 @@ public interface MemberDao {
 
 	String ajaxPswordCheck(Map<String, Object> map);
 
+	int ajaxNameCheck(String name);
+
 
 }

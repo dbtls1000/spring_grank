@@ -86,7 +86,6 @@ public class MemberController {
 	// id 찾기 화면단
 	@GetMapping("login_check")
 	public String login_idcheck(@RequestParam(defaultValue = "idcheck") String code, Model model) {
-		System.out.println(code);
 		model.addAttribute("code",code);
 		return "member/login_check";
 	}
@@ -147,13 +146,13 @@ public class MemberController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("userid",userid);
 		map.put("passwd",passwd);
+		
 		return mService.passCheck(map);
 	}
 	// 아이디 찾기 이메일 확인 후 아이디 값 가져오기
 	@ResponseBody
 	@PostMapping("emailcheck")
 	public String ajaxEmailCheck(String email) {
-		
 		return mService.ajaxEmailCheck(email);
 	}
 	// 비밀번호 찾기 확인 후 비밀번호 값 가져오기
@@ -163,16 +162,28 @@ public class MemberController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("userid",userid);
 		map.put("email",email);
+		// 아이디와 이메일로 확인 후 값이 있으면 비밀번호 값 가져오기
 		String password = mService.ajaxPswordCheck(map);
 		String randomps = null;
+		// password에 값이 있으면 비밀번호 랜덤 생성 후 비밀번호 변경
 		if(password != null) {
-			// 비밀번호 랜덤
+			// 비밀번호 랜덤 생성
 			randomps = mService.passWordRandom();
 			MemberDto mDto = new MemberDto();
+			// 비밀번호 변경을 위해 userid 값 담기
 			mDto.setUserid(userid);
+			// 랜덤 생성한 비밀번호 값 담기
 			mDto.setPasswd(randomps);
+			// 비밀번호 변경
 			mService.psupdate(mDto);
 		}
+		// 변경된 비밀번호 return
 		return randomps;
+	}
+	// 닉네임 중복 확인
+	@ResponseBody
+	@PostMapping("namecheck")
+	public int ajaxNameCheck(String name) {
+		return mService.ajaxNameCheck(name);
 	}
 }

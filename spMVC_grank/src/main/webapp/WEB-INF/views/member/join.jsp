@@ -102,14 +102,13 @@
 <script type="text/javascript" src="${path}/resources/js/validation.js"></script>
 <script>
 $(function() {
+	var id = '${sessionScope.userid}';
 	$('.join-input').focus(function(){
         $(this).parent().css('border','1px solid #00b894')
     })
     $('.join-input').blur(function(){
         $(this).parent().css('border','solid 1px #dadada')
     })
-	
-    var id = '${sessionScope.userid}';
     // 회원 가입 및 수정
 	$('#join-join-btn').click(function() {
 		if(id != '') {
@@ -121,7 +120,7 @@ $(function() {
 		}
 		$('#frm_mem').submit();
 	})
-	
+	// 우편번호와 주소 클릭시 우편번호 찾기 클릭
 	$('.address').click(function() {
 		var zipcode = $('.address').eq(0).val();
 		var addr = $('.address').eq(1).val();
@@ -129,17 +128,19 @@ $(function() {
 			$('.address-btn').click();
 		}
 	})
+	// id 값이 있으면 css변경
 	if(id != '') {
 		$('.member_hidden').remove();
 		$('.join-header-text').text('회원정보수정')
 		$('#join-join-btn').val("회원수정")
 	}
+	// 아이디 유효성 체크
     $('#join-id').blur(function() {
 		var memid = $.trim($(this).val());
 		var checkResult = joinValidate.checkId(memid);
-		
+		// checkResult.code에 맞는 메시지 출력
 		if(checkResult.code != 0) {
-			$(this).next().text(checkResult.desc).css("display","block")
+			$(this).next().text(checkResult.desc).css("display","block");
 		} else {
 			// ajax로 ID 중복 체크
 			if(ajaxIdCheck(memid)) {
@@ -147,6 +148,59 @@ $(function() {
 			}
 		}
 	})
+	// 비밀번호 유효성 체크
+	$('#join-ps').blur(function() {
+		var pass = $.trim($(this).val());
+		var rpass = $.trim($('#join-rps').val());
+		
+		var checkResult = joinValidate.checkPs(pass, rpass);
+		// checkResult.code에 맞는 메시지 출력
+		if(checkResult.code != 0) {
+			$(this).next().text(checkResult.desc).css("display","block");
+			$('#join-rps').next().text(checkResult.desc).css("display","none");
+		} else {
+			$('#join-ps').next().text(checkResult.desc).css("display","block").css('color','blue');
+		}
+		
+	})
+	// 비밀번호 확인 유효성 체크
+	$('#join-rps').blur(function() {
+		var rpass = $.trim($(this).val());
+		var pass = $.trim($('#join-ps').val());
+		
+		var checkResult = joinValidate.checkRps(rpass, pass);
+		// checkResult.code에 맞는 메시지 출력
+		if(checkResult.code != 0) {
+			$(this).next().text(checkResult.desc).css("display","block");
+		} else {
+			$('#join-ps').next().text(checkResult.desc).css("display","none");
+			$(this).next().text(checkResult.desc).css("display","block").css('color','blue');
+		}
+	})
+	// 닉네임 유효성 체크
+	$('#join-name').blur(function() {
+		var name = $.trim($(this).val());
+		
+		var checkResult = joinValidate.checkName(name);
+		
+		if(checkResult.code != 0) {
+			$(this).next().text(checkResult.desc).css("display","block");
+		} else {
+			if(ajaxNameCheck(name)) {
+				
+			}
+		}
+	})
+	// 전화번호 유효성 체크
+	$('#join-phone').blur(function() {
+		var phone = $.trim($(this).val());
+		
+		var checkResult = joinValidate.checkPhone(phone);
+		if(checkResult.code != 0) {
+			$(this).next().text(checkResult.desc).css("display","block");
+		} else {
+			$(this).next().text(checkResult.desc).css("display","block").css('color','blue');
+		}
+	})
 })
-
 </script>
