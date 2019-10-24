@@ -23,6 +23,7 @@ public class AjaxFileController {
 	@Autowired
 	AjaxFileService afService;
 	
+	// 이미지 파일을 드래그앤드롭한 경우 업로드폴더에 업로드 실행단
 	@ResponseBody
 	@PostMapping("fileup")
 	public List<FileDto> file_up(MultipartHttpServletRequest files) {
@@ -30,6 +31,20 @@ public class AjaxFileController {
 		return fileDtoList;
 	}
 	
+	// 게시글 작성중 업로드한 파일을 삭제하는 경우
+	@ResponseBody
+	@GetMapping("remove")
+	public String remove(String file_name) {
+		log.info("파일이름>>>"+file_name);
+		boolean okDelete = afService.file_remove(file_name);
+		
+		// okDelete가 true면 OK를 리턴
+		if(okDelete) return "OK";
+		// false일 경우 FAIL을 리턴
+		else return "FAIL";
+	}
+	
+	// 작성된 게시글을 수정할때 이미지를 삭제하는 경우
 	@ResponseBody
 	@GetMapping("delete")
 	public String delete(int fno) {

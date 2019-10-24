@@ -163,7 +163,7 @@ public class MemberServiceImp implements MemberService {
 			// mextBoolean은 true, false를 랜덤 발생
 			if (rnd.nextBoolean()) {
 				// append는 전달되 값을 문자열로 변환하고 문자열의 마지막에 추가한다.
-				// true일때 소문자를
+				// true일때 영문 소문자를
 				buf.append((char)((int)(rnd.nextInt(26))+97));
 			} else {
 				// false일때 숫자를

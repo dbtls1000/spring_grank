@@ -130,4 +130,16 @@ public class BoardServiceImp implements BoardService {
 		bDao.like_cnt_down(bno);
 	}
 
+	@Override
+	public List<BoardDto> readByWriter(Map<String, Object> map) {
+		// TODO 작성자로 여러건 찾아오기
+		return bDao.readByWriter(map);
+	}
+
+	@Override
+	public int countByWriter(String name) {
+		// TODO 작성자로 검색한 게시글 수
+		return bDao.countByWriter(name);
+	}
+
 }

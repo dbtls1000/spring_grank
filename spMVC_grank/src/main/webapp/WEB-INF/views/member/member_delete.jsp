@@ -40,31 +40,43 @@
 <script>
 $(function() {
 	var state = false;
+	// 비밀번호 체크
 	$('#delete-password').blur(function() {
 		var user = "${sessionScope.userid}";
 		var pass = $.trim($(this).val());
-		
+		// 비밀번호 공백 체크
 		if(pass == null || pass.length == 0) {
 			$('.member-delete-err').css('visibility','visible');
 			$('#delete-password').focus();
+		// 비밀번호 같은지 확인
 		} else {
 			$('.member-delete-err').css('visibility','hidden');
 			state = ajaxPassCheck(user,pass);
 		}
 	})
+	// 탈퇴 클릭시 true이면 delete-modal 띄우고 false이면 delete-modal = none하고 경고글 출력
 	$('#delete-yes').click(function() {
-		$('.delete-modal').css('display','block')
-		$('.delete-comment').text('정말 탈퇴하시겠습니까?')
+		if(state) {
+			$('.delete-modal').css('display','block')
+			$('.delete-comment').text('정말 탈퇴하시겠습니까?')
+		} else {
+			$('.delete-modal').css('display','none');
+			$('.member-delete-err').css('visibility','visible').text('비밀번호가 틀립니다.');
+			$("#delete-password").val('');
+			$("#delete-password").focus();
+		}
 	})
+	// 취소 클릭시 마이페이지로 이동
+	$('#delete-no').click(function() {
+		location.href = "${path}/member/mypage"
+	})
+	// 아니오 클릭시 display : none
 	$('#confirm-no').click(function(){
 		$('.delete-modal').css('display','none')
 	})
+	// 예 클릭시 탈퇴 
 	$('#confirm-yes').click(function(){
-		if(state){
-			$('#mem_password').submit();
-		} else{
-			alert("싪패")
-		}
+		$('#mem_password').submit();
 	})
 })
 </script>

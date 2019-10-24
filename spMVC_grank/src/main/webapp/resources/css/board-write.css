@@ -52,14 +52,17 @@
 }
 .drag-box{
 	width:960px;
-	height:200px;
-	display:flex;
-	justify-content:center;
-	align-items:center;
+	height:100px;
+	vertical-align:middle;
 	margin: 15px auto;
 	border:1px solid #00b894;
 	box-sizing: border-box;
 }
+.drag-comment{
+	text-align:center;
+	line-height: 85px;
+	font-size:30px;
+}
 .drag-box span{
-	font-size: 30px;
+	
 }

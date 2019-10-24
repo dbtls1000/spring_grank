@@ -7,7 +7,7 @@ var joinValidate = {
 			},
 			space_val : {
 				code : 2,
-				desc : '공백 없이 입력해주세요.'
+				desc : '공백 없이 입력해 주세요.'
 			},
 			success_id : {
 				code : 0,
@@ -16,7 +16,7 @@ var joinValidate = {
 			// id 체크
 			invalid_id : {
 				code : 3,
-				desc : '올바른 아이디를 입력해주세요.'
+				desc : '올바른 아이디를 입력해 주세요.'
 			},
 			length_id : {
 				code : 4,
@@ -37,7 +37,7 @@ var joinValidate = {
 			},
 			equal_ps : {
 				code : 5,
-				desc : '현재 비밀번호와 다르게 입력해주세요.'
+				desc : '현재 비밀번호와 다르게 입력해 주세요.'
 			},
 			// 비밀번호 확인 체크
 			success_rps : {
@@ -47,7 +47,7 @@ var joinValidate = {
 			// 닉네임 체크
 			success_name : {
 				code : 0,
-				desc : '사용 가능한 닉네임 입니다.'
+				desc : '사용 가능한 닉네임입니다.'
 			},
 			invalid_name : {
 				code : 3,
@@ -65,6 +65,24 @@ var joinValidate = {
 			number_ph : {
 				code : 4,
 				desc : '숫자만 입력해 주세요'
+			},
+			// 이메일 체크
+			success_em : {
+				code : 0,
+				desc : '올바른 이메일입니다.'
+			},
+			invalid_em : {
+				code : 3,
+				desc : '올바른 이메일을 입력해 주세요.'
+			},
+			// 상세주소 체크
+			success_ad : {
+				code : 0,
+				desc : '올바른 상세주소입니다.'
+			},
+			invalid_ad : {
+				code : 3,
+				desc : '올바른 상세주소를 입력해 주세요.'
 			}
 		},
 		// id 유효성 체크
@@ -131,7 +149,7 @@ var joinValidate = {
 					return this.resultCode.other_ps;
 				}
 			} else {
-				return this.resultCode.success_ps;
+				return this.resultCode.success_rps;
 			}
 		},
 		// 닉네임 유효성 체크
@@ -164,12 +182,44 @@ var joinValidate = {
 			// 전화번호 공백 체크
 			} else if (phone.match(regEmpty)) {
 				return this.resultCode.space_val;
+			// 전화번호 숫자 체크
 			} else if ($.isNumeric(phone) ==false) {
 				return this.resultCode.number_ph;
+			// 전화번호 유효성 체크
 			} else if (!regPhone.test(phone)) {
 				return this.resultCode.invalid_ph;
 			} else {
 				return this.resultCode.success_ph;
+			}
+		},
+		checkEmail : function(email) {
+			// 공백문자
+			var regEmpty = /\s/g;
+			// 이메일 유효성 체크
+			regEmail =/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i;
+			// 이메일 null 체크
+			if(email == "" || email.length == 0) {
+				return this.resultCode.empty_val;
+			// 이메일 공백 체크
+			} else if (email.match(regEmpty)) {
+				return this.resultCode.space_val;
+			// 이메일 유효성 체크
+			} else if (!regEmail.test(email)) {
+				return this.resultCode.invalid_em;
+			} else {
+				return this.resultCode.success_em;
+			}
+		},
+		checkAddr : function(addr) {
+			// 상세주소 유효성 체크
+			regAddr =/[^0-9가-힣, ]/;
+			// 상세주소 null 체크
+			if(addr == "" || addr.length == 0) {
+				return this.resultCode.empty_val;
+			} else if (regAddr.test(addr)) {
+				return this.resultCode.invalid_ad;
+			} else {
+				return this.resultCode.success_ad;
 			}
 		}
 }
@@ -210,10 +260,8 @@ function ajaxPassCheck(user, pass) {
 		contentType: "application/json",
 		success : function(data) {
 			if(data == 1) {
-//				$('.member-delete-err').text('비밀번호가 일치합니다.').css('visibility','visible').css('color','blue');
 				return_val = true;
 			} else {
-//				$('.member-delete-err').text('비밀번호가 일치하지 않습니다.').css('visibility','visible');
 				return_val = false;
 			}
 		},
@@ -224,7 +272,7 @@ function ajaxPassCheck(user, pass) {
 	return return_val;
 }
 
-// 이메일 체크
+// 아이디 찾기의 이메일 값으로 아이디 값 가져오기
 function ajaxEmailCheck(email) {
 	var email_check = null;
 	$.ajax({
@@ -246,7 +294,7 @@ function ajaxEmailCheck(email) {
 	return email_check;
 }
 
-// password 체크
+// 비밀번호 찾기의 아이디 값과 이메일 값으로 비밀번호 검색 후 맞으면 임시비밀번호 생성 후 가져오기
 function ajaxPswordCheck(userid, email) {
 	var psword = null;
 	$.ajax({

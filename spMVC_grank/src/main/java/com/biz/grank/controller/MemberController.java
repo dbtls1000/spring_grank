@@ -15,14 +15,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.biz.grank.domain.MemberDto;
+import com.biz.grank.service.BoardService;
 import com.biz.grank.service.MemberService;
+import com.biz.grank.service.Pagination;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
 @RequestMapping("member/*")
 public class MemberController {
 	
 	@Autowired
 	MemberService mService;
+	@Autowired
+	BoardService bService;
 	
 	// 로그인
 	@ResponseBody
@@ -61,13 +68,27 @@ public class MemberController {
 	}
 	// 마이페이지 화면단
 	@GetMapping("mypage")
-	public String mypage(Model model,HttpSession httpSession) {
+	public String mypage(@RequestParam(defaultValue = "1") int curPage,Model model,HttpSession httpSession) {
 		// httpSession에서 userid 값 가져오기
 		String userid = (String)httpSession.getAttribute("userid");
+		String name = (String)httpSession.getAttribute("name");
+		int count = bService.countByWriter(name);
+		Pagination page = new Pagination(count, curPage);
+		int start = page.getPageBegin();
+		int end = page.getPageEnd();
+		Map<String, Object> map = new HashMap<String, Object>();
+		log.info("count:"+count+"start:"+start+"end:"+end);
+		map.put("name", name);
+		map.put("start", start);
+		map.put("end", end);
 		if(userid == null) {
 			// userid 값이 없으면 redirect:/
 			return "redirect:/";
 		} else {
+			// 페이지네이션을하기위해 model에 page담기
+			model.addAttribute("page", page);
+			// 해당 유저의 작성 게시글을 가져와 model에 담기
+			model.addAttribute("bList",bService.readByWriter(map));
 			// userid 값이 있으면 model에 userid 값과 일치한 값 담기
 			model.addAttribute("mDto",mService.viewMember(userid));
 			return "member/mypage";
