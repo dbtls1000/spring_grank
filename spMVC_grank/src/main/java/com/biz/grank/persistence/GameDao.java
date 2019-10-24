@@ -10,6 +10,7 @@ import org.springframework.data.mongodb.core.query.BasicQuery;
 import org.springframework.stereotype.Repository;
 
 import com.biz.grank.domain.ComingSoonDto;
+import com.biz.grank.domain.CriticDto;
 import com.biz.grank.domain.GameRankDto;
 
 import lombok.extern.slf4j.Slf4j;
@@ -42,6 +43,8 @@ public class GameDao {
 	// 3. 게임평가순위리스트 5건 출력
 	public List<GameRankDto> gFindLimit(String platform) {
 		// 1) 컬렉션에서 가져올 데이터 쿼리문 작성
+		// { platform':'"+platform+ } < RDBMS의 조건절 플랫폼 값을 받아 자바스크립트에서 클릭 시 종류별로 바뀌게 하기위해서 받음
+		// platform:'platform', game_code:'game_code', < RDBMS select(game_code,  platform ....)와 같음 
 		BasicQuery query = (BasicQuery) new BasicQuery("{'platform':'"+platform+"'}, platform:'platform', game_code:'game_code', m_score:'m_score', game_name:'game_name', u_score:'u_score', img_src:'img_src' " ).limit(5);
 		// 2) 게임평가순위리스트 m_score 순으로 내림차순 정렬 
 		query.with(new Sort(Sort.Direction.DESC, "m_score"));
@@ -79,6 +82,12 @@ public class GameDao {
 		BasicQuery query = (BasicQuery) new BasicQuery("{}, platform:'platform', c_img:'c_img', c_name:'c_name', c_date:'c_date'").limit(count);
 		List<ComingSoonDto> cList = mongoOper.find(query, ComingSoonDto.class, "comingsoon");
 		return cList;
+	}
+
+	public List<CriticDto> gFindCritic(String game_code) {
+		BasicQuery query = (BasicQuery) new BasicQuery("{'game_code' : '"+game_code+"'}, game_code:'game_code', c_score:'c_score', c_critic:'c_critic', c_review:'c_review' ");
+		List<CriticDto> criticList = mongoOper.find(query, CriticDto.class, "critic");
+		return criticList;
 	}	
 	
 	

@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="include/include.jsp" %>
-<link rel="stylesheet" type="text/css" href="${path}/resources/css/searchbox.css?ver=2019101811">
-<link rel="stylesheet" type="text/css" href="${path}/resources/css/gcard.css?ver=20191023">
+<link rel="stylesheet" type="text/css" href="${path}/resources/css/searchbox.css?ver=20191024">
+<link rel="stylesheet" type="text/css" href="${path}/resources/css/gcard.css?ver=20191024">
 <%@ include file="include/header.jsp" %>
 <div style="height: 110px;"></div>
 	<!-- 검색기능 box -->

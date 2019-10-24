@@ -7,7 +7,7 @@
 <!-- 게임순위평가리스트 -->
 <div class="flex-wrapper">
 	<c:forEach items="${gList}" var="g">
-		<div class="g-card">
+		<div class="g-card" data-code="${g.game_code}">
 			<div class="g-card-item g-card-header">${g.platform}</div>
 			<div class="g-card-item">
 				<img src="${g.img_src}">
@@ -18,3 +18,10 @@
 		</div>
 	</c:forEach>
 </div>
+<script>
+	$(".g-card").click(function(){
+		let game_code = $(this).attr("data-code");
+		location.href = "${path}/game/gameview?game_code="+game_code;
+		alert(location.href)
+	})
+</script>

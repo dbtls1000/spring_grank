@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.biz.grank.domain.ComingSoonDto;
+import com.biz.grank.domain.CriticDto;
 import com.biz.grank.domain.GameRankDto;
 import com.biz.grank.persistence.GameDao;
 
@@ -63,6 +64,13 @@ public class GameServiceImp implements GameService {
 	public List<ComingSoonDto> cMoreView(int count) {
 		List<ComingSoonDto> cList = gDao.cMoreView(count);
 		return cList;
+	}
+
+
+	@Override
+	public List<CriticDto> gFindCritic(String game_code) {
+		 List<CriticDto> criticList =  gDao.gFindCritic(game_code);
+		return criticList;
 	}
 
 

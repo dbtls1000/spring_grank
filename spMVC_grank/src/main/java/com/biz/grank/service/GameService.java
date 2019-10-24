@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.biz.grank.domain.ComingSoonDto;
+import com.biz.grank.domain.CriticDto;
 import com.biz.grank.domain.GameRankDto;
 
 public interface GameService {
@@ -25,5 +26,8 @@ public interface GameService {
 
 	// 6. 출시예정작 20건씩 출력 
 	public List<ComingSoonDto> cMoreView(int count);
+
+	public List<CriticDto> gFindCritic(String game_code);
+	
 	
 }	

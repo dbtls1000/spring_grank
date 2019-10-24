@@ -50,8 +50,9 @@
 <script>
 	// rankmoreviewlist 생성
 	function rankmoreviewlist() {
+		var platform = '${platform}';
 		$.ajax({
-			url : '${path}/game/rankmoreviewlist',
+			url : '${path}/game/rankmoreviewlist?platform='+platform,
 			type : 'GET',
 			success : function(page) {
 				$('#rankmoreviewlist').html(page);

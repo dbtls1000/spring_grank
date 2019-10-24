@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.biz.grank.domain.ComingSoonDto;
+import com.biz.grank.domain.CriticDto;
 import com.biz.grank.domain.GameRankDto;
 import com.biz.grank.service.GameService;
 
@@ -40,6 +41,8 @@ public class GameController {
 	public String RankMoreView(@RequestParam(defaultValue = "all")String platform,Model model) {
 		List<GameRankDto> gList = gameService.gFindPlatform(platform);
 		int gSize = gList.size();
+		//platform = var platform = '${platform}';로 데이터 받기위해서 보내줌
+		model.addAttribute("platform",platform);
 		model.addAttribute("gList", gList);
 		model.addAttribute("gSize", gSize);
 		return "gameview/rankmoreview";
@@ -65,5 +68,12 @@ public class GameController {
 		
 	}
 	
+	@RequestMapping(value = "gameview", method = RequestMethod.GET)
+	public String GameView(@RequestParam String game_code,Model model) {
+		log.info(">>게임 코드>>" + game_code);
+		List<CriticDto> criticList = gameService.gFindCritic(game_code);
+		model.addAttribute("ccList", criticList);
+		return "gameview/gameview";
+	}
 
 }

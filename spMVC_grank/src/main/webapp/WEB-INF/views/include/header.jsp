@@ -18,13 +18,14 @@
 		<div class="dropdown">
 			<button id="game-btn">Game</button>
 			<ul id="game-dropdown">
-				<li><a href="#">Commingsoon</a></li>
-				<li><a href="#">All</a></li>
-				<li><a href="#">PS4</a></li>
-				<li><a href="#">XBOX</a></li>
-				<li><a href="#">SWITCH</a></li>
-				<li><a href="#">PC</a></li>
+				<li><a href="${path}/game/comingsoonmoreview">Commingsoon</a></li>
+				<li><a href="${path}/game/rankmoreview">All</a></li>
+				<li><a href="${path}/game/rankmoreview?platform=PS4">PS4</a></li>
+				<li><a href="${path}/game/rankmoreview?platform=XONE">XBOX</a></li>
+				<li><a href="${path}/game/rankmoreview?platform=Switch">SWITCH</a></li>
+				<li><a href="${path}/game/rankmoreview?platform=PC">PC</a></li>
 			</ul>
+			<input type="hidden" id="href-id" value="all"/>
 			<button id="community-btn">Community</button>
 		</div>
 		<c:choose>
@@ -166,5 +167,6 @@
 					}
 				})
 			})
+		
 		})
 	</script>
