@@ -40,7 +40,9 @@
 <script type="text/javascript" src="${path}/resources/js/validation.js"></script>
 <script>
 	$(function() {
+		// code 값은 아이디 찾기, 비밀번호 찾기 클릭시 값 가져오기
 		var code = "${code}";
+		// code 값이 idcheck가 아닐시
 		if(code != "idcheck") {
 			$('#pscheck').css('color','yellow')
 			$('.login-pwcheck-email').css('display','block')
@@ -48,30 +50,38 @@
 		} else {
 			$('#idcheck').css('color','yellow')
 		}
+		// 아이디 찾기 클릭시 아이디 찾기 jsp로 이동
 		$("#idcheck").click(function() {
 			location.href = "${path}/member/login_check?code=idcheck"
 		})
+		// 비밀번호 찾기 클릭시 비밀번호 찾기 jsp로 이동
 		$("#pscheck").click(function() {
 			location.href = "${path}/member/login_check?code=pscheck"
 		})
+		// 찾기 버튼 클릭시 실행
 		$("#check-btn").click(function() {
+			// 아이디 찾기
 			if(code == "idcheck") {
 				var email = $.trim($("#check-email").val())
 				if(email == null || email.length ==0) {
 					alert("이메일을 입력해주세요")
 				} else {
-					var email_check = ajaxEmailCheck(email);
+					// 이메일 값으로 아이디 찾기
+					var email_check = ajaxEmailCheck(email); // ajaxEmailCheck : validation.js
 				}
+				// 아이디 찾기에서 가져온 값이 공백이 아닐때 아이디 출력
 				if(email_check != "") {
 					$(".email-checkid").text("회원님의 아이디는 "+email_check+"입니다.")
 				} else {
 					$(".email-checkid").text("일치하는 이메일이 없습니다")
 				}	
 			} else {
+				// 비밀번호 찾기
 				var userid = $.trim($("#check-id").val())
 				var email = $.trim($("#check-email").val())
-				
-				var psword = ajaxPswordCheck(userid, email);
+				// 아이디와 이메일 값으로 비밀번호 찾기
+				var psword = ajaxPswordCheck(userid, email); // ajaxPswordCheck : validation.js
+				// 비밀번호 찾기에서 가져온값이 공백이 아닐때 임시 비밀번호 출력
 				if(email_check != "") {
 					$(".email-checkid").text("임시 비밀번호는 "+psword+"입니다.")
 				} else {

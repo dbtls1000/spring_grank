@@ -110,7 +110,44 @@ $(function() {
         $(this).parent().css('border','solid 1px #dadada')
     })
     // 회원 가입 및 수정
+    var join_id = false;
+	var join_ps = false;
+	var join_rps = false;
+	var join_name = false;
+	var join_phone = false;
+	var join_email = false;
+	var join_addr = false;
+	// 유효성 검사 false이면 false인곳으로 focus이동 true이면 통과
 	$('#join-join-btn').click(function() {
+		if(!join_id) {
+			$('#join-id').focus();
+			$('#join-id').next().text('필수 입력정보 입니다.').css("display","block").css('color','red');
+			return false;
+		} else if(!join_ps) {
+			$('#join-ps').focus();
+			$('#join-ps').next().text('필수 입력정보 입니다.').css("display","block").css('color','red');
+			return false;
+		} else if(!join_rps) {
+			$('#join_rps').focus();
+			$('#join_rps').next().text('필수 입력정보 입니다.').css("display","block").css('color','red');
+			return false;
+		} else if(!join_name) {
+			$('#join_name').focus();
+			$('#join_name').next().text('필수 입력정보 입니다.').css("display","block").css('color','red');
+			return false;
+		} else if(!join_phone) {
+			$('#join_phone').focus();
+			$('#join_phone').next().text('필수 입력정보 입니다.').css("display","block").css('color','red');
+			return false;
+		} else if(!join_email) {
+			$('#join_email').focus();
+			$('#join_email').next().text('필수 입력정보 입니다.').css("display","block").css('color','red');
+			return false;
+		} else if(!join_addr) {
+			$('#join_addr').focus();
+			$('#join_addr').next().text('필수 입력정보 입니다.').css("display","block").css('color','red');
+			return false;
+		}
 		if(id != '') {
 			// id가 있으면 회원 수정
 			$('#frm_mem').action="${path}/member/update";
@@ -128,11 +165,18 @@ $(function() {
 			$('.address-btn').click();
 		}
 	})
-	// id 값이 있으면 css변경
+	// id 값이 있으면 css변경과 유효성 검사 true로 변경
 	if(id != '') {
 		$('.member_hidden').remove();
 		$('.join-header-text').text('회원정보수정')
 		$('#join-join-btn').val("회원수정")
+		join_id = true;
+		join_ps = true;
+		join_rps = true;
+		join_name = true;
+		join_phone = true;
+		join_email = true;
+		join_addr = true;
 	}
 	// 아이디 유효성 체크
     $('#join-id').blur(function() {
@@ -140,13 +184,16 @@ $(function() {
 		var checkResult = joinValidate.checkId(memid);
 		// checkResult.code에 맞는 메시지 출력
 		if(checkResult.code != 0) {
-			$(this).next().text(checkResult.desc).css("display","block");
+			$(this).next().text(checkResult.desc).css("display","block").css('color','red');
 		} else {
 			// ajax로 ID 중복 체크
 			if(ajaxIdCheck(memid)) {
-				
+				join_id = true;
+				return true;
 			}
 		}
+		join_id = false;
+		return false;
 	})
 	// 비밀번호 유효성 체크
 	$('#join-ps').blur(function() {
@@ -156,12 +203,17 @@ $(function() {
 		var checkResult = joinValidate.checkPs(pass, rpass);
 		// checkResult.code에 맞는 메시지 출력
 		if(checkResult.code != 0) {
-			$(this).next().text(checkResult.desc).css("display","block");
+			$(this).next().text(checkResult.desc).css("display","block").css('color','red');
 			$('#join-rps').next().text(checkResult.desc).css("display","none");
 		} else {
 			$('#join-ps').next().text(checkResult.desc).css("display","block").css('color','blue');
+			join_ps = true;
+			join_rps = true;
+			return true;
 		}
-		
+		join_ps = false;
+		join_rps = false;
+		return false;
 	})
 	// 비밀번호 확인 유효성 체크
 	$('#join-rps').blur(function() {
@@ -171,11 +223,17 @@ $(function() {
 		var checkResult = joinValidate.checkRps(rpass, pass);
 		// checkResult.code에 맞는 메시지 출력
 		if(checkResult.code != 0) {
-			$(this).next().text(checkResult.desc).css("display","block");
+			$(this).next().text(checkResult.desc).css("display","block").css('color','red');
 		} else {
 			$('#join-ps').next().text(checkResult.desc).css("display","none");
 			$(this).next().text(checkResult.desc).css("display","block").css('color','blue');
+			join_ps = true;
+			join_rps = true;
+			return true;
 		}
+		join_ps = false;
+		join_rps = false;
+		return false;
 	})
 	// 닉네임 유효성 체크
 	$('#join-name').blur(function() {
@@ -184,12 +242,15 @@ $(function() {
 		var checkResult = joinValidate.checkName(name);
 		
 		if(checkResult.code != 0) {
-			$(this).next().text(checkResult.desc).css("display","block");
+			$(this).next().text(checkResult.desc).css("display","block").css('color','red');
 		} else {
 			if(ajaxNameCheck(name)) {
-				
+				join_name = true;
+				return true;
 			}
 		}
+		join_name = false;
+		return false;
 	})
 	// 전화번호 유효성 체크
 	$('#join-phone').blur(function() {
@@ -197,10 +258,52 @@ $(function() {
 		
 		var checkResult = joinValidate.checkPhone(phone);
 		if(checkResult.code != 0) {
-			$(this).next().text(checkResult.desc).css("display","block");
+			$(this).next().text(checkResult.desc).css("display","block").css('color','red');
 		} else {
 			$(this).next().text(checkResult.desc).css("display","block").css('color','blue');
+			join_phone = true;
+			return true;
 		}
+		join_phone = false;
+		return false;
+	})
+	// 이메일 유효성 체크
+	$('#join-email').blur(function() {
+		var email = $.trim($(this).val());
+		
+		var checkResult = joinValidate.checkEmail(email);
+		
+		if(checkResult.code != 0) {
+			$(this).next().text(checkResult.desc).css("display","block").css('color','red');
+		} else {
+			$(this).next().text(checkResult.desc).css("display","block").css('color','blue');
+			join_email = true;
+			return true;
+		}
+		join_email = false;
+		return false;
+	})
+	// 상세주소 유효성 체크
+	$('#sample6_detailAddress').blur(function() {
+		var addr = $.trim($(this).val());
+		
+		var checkResult = joinValidate.checkAddr(addr);
+		
+		if(checkResult.code != 0) {
+			$(this).next().text(checkResult.desc).css("display","block").css('color','red');
+		} else {
+			$(this).next().text(checkResult.desc).css("display","block").css('color','blue');
+			if($('#sample6_address').val() != "") {
+				join_addr = true;
+				return true;	
+			} else {
+				$('#sample6_detailAddress').next().text('주소를 입력해주세요.').css('color','red');
+				join_addr = false;
+				return false;
+			}
+		}
+		join_addr = false;
+		return false;
 	})
 })
 </script>
