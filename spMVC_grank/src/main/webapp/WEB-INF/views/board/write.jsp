@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="../include/include.jsp"%>
-<link rel="stylesheet" type="text/css" href="${path}/resources/css/board-write.css?ver=2019102201">
+<link rel="stylesheet" type="text/css" href="${path}/resources/css/board-write.css?ver=20191024">
 	<%@ include file="../include/header.jsp"%>
 	<c:if test="${sessionScope.userid == null}">
 	<script>
@@ -42,7 +42,7 @@
 						});
 					</script>
 				</div>
-				<div class="drag-box"><span>파일을 Drag해주세요.</span></div>
+				<div class="drag-box"><div class="drag-comment">첨부할 이미지파일을 Drag&Drop해주세요.</div></div>
 				<div class="image_box">
 					<c:forEach items="${fList}" var="f">
 					<div style="display:inline-block;text-align: right;">
@@ -66,6 +66,23 @@
 <%@ include file="../include/footer.jsp"%>
 <script>
 	$(function(){
+		var bno = '${bDto.bno}'
+		var flag = '${flag}'
+		
+		if(flag == 'answer'){
+			$("#board-write-btn").text("등록")
+			$(".header-text").text("답변 작성")
+		}else{
+			if(bno==''){
+				
+			} else{
+				$("#board-write-btn").text("수정")
+				$(".header-text").text("게시글 수정")
+				var str = "";
+				str += "<input type='hidden' name='bno' value='"+bno+"'>";
+				$("#frm_board").append(str);
+			}
+		}
 		// 게시글 작성 버튼 클릭시
 		$('#board-write-btn').click(function(){
 			oEditors.getById["title-text"].exec("UPDATE_CONTENTS_FIELD", []);
@@ -97,26 +114,6 @@
 				$('#frm_board').action = '${path}/board/write'
 			}
 			$('#frm_board').submit()
-			
-		})
-		$(document).ready(function(){
-			var bno = '${bDto.bno}'
-			var flag = '${flag}'
-			
-			if(flag == 'answer'){
-				$("#board-write-btn").text("등록")
-				$(".header-text").text("답변 작성")
-			}else{
-				if(bno==''){
-					
-				} else{
-					$("#board-write-btn").text("수정")
-					$(".header-text").text("게시글 수정")
-					var str = "";
-					str += "<input type='hidden' name='bno' value='"+bno+"'>";
-					$("#frm_board").append(str);
-				}
-			}
 			
 		})
 		// dragover drop 이벤트는 jquery에 함수가 만들어지지 않은 상태이므로
@@ -155,28 +152,18 @@
 				contentType:false,
 				success:function(result){
 					for(var i = 0 ; i < result.length ; i++){
-						// 이미지를 담은 태그를 업로드한만큼 생성
-						$(".image_box").append(
-							$("<img/>",{
-								src : "${path}/images/" + result[i].file_name,
-								width : "150px",
-								class : "image-item"
-							})
-						)
-						/* 파일을 drag해서 업로드를 수행한 후
-							게시판을 작성하고 저장을 누를 때
-							업로드한 파일이름 리스트를 input box에 담아서
-							서버로 전송하기 위해ajax로 받은 json형태의 파일 이름리스트를
-							input type:hidden으로 form에 추가한다.
-						*/
+						// 이미지를 미리보기로 보여줄 폼 생성
+						var htmls = '';
+						htmls += '<div style="display:inline-block;text-align: right;">';
+						htmls += '<span data-fno="${f.fno}" class="image-delete" style="cursor:pointer;">'
 						// form으로 보낼 정보를 input type="hidden"으로 생성해서 담기
-						$(".image_box").append(
-							$("<input/>",{
-								type:"hidden",
-								name:"board_files",
-								value:result[i].file_name
-							})
-						)
+						htmls += '<input type="hidden" name="board_files" value="'+ result[i].file_name +'">'
+						htmls += '<i class="fas fa-times"></i></span>';
+						htmls += '<div><img width="150px" src="${path}/images/'+ result[i].file_name +'">'
+						htmls += '</div>';
+						htmls += '</div>';
+						// 이미지를 담은 태그를 업로드한만큼 생성
+						$(".image_box").append(htmls);
 					}
 					
 					$(".drag-box span").css("color","blue")
@@ -185,12 +172,34 @@
 			})
 			
 		})
-		// 이미지 삭제 버튼 클릭시
-		$('.image-delete').click(function(){
-			// 파일의 PK값 가져오기
-			var fno = $(this).attr('data-fno');
-			// ajax처리 이후 삭제할 태그를 변수에 담기
-			var tag = $(this).parent();
+	})
+	// 이미지 삭제 버튼 클릭시
+	$(document).on('click','.image-delete',function(){
+		// 파일의 PK값 가져오기
+		var fno = $(this).attr('data-fno');
+		var file_name = $(this).children('input').val();
+		// ajax처리 이후 삭제할 태그를 변수에 담기
+		var tag = $(this).parent();
+		if(fno == ''){
+			$('.delete-modal').css('display','block');
+			$('.delete-comment').text('이미지를 삭제하시겠습니까?');
+			$('#confirm-yes').click(function(){
+				$.ajax({
+					url : "${path}/ajaxfile/remove?file_name="+file_name,
+					method : "GET"
+				})
+				.done(function(result){
+					if(result == "OK"){
+						// done에서 this는 대상이 ajax가 되어서
+						// 위에서 선언한 tag라는 변수를 사용한다.
+						$(tag).remove();
+						$('.delete-modal').css('display','none');
+					} else if(result == "FAIL"){
+						alert("파일을 삭제할 수 없습니다")
+					}
+				})
+			})
+		} else{
 			$('.delete-modal').css('display','block');
 			$('.delete-comment').text('이미지를 삭제하시겠습니까?');
 			$('#confirm-yes').click(function(){
@@ -209,11 +218,10 @@
 					}
 				})
 			})
-		})
-		// delete-modal 아니오버튼 클릭시 이벤트
-		$(document).on('click','#confirm-no',function(){
-			$('.delete-modal').css('display','none');
-		})
+		}
 	})
-	
+	// delete-modal 아니오버튼 클릭시 이벤트
+	$(document).on('click','#confirm-no',function(){
+		$('.delete-modal').css('display','none');
+	})
 </script>

@@ -84,13 +84,27 @@ public class AjaxFileServiceImp implements AjaxFileService {
 	}
 
 	@Override
+	public boolean file_remove(String file_name) {
+		// TODO 최초 업로드한 이미지를 DB에 저장하기전 삭제하려는 경우
+		// 삭제할 파일의 업로드된 폴더의 경로 및 파일 이름
+		File delFile = new File(upLoadFolder, file_name);
+		// 존재하면
+		if(delFile.exists()) {
+			// 삭제
+			delFile.delete();
+			return true;
+		}
+		return false;
+	}
+	
+	@Override
 	public boolean file_delete(int fno) {
-		// TODO Auto-generated method stub
+		// TODO DB에 저장된 이미지 파일을 업로드폴더에 있는 파일과 함께 삭제
 		log.info(">>fno>>"+fno);
-		// 1.파일정보 추출
-		FileDto fileVO = fDao.read(fno);
+		// 1.파일정보 DB에서 가져오기
+		FileDto fileDto = fDao.read(fno);
 		// 2.파일의 물리적 경로 생성 
-		File delFile = new File(upLoadFolder, fileVO.getFile_name());
+		File delFile = new File(upLoadFolder, fileDto.getFile_name());
 		// 3. 파일이 있는지 확인한 후 
 		if(delFile.exists()) {
 			// 4.파일 삭제
@@ -142,4 +156,6 @@ public class AjaxFileServiceImp implements AjaxFileService {
 		// TODO bno값으로 file리스트 가져오기
 		return fDao.readByBno(bno);
 	}
+
+	
 }
