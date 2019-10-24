@@ -18,5 +18,7 @@ public interface BoardService {
 	public void increaseViewCnt(int bno, HttpSession httpSession);
 	public void like_cnt_up(int bno);
 	public void like_cnt_down(int bno);
+	public List<BoardDto> readByWriter(Map<String, Object> map);
+	public int countByWriter(String name);
 	
 }

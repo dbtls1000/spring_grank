@@ -8,6 +8,9 @@
 		SELECT COUNT(*) FROM tbl_board
 		<include refid="search"></include>
 	</select>
+	<select id="countByWriter" resultType="int">
+		SELECT COUNT(*) FROM tbl_board WHERE b_writer = #{name}
+	</select>
 	<select id="listAll" resultType="bDto">
 		<include refid="header"/>
 		SELECT * FROM tbl_board
@@ -25,7 +28,11 @@
 			FROM tbl_board)
 		WHERE bno = #{bno}
 	</select>
-	
+	<select id="readByWriter" resultType="bDto">
+		<include refid="header"/>
+		SELECT * FROM tbl_board WHERE b_writer = #{name} ORDER BY bno desc
+		<include refid="footer"/>
+	</select>
 	<insert id="insert" parameterType="bDto">
 		INSERT INTO tbl_board(bno,b_title,b_writer,b_content,b_platform,ref,re_step,re_level,like_cnt)
 		VALUES(seq_board.NEXTVAL,#{b_title},#{b_writer},#{b_content},#{b_platform},seq_board.CURRVAL,0,0,0)
