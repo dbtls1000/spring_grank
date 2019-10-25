@@ -181,6 +181,7 @@ $(function() {
 	// 아이디 유효성 체크
     $('#join-id').blur(function() {
 		var memid = $.trim($(this).val());
+		// memid 값으로 joinValidate의 checkId로 유효성 검사 후 맞는 resultCode 담기
 		var checkResult = joinValidate.checkId(memid);
 		// checkResult.code에 맞는 메시지 출력
 		if(checkResult.code != 0) {
@@ -199,7 +200,7 @@ $(function() {
 	$('#join-ps').blur(function() {
 		var pass = $.trim($(this).val());
 		var rpass = $.trim($('#join-rps').val());
-		
+		// pass와 rpass 값으로 joinValidate의 checkPs로 유효성 검사 후 맞는 resultCode 담기
 		var checkResult = joinValidate.checkPs(pass, rpass);
 		// checkResult.code에 맞는 메시지 출력
 		if(checkResult.code != 0) {
@@ -219,7 +220,7 @@ $(function() {
 	$('#join-rps').blur(function() {
 		var rpass = $.trim($(this).val());
 		var pass = $.trim($('#join-ps').val());
-		
+		// rpass와 pass 값으로 joinValidate의 checkRps로 유효성 검사 후 맞는 resultCode 담기
 		var checkResult = joinValidate.checkRps(rpass, pass);
 		// checkResult.code에 맞는 메시지 출력
 		if(checkResult.code != 0) {
@@ -238,12 +239,13 @@ $(function() {
 	// 닉네임 유효성 체크
 	$('#join-name').blur(function() {
 		var name = $.trim($(this).val());
-		
+		// name 값으로 joinValidate의 checkName로 유효성 검사 후 맞는 resultCode 담기
 		var checkResult = joinValidate.checkName(name);
-		
+		// checkResult.code에 맞는 메시지 출력
 		if(checkResult.code != 0) {
 			$(this).next().text(checkResult.desc).css("display","block").css('color','red');
 		} else {
+			// 닉네임 중복 체크
 			if(ajaxNameCheck(name)) {
 				join_name = true;
 				return true;
@@ -255,8 +257,9 @@ $(function() {
 	// 전화번호 유효성 체크
 	$('#join-phone').blur(function() {
 		var phone = $.trim($(this).val());
-		
+		// phone 값으로 joinValidate의 checkPhone로 유효성 검사 후 맞는 resultCode 담기
 		var checkResult = joinValidate.checkPhone(phone);
+		// checkResult.code에 맞는 메시지 출력
 		if(checkResult.code != 0) {
 			$(this).next().text(checkResult.desc).css("display","block").css('color','red');
 		} else {
@@ -270,9 +273,9 @@ $(function() {
 	// 이메일 유효성 체크
 	$('#join-email').blur(function() {
 		var email = $.trim($(this).val());
-		
+		// email 값으로 joinValidate의 checkEmail로 유효성 검사 후 맞는 resultCode 담기
 		var checkResult = joinValidate.checkEmail(email);
-		
+		// checkResult.code에 맞는 메시지 출력
 		if(checkResult.code != 0) {
 			$(this).next().text(checkResult.desc).css("display","block").css('color','red');
 		} else {
@@ -286,16 +289,18 @@ $(function() {
 	// 상세주소 유효성 체크
 	$('#sample6_detailAddress').blur(function() {
 		var addr = $.trim($(this).val());
-		
+		// addr 값으로 joinValidate의 checkAddr로 유효성 검사 후 맞는 resultCode 담기
 		var checkResult = joinValidate.checkAddr(addr);
-		
+		// checkResult.code에 맞는 메시지 출력
 		if(checkResult.code != 0) {
 			$(this).next().text(checkResult.desc).css("display","block").css('color','red');
 		} else {
 			$(this).next().text(checkResult.desc).css("display","block").css('color','blue');
+			// 주소가 공백이 아닐때
 			if($('#sample6_address').val() != "") {
 				join_addr = true;
-				return true;	
+				return true;
+			// 주소가 공백일때
 			} else {
 				$('#sample6_detailAddress').next().text('주소를 입력해주세요.').css('color','red');
 				join_addr = false;

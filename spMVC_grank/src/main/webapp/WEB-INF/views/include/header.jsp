@@ -89,7 +89,7 @@
 			})
 			// 마이페이지 버튼 클릭시
 			$('#mypage-btn').click(function() {
-				location.href = "${path}/member/mypage?userid=${sessionScope.userid}"
+				location.href = "${path}/member/mypage"
 			})
 			// 탑버튼 클릭시 상단으로 이동 0.4초
 			$('#top-btn').click(function() {
@@ -130,14 +130,24 @@
 				var uri = '${uri}'
 				var id = $.trim($('#login-id').val())
 				var pw = $.trim($('#login-pw').val())
+				// 공백문자
+				var regEmpty = /\s/g;
 				if (id.length == 0 || id == '') {
 					$('.login-err-msg').text('아이디를 입력해주세요')
 							.css('visibility', 'visible')
+					return false;
+				} else if (id.match(regEmpty)) {
+					$('.login-err-msg').text('공백 없이 입력해주세요')
+					.css('visibility', 'visible')
 					return false;
 				}
 				if (pw.length == 0 || pw == '') {
 					$('.login-err-msg').text('비밀번호를 입력해주세요')
 							.css('visibility', 'visible')
+					return false;
+				} else if (pw.match(regEmpty)) {
+					$('.login-err-msg').text('공백 없이 입력해주세요')
+					.css('visibility', 'visible')
 					return false;
 				}
 				$.ajax({
@@ -155,7 +165,7 @@
 							}
 						} else if (data == '-1') {
 							$('#login-id').focus();
-							$('.err-msg').text(
+							$('.login-err-msg').text(
 									'회원 아이디 또는 비밀번호가 일치하지 않습니다').css(
 									'visibility', 'visible');
 						} else {

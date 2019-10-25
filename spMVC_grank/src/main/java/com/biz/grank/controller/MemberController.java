@@ -69,22 +69,24 @@ public class MemberController {
 	// 마이페이지 화면단
 	@GetMapping("mypage")
 	public String mypage(@RequestParam(defaultValue = "1") int curPage,Model model,HttpSession httpSession) {
-		// httpSession에서 userid 값 가져오기
+		// 로그인 한 세션값에서 userid 값 을 꺼내와 userid에 담기
 		String userid = (String)httpSession.getAttribute("userid");
+		// 로그인 한 세션값에서 name 값 을 꺼내와 name에 담기
 		String name = (String)httpSession.getAttribute("name");
-		int count = bService.countByWriter(name);
-		Pagination page = new Pagination(count, curPage);
-		int start = page.getPageBegin();
-		int end = page.getPageEnd();
-		Map<String, Object> map = new HashMap<String, Object>();
-		log.info("count:"+count+"start:"+start+"end:"+end);
-		map.put("name", name);
-		map.put("start", start);
-		map.put("end", end);
+		
 		if(userid == null) {
 			// userid 값이 없으면 redirect:/
 			return "redirect:/";
 		} else {
+			int count = bService.countByWriter(name);
+			Pagination page = new Pagination(count, curPage);
+			int start = page.getPageBegin();
+			int end = page.getPageEnd();
+			Map<String, Object> map = new HashMap<String, Object>();
+			log.info("count:"+count+"start:"+start+"end:"+end);
+			map.put("name", name);
+			map.put("start", start);
+			map.put("end", end);
 			// 페이지네이션을하기위해 model에 page담기
 			model.addAttribute("page", page);
 			// 해당 유저의 작성 게시글을 가져와 model에 담기
@@ -121,7 +123,9 @@ public class MemberController {
 	// 회원 수정
 	@PostMapping("update")
 	public String update(MemberDto mDto,HttpSession httpSession,Model model) {
+		// 로그인 한 세션값에서 userid 값 을 꺼내와 userid에 담기
 		String userid = (String)httpSession.getAttribute("userid");
+		// mDto의 userid에 userid값 담기
 		mDto.setUserid(userid);
 		mService.update(mDto);
 		// 회원 수정 후 model에 값 담기
@@ -151,6 +155,7 @@ public class MemberController {
 		String userid = mDto.getUserid();
 		// userid와 일치한 데이터 가져와 view에 담기
 		MemberDto view = mService.viewMember(userid);
+		// view 값을 model에 담기
 		model.addAttribute("mDto",view);
 		return "redirect:/member/mypage";
 	}

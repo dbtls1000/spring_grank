@@ -49,7 +49,7 @@ public class MemberServiceImp implements MemberService {
 		// 입력한 아이디와 맞는 값이 있으면 checkDto에 담기
 		MemberDto checkDto = mDao.loginCheck(mDto);
 		boolean result = false;
-		if (checkDto.getUserid() != null) {
+		if (checkDto != null) {
 			// 입력한 아이디로 가져온 정보의 암호화된 비밀번호
 			String cryptPassword = checkDto.getPasswd();
 			// 입력한 비밀번호

@@ -59,15 +59,16 @@ $(function() {
 	var new_ps = false;
 	var new_psword = false;
 	var new_psword_re = false;
+	// 입력한 비밀번호가 로그인 한 id의 비밀번호와 맞는지 체크
 	$('#new_ps').blur(function() {
 		var user = "${sessionScope.userid}";
 		var pass = $.trim($('.password_new').val());
-		// 현재 비밀번호 null 체크
+		// 입력한 비밀번호 null 체크
 		if(pass == null || pass.length == 0) {
 			$('.member_password_err').css('display','block');
 			$('#delete-password').focus();
 		} else {
-			// 현재 비밀번호 체크
+			// 입력한 비밀번호와 id의 비밀번호 체크
 			state = ajaxPassCheck(user,pass);
 			// state가 true일때
 			if(state) {
@@ -88,14 +89,14 @@ $(function() {
 		var user = "${sessionScope.userid}";
 		var newpass = $.trim($(this).val());
 		var repass = $.trim($('#new_psword_re').val());
-		// 비밀번호 유효성 체크
+		// newpass와 repass로 joinValidate의 checkPs로 유효성 체크 후 resultCode 값 담기
 		var checkResult = joinValidate.checkPs(newpass, repass);
 		// checkResult.code에 맞는 메시지 출력
 		if(checkResult.code != 0) {
 			$(this).next().text(checkResult.desc).css('display','block').css('color','red');
 			$('#new_psword_re').next().css('display','none');
 		} else {
-			// 비밀번호 중복 체크
+			// 입력한 비밀번호와 로그인한 id의 비밀번호가 같은지 체크
 			if(ajaxPassCheck(user,newpass)) {
 				$(this).next().text('현재 비밀번호와 같은 비밀번호입니다.').css('display','block').css('color','red');
 				return false;
@@ -114,8 +115,9 @@ $(function() {
 	$('#new_psword_re').blur(function() {
 		var repass = $.trim($(this).val());
 		var newpass = $.trim($('#new_psword').val());
-		// 새 비밀번호 확인과 새 비밀번호로 같은지 체크
+		// repass와 newpass로 joinValidate의 checkRps로 유효성 체크 후 resultCode 값 담기
 		var checkResult = joinValidate.checkRps(repass, newpass);
+		// checkResult.code에 맞는 메시지 출력
 		if(checkResult.code != 0) {
 			$(this).next().text(checkResult.desc).css('display','block').css('color','red');
 		} else {

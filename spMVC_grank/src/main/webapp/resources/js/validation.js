@@ -16,11 +16,11 @@ var joinValidate = {
 			// id 체크
 			invalid_id : {
 				code : 3,
-				desc : '올바른 아이디를 입력해 주세요.'
+				desc : '올바른 아이디(영문 소문자, 숫자)를 입력해 주세요.'
 			},
 			length_id : {
 				code : 4,
-				desc : '5~20자의 영문 소문자, 숫자만 사용 가능 합니다.'
+				desc : '아이디(글자수 5~20미만)를 입력해 주세요.'
 			},
 			// 비밀번호 체크
 			success_ps : {
@@ -143,6 +143,7 @@ var joinValidate = {
 				return this.resultCode.empty_val;
 			// 비밀번호 null 체크
 			} else if (pass != "" || pass.length != 0) {
+				// 비밀번호 확인과 비밀번호가 일치하는지 체크
 				if(rpass == pass) {
 					return this.resultCode.success_rps;
 				} else {
@@ -171,6 +172,7 @@ var joinValidate = {
 				return this.resultCode.success_name;
 			}
 		},
+		// 전화번호 유효성 체크
 		checkPhone : function(phone) {
 			// 공백문자
 			var regEmpty = /\s/g;
@@ -192,6 +194,7 @@ var joinValidate = {
 				return this.resultCode.success_ph;
 			}
 		},
+		// 이메일 유효성 체크
 		checkEmail : function(email) {
 			// 공백문자
 			var regEmpty = /\s/g;
@@ -210,8 +213,9 @@ var joinValidate = {
 				return this.resultCode.success_em;
 			}
 		},
+		// 상세주소 유효성 체크
 		checkAddr : function(addr) {
-			// 상세주소 유효성 체크
+			// 상세주소 유효성 체크(숫자, 한글, 공백, (,))만
 			regAddr =/[^0-9가-힣, ]/;
 			// 상세주소 null 체크
 			if(addr == "" || addr.length == 0) {

@@ -40,7 +40,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 					// uri가 member_delete일때 /로 이동
 					response.sendRedirect(request.getContextPath()+"/");
 					return false;
-				}
+				} 
 			}
 			// uri 값 가져오기
 			String uri = request.getRequestURI();
