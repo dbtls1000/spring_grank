@@ -22,6 +22,5 @@
 	$(".g-card").click(function(){
 		let game_code = $(this).attr("data-code");
 		location.href = "${path}/game/gameview?game_code="+game_code;
-		alert(location.href)
 	})
 </script>

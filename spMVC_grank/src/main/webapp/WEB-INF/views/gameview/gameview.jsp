@@ -1,71 +1,133 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="../include/include.jsp"%>
-<link rel="stylesheet" type="text/css" href="${path}/resources/css/mypage.css?ver=2019101703">
+<link rel="stylesheet" type="text/css" href="${path}/resources/css/gameview.css?ver=2019102501">
 <%@ include file="../include/header.jsp"%>
 <style>
-	   div.wrapper-header {
-            background-color: #00b894;
-            height: 45px;
-            width: 100%;
-            color: #fff;
-            font-size: 25px;
-        }
-        .header-text {
-            font-size: 25px;
-            color: #fff;
-            padding-left: 20px;
-        }
-        .review-wrapper{
-            display: flex;
-            width: 960px;
-            margin: 20px auto;
-            justify-content: space-between;
-        }
-        .review-item{
-            display: inline-block;
-            width:460px;
-            border: 2px solid #00b894;
-        }
-        .review-content{
-            width: 440px;
-            margin: 20px auto;
-            border-bottom: 1px solid #00b894;
-        }
-        .game-score{
-            width: 20px;
-            height: 20px;
-            border: 1px solid #00b894;
-            border-radius: 5px;
-            margin-right: 10px;
-            background: #00b894;
-        }
 </style>
   <div class="wrapper">
-        <div class="wrapper-header"><span class="header-text"></span></div>
+        <div class="wrapper-header"><span class="header-text">게임정보</span></div>
         <div class="review-wrapper">
             <div class="review-item">
-                <div class="wrapper-header"><span class="header-text">${gDto.c_critic}</span></div>
-                <!-- 여기에다 Ajax로 집어넣기 -->
+                <div class="wrapper-header"><span class="header-text">비평가</span></div>
                 <div id="c-review">
-                    <!-- forEach돌리기 -->
-                    <div class="review-content">
-                        <div style="font-weight: bold;font-size:18px;"><span class="game-score">100</span>The Indie Game Website</div>
-                        <div>Disco Elysium blew my mind with its radically simple but deep approach to roleplaying. Its world and characterisation are brought to life by artistry and writing that are nothing short of astounding. Somehow, the stars aligned with absurd ambition, sheer fledgling talent and a decade of pen and paper storytelling in the Elysium universe to create something truly special. Is Disco Elysium the best RPG of all time? I can’t make that call. Is it the best game I’ve played all year? Absolutely.</div>
-                    </div>
                 </div>
+                <div><a id="c_more" class="review a-button a-common">more+</a></div>
+               <input type="hidden" id="cview-count" value="5">
             </div>
             <div class="review-item">
                 <div class="wrapper-header"><span class="header-text">유저</span></div>
-                <!-- 여기에다 Ajax로 집어넣기 -->
                 <div id="u-review">
-                    <!-- forEach돌리기 -->
-                    <div class="review-content">
-                        <div style="font-weight: bold;font-size:18px;"><span class="game-score">10</span>Ubykh</div>
-                        <div>A unique Game of a kind, that revolutionize the RPGs with a level of writing rarely achieved elsewhere.
-                                True Detective plus Bukowski meets… Expand</div>
-                    </div>
                 </div>
+                <div><a id="u_more" class="review a-button a-common">more+</a></div>
             </div> 
+            <input type="hidden" id="uview-count" value="5">
         </div>
     </div>
+ <script>
+ 		// creview start
+ 		function creview(){
+ 			var game_code = '${gDto.game_code}'
+ 			var cmax = ${csize};
+ 			var count = Number($('#cview-count').val());
+ 			
+ 			// count이 cmax보다 크면 버튼 제거
+ 			if(count >= cmax) {
+ 				$('#c_more').remove();
+ 			} 
+ 			$.ajax({ // ajax start
+ 				url : '${path}/game/creview?game_code='+game_code,
+ 				type : 'GET',
+ 				success : function(page){
+ 					$('#c-review').html(page);
+ 				},
+ 				error : function(){
+ 					alert('System error');
+ 				}
+ 			})// ajax end 
+ 		}// end
+ 		// ureview start
+ 		function ureview(){ // function  start
+ 			var game_code = '${gDto.game_code}'
+ 			var umax = ${usize};
+			var count = Number($('#uview-count').val());
+			
+			// count값이 umax보다 크면 버튼 제거
+			if (count >= umax) {
+				$('#u_more').remove();
+			}
+ 			$.ajax({ // ajax start
+ 				url : '${path}/game/ureview?game_code='+game_code,
+ 				type : 'GET',
+ 				success : function(page){
+ 					$('#u-review').html(page);
+ 				},
+ 				error : function(){
+ 					alert('System error');
+ 				}
+ 			})// ajax end
+ 		}// function end
+		
+ 		// userview more click
+ 		$(document).on('click', '.review', function(){ // more button function start
+ 			var ccount = Number($('#cview-count').val());
+ 			var ucount = Number($('#uview-count').val());
+ 			var cmax = ${csize};
+ 			var umax = ${usize};
+ 			var id = $(this).attr('id');
+ 			var game_code = '${gDto.game_code}'
+			// critic more button
+ 			if(id == 'c_more'){
+ 				ccount += 5;
+ 	 			if(ccount > cmax) {
+ 	 				ccount = cmax;
+ 	 				$('#c_more').remove();
+ 	 			}
+ 	 			$('#cview-count').val(ccount);
+	 		
+ 	 			$.ajax({ // ajax start
+	 				url : '${path}/game/creview?game_code='+game_code+'&count='+ccount,
+	 				type : 'GET',
+	 				success : function(page){
+	 					$('#c-review').html(page);
+	 				},
+	 				error : function(){
+	 					alert('System error');
+	 				}
+	 			})// ajax end
+	 		}
+ 			
+ 			// user more button
+ 			if(id == 'u_more'){
+ 				ucount += 5;
+	 			if(ucount > umax) {
+	 				ucount = umax;
+	 				$('#u_more').remove();
+		 		}
+	 				$('#uview-count').val(ucount);
+	 			
+	 			$.ajax({ // ajax start
+	 				url : '${path}/game/ureview?game_code='+game_code+'&count='+ucount,
+	 				type : 'GET',
+	 				success : function(page){
+	 					$('#u-review').html(page);
+	 				},
+	 				error : function(){
+	 					alert('System error');
+	 				}
+	 			})// ajax end
+ 			}
+
+ 		}) // more button function end
+ 		
+ 	
+ 		// ureview document create
+ 		$(document).ready(function(){
+ 			creview();
+ 			ureview();
+ 		})
+ 		
+ 		
+ 		
+ 		
+ </script>

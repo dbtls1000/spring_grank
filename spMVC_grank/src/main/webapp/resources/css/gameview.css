@@ -1,0 +1,43 @@
+@charset "UTF-8";
+
+div.wrapper-header {
+	background-color: #00b894;
+	height: 45px;
+	width: 100%;
+	color: #fff;
+	font-size: 25px;
+}
+
+.header-text {
+	font-size: 25px;
+	color: #fff;
+	padding-left: 20px;
+}
+
+.review-wrapper {
+	display: flex;
+	width: 960px;
+	margin: 20px auto;
+	justify-content: space-between;
+}
+
+.review-item {
+	display: inline-block;
+	width: 460px;
+	border: 2px solid #00b894;
+}
+
+.review-content {
+	width: 440px;
+	margin: 20px auto;
+	border-bottom: 1px solid #00b894;
+}
+
+.game-score {
+	width: 20px;
+	height: 20px;
+	border: 1px solid #00b894;
+	border-radius: 5px;
+	margin-right: 10px;
+	background: #00b894;
+}

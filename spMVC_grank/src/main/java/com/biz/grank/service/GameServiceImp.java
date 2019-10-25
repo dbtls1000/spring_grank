@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.biz.grank.domain.ComingSoonDto;
 import com.biz.grank.domain.CriticDto;
 import com.biz.grank.domain.GameRankDto;
+import com.biz.grank.domain.UserDto;
 import com.biz.grank.persistence.GameDao;
 
 import lombok.extern.slf4j.Slf4j;
@@ -66,11 +67,36 @@ public class GameServiceImp implements GameService {
 		return cList;
 	}
 
+	// 7. 게임평가순위리스트 단건 출력
+	@Override
+	public GameRankDto gameView(String game_code) {
+		return gDao.gameView(game_code);
+	}
+
+	// 8. Ajax 비평가리뷰 리스트 출력
+	@Override
+	public List<CriticDto> gFindCritic(Map<String, Object> criticMap) {
+		List<CriticDto> criticList = gDao.gFindCritic(criticMap);
+		return criticList;
+	}
+
+	// 9. Ajax 유저리뷰 리스트 출력
+	@Override
+	public List<UserDto> gFindUser(Map<String, Object> userMap) {
+		List<UserDto> userList = gDao.gFindUser(userMap); 
+		return userList;
+	}
+
 
 	@Override
-	public List<CriticDto> gFindCritic(String game_code) {
-		 List<CriticDto> criticList =  gDao.gFindCritic(game_code);
-		return criticList;
+	public int cReviewSize(String game_code) {
+		return gDao.cReviewSize(game_code);
+	}
+
+
+	@Override
+	public int uReviewSize(String game_code) {
+		return gDao.uReviewSize(game_code);
 	}
 
 

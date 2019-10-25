@@ -6,6 +6,7 @@ import java.util.Map;
 import com.biz.grank.domain.ComingSoonDto;
 import com.biz.grank.domain.CriticDto;
 import com.biz.grank.domain.GameRankDto;
+import com.biz.grank.domain.UserDto;
 
 public interface GameService {
 	
@@ -27,7 +28,18 @@ public interface GameService {
 	// 6. 출시예정작 20건씩 출력 
 	public List<ComingSoonDto> cMoreView(int count);
 
-	public List<CriticDto> gFindCritic(String game_code);
+	// 7. 게임순위리스트 단건 출력
+	public GameRankDto gameView(String game_code);
+
+	// 8. Ajax 비평가리뷰 리스트 출력
+	public List<CriticDto> gFindCritic(Map<String, Object> criticMap);
+	
+	// 9. Ajax 유저리뷰 리스트 출력
+	public List<UserDto> gFindUser(Map<String, Object> userMap);
+
+	public int cReviewSize(String game_code);
+
+	public int uReviewSize(String game_code);
 	
 	
 }	

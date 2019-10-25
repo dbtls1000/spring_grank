@@ -12,6 +12,7 @@ div.g-card {
 	width: 170px;
 	height: 300px;
 	margin: 20px 10px;
+	cursor: pointer;
 }
 
 .g-card-item {
