@@ -8,8 +8,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.biz.grank.domain.BoardDto;
 import com.biz.grank.domain.ComingSoonDto;
 import com.biz.grank.domain.GameRankDto;
+import com.biz.grank.service.BoardService;
 import com.biz.grank.service.GameService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -23,12 +25,17 @@ public class HomeController {
 	
 	@Autowired
 	private GameService gameService;
+	@Autowired
+	private BoardService bService;
 
 	// 1. 출시 예정작 6건 출력
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Model model) {
+		// 인기게시글 5건 출력
+		List<BoardDto> bList = bService.popularList();
 		// 출시 예정작 6건 출력
 		List<ComingSoonDto> cList = gameService.cFindLimit();
+		model.addAttribute("bList", bList);		
 		model.addAttribute("cList", cList);
 		return "home";
 		
@@ -41,5 +48,6 @@ public class HomeController {
 		model.addAttribute("gList", gList);
 		return "gameview/gameranklist";
 	}
+	
 	
 }

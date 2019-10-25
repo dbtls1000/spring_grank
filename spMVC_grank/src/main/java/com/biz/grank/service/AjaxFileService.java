@@ -13,7 +13,7 @@ public interface AjaxFileService {
 	
 	public boolean file_remove(String file_name);
 	
-	public boolean file_delete(int fno);
+	public boolean file_delete(int fno,String file_name);
 	
 	public void insert(BoardDto bDto);
 	

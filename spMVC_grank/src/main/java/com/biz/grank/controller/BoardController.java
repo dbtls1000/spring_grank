@@ -96,6 +96,7 @@ public class BoardController {
 		log.info("파일리스트"+afService.readByBno(bno));
 		model.addAttribute("fList", afService.readByBno(bno));
 		model.addAttribute("bDto", bService.readOne(bno));
+		log.info(">bDto>" + bService.readOne(bno));
 		return "board/view";
 	}
 	
@@ -185,9 +186,11 @@ public class BoardController {
 			lService.like_check_cansel(map);
 			bService.like_cnt_down(bno);
 		}
-		
+		BoardDto bDto = bService.readOne(bno);
+		int like_cnt = bDto.getLike_cnt();
 		// obj에 like_check을 put
 		obj.put("like_check", like_check);
+		obj.put("like_cnt", like_cnt);
 		return obj.toJSONString();
 	}
 }

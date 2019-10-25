@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -31,25 +32,12 @@ public class AjaxFileController {
 		return fileDtoList;
 	}
 	
-	// 게시글 작성중 업로드한 파일을 삭제하는 경우
-	@ResponseBody
-	@GetMapping("remove")
-	public String remove(String file_name) {
-		log.info("파일이름>>>"+file_name);
-		boolean okDelete = afService.file_remove(file_name);
-		
-		// okDelete가 true면 OK를 리턴
-		if(okDelete) return "OK";
-		// false일 경우 FAIL을 리턴
-		else return "FAIL";
-	}
-	
-	// 작성된 게시글을 수정할때 이미지를 삭제하는 경우
+	// 이미지를 삭제하는 경우
 	@ResponseBody
 	@GetMapping("delete")
-	public String delete(int fno) {
+	public String delete(@RequestParam(defaultValue = "0")int fno,String file_name) {
 		log.info(">>fno>>"+fno);
-		boolean okDelete = afService.file_delete(fno);
+		boolean okDelete = afService.file_delete(fno,file_name);
 		
 		// okDelete가 true면 OK를 리턴
 		if(okDelete) return "OK";

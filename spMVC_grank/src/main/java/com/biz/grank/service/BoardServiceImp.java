@@ -58,6 +58,7 @@ public class BoardServiceImp implements BoardService {
 		// bno가 0이면 작성
 		if(bDto.getBno() == 0) {
 			bDao.insert(bDto);
+			log.info(">>bno>>"+bDto.getBno());
 			afService.insert(bDto);
 		} else { // 0이 아니면 수정
 			bDao.update(bDto);
@@ -140,6 +141,12 @@ public class BoardServiceImp implements BoardService {
 	public int countByWriter(String name) {
 		// TODO 작성자로 검색한 게시글 수
 		return bDao.countByWriter(name);
+	}
+
+	@Override
+	public List<BoardDto> popularList() {
+		// TODO 조회수 높은 순서대로 5건만 기져옴
+		return bDao.popularList();
 	}
 
 }

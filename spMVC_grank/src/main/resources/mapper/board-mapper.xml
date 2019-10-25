@@ -20,9 +20,14 @@
 		<if test="sort_option == 'view'">ORDER BY b_viewcnt desc,ref desc, re_step</if> 
 		<include refid="footer"/>
 	</select>
+	<select id="popularList" resultType="bDto">
+		<include refid="header"/>
+		SELECT * FROM tbl_board WHERE re_step = 0 ORDER BY b_viewcnt desc
+		) A ) WHERE rnum BETWEEN 1 AND 5
+	</select>
 	<select id="readOne" resultType="bDto">
 		SELECT * FROM (
-			SELECT bno, b_writer, b_title, b_content, b_viewcnt, b_replycnt, b_regdate, b_platform,ref,re_step,re_level,
+			SELECT bno, b_writer, b_title, b_content, b_viewcnt, b_replycnt, b_regdate, b_platform,ref,re_step,re_level,like_cnt,
 				LEAD(bno,1) OVER(ORDER BY bno) next_bno,
 				LAG(bno,1) OVER(ORDER BY bno) prev_bno
 			FROM tbl_board)

@@ -34,6 +34,8 @@ public interface BoardDao {
 
 	public int countByWriter(String name);
 
+	public List<BoardDto> popularList();
+
 	
 
 }

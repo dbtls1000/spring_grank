@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../include/include.jsp" %>
-<link rel="stylesheet" type="text/css" href="${path}/resources/css/join.css?ver=2019101701">
+<link rel="stylesheet" type="text/css" href="${path}/resources/css/join.css?ver=20191025">
 <%@ include file="../include/header.jsp" %>
 <c:choose>
 	<c:when test="${mDto.userid == null}">
@@ -80,8 +80,16 @@
                 <div class="join-address">
                     <input class="address-btn" type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기">
                 </div>
-                <input class="address" type="text" name="zipcode" readonly="readonly" id="sample6_postcode" placeholder="우편번호" value="${mDto.zipcode}">
-                <input class="address" type="text" name="addr1" readonly="readonly" id="sample6_address" placeholder="주소" value="${mDto.addr1}">
+                <div style="display: flex;">
+                	<div>
+                		<div class="join-label"><span>우편번호</span></div>
+                	<input class="address" type="text" name="zipcode" readonly="readonly" id="sample6_postcode" value="${mDto.zipcode}">
+                	</div>
+                	<div>
+                		<div class="join-label"><span>주소</span></div>
+                	<input class="address" type="text" name="addr1" readonly="readonly" id="sample6_address" value="${mDto.addr1}">
+                	</div>
+                </div>
                 <div class="join-label">
                     <span>상세주소</span>
                 </div>

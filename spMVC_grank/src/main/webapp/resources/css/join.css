@@ -58,13 +58,20 @@ div.join-wrapper-content {
 
 .address-btn {
 	width: 580px;
-	height: 30px;
+	height: 35px;
+	border: none;
+	outline: none;
+	background: #00b894;
+	cursor: pointer;
+	font-size: 18px;
 }
 
 .address {
-	width: 283px;
+	width: 288px;
 	height: 30px;
 	border: solid 1px #dadada;
+	cursor: pointer;
+	outline: none;
 }
 #join-join-btn{
         width: 580px;

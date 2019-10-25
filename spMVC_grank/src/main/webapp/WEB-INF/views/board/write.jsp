@@ -50,6 +50,7 @@
 						<div>
 							<img width="150px" src="${path}/images/${f.file_name}">
 						</div>
+						<div>${f.origin_name}</div>
 					</div>
 					</c:forEach>
 				</div>
@@ -152,22 +153,26 @@
 				contentType:false,
 				success:function(result){
 					for(var i = 0 ; i < result.length ; i++){
+						// UUID값 추출
+						var uuid = result[i].file_name.split('_');
+						// 원본파일이름 추출
+						var origin_name = uuid[uuid.length - 1]
+						// 이미지를 업로드하면 그에대한 정보를 보여주는 태그생성
 						// 이미지를 미리보기로 보여줄 폼 생성
 						var htmls = '';
-						htmls += '<div style="display:inline-block;text-align: right;">';
+						htmls += '<div style="display:inline-block;text-align: right;width:150px;">';
 						htmls += '<span data-fno="${f.fno}" class="image-delete" style="cursor:pointer;">'
 						// form으로 보낼 정보를 input type="hidden"으로 생성해서 담기
 						htmls += '<input type="hidden" name="board_files" value="'+ result[i].file_name +'">'
 						htmls += '<i class="fas fa-times"></i></span>';
 						htmls += '<div><img width="150px" src="${path}/images/'+ result[i].file_name +'">'
 						htmls += '</div>';
+						htmls += '<div>' + origin_name + '</div>'
+						htmls += '<input type=hidden class="image-name" value="'+origin_name+'">'
 						htmls += '</div>';
 						// 이미지를 담은 태그를 업로드한만큼 생성
 						$(".image_box").append(htmls);
 					}
-					
-					$(".drag-box span").css("color","blue")
-					$(".drag-box span").text("파일 업로드 성공")
 				}
 			})
 			
@@ -180,45 +185,26 @@
 		var file_name = $(this).children('input').val();
 		// ajax처리 이후 삭제할 태그를 변수에 담기
 		var tag = $(this).parent();
-		if(fno == ''){
-			$('.delete-modal').css('display','block');
-			$('.delete-comment').text('이미지를 삭제하시겠습니까?');
-			$('#confirm-yes').click(function(){
-				$.ajax({
-					url : "${path}/ajaxfile/remove?file_name="+file_name,
-					method : "GET"
-				})
-				.done(function(result){
-					if(result == "OK"){
-						// done에서 this는 대상이 ajax가 되어서
-						// 위에서 선언한 tag라는 변수를 사용한다.
-						$(tag).remove();
-						$('.delete-modal').css('display','none');
-					} else if(result == "FAIL"){
-						alert("파일을 삭제할 수 없습니다")
-					}
-				})
+		$('.delete-modal').css('display','block');
+		$('.delete-comment').text('이미지를 삭제하시겠습니까?');
+		$('#confirm-yes').click(function(){
+			$.ajax({
+				url : "${path}/ajaxfile/delete?fno="+fno+"&file_name=" + file_name,
+				method : "GET"
 			})
-		} else{
-			$('.delete-modal').css('display','block');
-			$('.delete-comment').text('이미지를 삭제하시겠습니까?');
-			$('#confirm-yes').click(function(){
-				$.ajax({
-					url : "${path}/ajaxfile/delete?fno="+fno,
-					method : "GET"
-				})
-				.done(function(result){
-					if(result == "OK"){
-						// done에서 this는 대상이 ajax가 되어서
-						// 위에서 선언한 tag라는 변수를 사용한다.
-						$(tag).remove()
-						$('.delete-modal').css('display','none');
-					} else if(result == "FAIL"){
-						alert("파일을 삭제할 수 없습니다")
-					}
-				})
+			.done(function(result){
+				if(result == "OK"){
+					var origin_name = $(tag).children('.image-name').val();
+					$('#'+origin_name).remove();
+					// done에서 this는 대상이 ajax가 되어서
+					// 위에서 선언한 tag라는 변수를 사용한다.
+					$(tag).remove()
+					$('.delete-modal').css('display','none');
+				} else if(result == "FAIL"){
+					alert("파일을 삭제할 수 없습니다")
+				}
 			})
-		}
+		})
 	})
 	// delete-modal 아니오버튼 클릭시 이벤트
 	$(document).on('click','#confirm-no',function(){

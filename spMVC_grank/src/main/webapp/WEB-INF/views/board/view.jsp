@@ -15,13 +15,13 @@
 			</div>
 			<c:choose>
 				<c:when test="${empty sessionScope.name}">
-					<i id="like-btn-login" class="far fa-heart"></i>
+					<div><i id="like-btn-login" class="far fa-heart"></i><span class="likeCnt">${bDto.like_cnt}</span></div>
 				</c:when>
 				<c:when test="${lDto.like_check == 1}">
-					<i id="like-btn" class="fas fa-heart"></i>
+					<div><i id="like-btn" class="fas fa-heart"></i><span class="likeCnt">${bDto.like_cnt}</span></div>
 				</c:when>
 				<c:otherwise>
-					<i id="like-btn" class="far fa-heart"></i>
+					<div><i id="like-btn" class="far fa-heart"></i><span class="likeCnt">${bDto.like_cnt}</span></div>
 				</c:otherwise>
 			</c:choose>
 		</div>
@@ -223,6 +223,7 @@
 				// icon변수 = 좋아요 아이콘의 클래스를 바꿔줄 변수
 				var icon = '';
 				var check = data.like_check;
+				var cnt = data.like_cnt;
 				console.log(check)
 				// like_check가 0이면 꽉찬하트로 바꿔주고
 				if(data.like_check == 0){
@@ -232,6 +233,7 @@
 			    }
 				// icon을 class속성에 대입
 				$('#like-btn').attr('class',icon)
+				$('.likeCnt').text(cnt);
 			},
 			error:function(){
 				alert('error')
