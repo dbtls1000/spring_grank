@@ -29,7 +29,7 @@ var joinValidate = {
 			},
 			invalid_ps : {
 				code : 3,
-				desc : '올바른 비밀번호(특수문자 포함 8~16자)를 입력해 주세요.'
+				desc : '올바른 비밀번호(특수문자 포함 영문 대소문자 8~16자)를 입력해 주세요.'
 			},
 			other_ps : {
 				code : 4,
@@ -199,7 +199,7 @@ var joinValidate = {
 			// 공백문자
 			var regEmpty = /\s/g;
 			// 이메일 유효성 체크
-			regEmail =/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i;
+			regEmail =/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,4}$/i;
 			// 이메일 null 체크
 			if(email == "" || email.length == 0) {
 				return this.resultCode.empty_val;
