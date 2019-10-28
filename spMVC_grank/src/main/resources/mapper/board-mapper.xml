@@ -22,7 +22,9 @@
 	</select>
 	<select id="popularList" resultType="bDto">
 		<include refid="header"/>
-		SELECT * FROM tbl_board WHERE re_step = 0 ORDER BY b_viewcnt desc
+		SELECT * FROM tbl_board WHERE re_step = 0 
+		AND b_regdate >= TO_CHAR(SYSDATE - 3,'YYYYMMDD')
+		ORDER BY b_viewcnt desc
 		) A ) WHERE rnum BETWEEN 1 AND 5
 	</select>
 	<select id="readOne" resultType="bDto">

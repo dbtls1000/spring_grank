@@ -12,11 +12,11 @@
 		</div>
 		<div class="list-search">
 			<div class="flex-item">
-				<span class="board-sort"><a id="sort_new" href="${path}/board/list?sort_option=new">최신순</a></span>
+				<span class="board-sort"><a id="sort_new" href="${path}/board/list?sort_option=new&search_option=${search_option}&keyword=${keyword}">최신순</a></span>
 				<span>｜</span>
-				<span class="board-sort"><a id="sort_reply" href="${path}/board/list?sort_option=reply">댓글순</a></span>
+				<span class="board-sort"><a id="sort_reply" href="${path}/board/list?sort_option=reply&search_option=${search_option}&keyword=${keyword}">댓글순</a></span>
 				<span>｜</span>
-				<span class="board-sort"><a id="sort_view" href="${path}/board/list?sort_option=view">조회순</a></span>
+				<span class="board-sort"><a id="sort_view" href="${path}/board/list?sort_option=view&search_option=${search_option}&keyword=${keyword}">조회순</a></span>
 			</div>
 	  		<div class="flex-item">
 				<select id="search_option">

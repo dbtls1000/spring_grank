@@ -92,3 +92,35 @@
 .login-join-btn, .login-idcheck, .login-pscheck {
 	cursor: pointer;
 }
+.auto-login{
+    height: 40px;
+}
+.checkbox{
+    position: relative;
+    top: 7px;
+    width: 18px;
+    height: 18px;
+    -webkit-appearance: none;
+    transition: 0.5s;
+    margin-right: 10px;
+    outline: none;
+    cursor: pointer;
+}
+.checkbox::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 2px solid #fff;
+    box-sizing: border-box;
+    transition: 0.5s;
+}
+.checkbox:checked:before{
+    border-left: none;
+    border-top: none;
+    width: 9px;
+    border-color: #00b894;
+    transform: rotate(45deg) translate(1px,-5px)
+}

@@ -14,7 +14,7 @@
 			<span class="header-text">게시글 작성</span>
 		</div>
 		<div class="wrapper-body">
-			<form id="frm_board" method="POST">
+			<form id="frm_board" method="POST" enctype="multipart/form-data">
 				<div class="title-input">
 					<label class="title-label" for="">머리글</label> <select
 						class="title-in title-select" name="b_platform" id="">
