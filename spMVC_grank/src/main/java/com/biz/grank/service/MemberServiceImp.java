@@ -1,14 +1,18 @@
 package com.biz.grank.service;
 
+import java.sql.Date;
 import java.util.Map;
 import java.util.Random;
 
 import javax.inject.Inject;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.util.WebUtils;
 
 import com.biz.grank.domain.MemberDto;
 import com.biz.grank.persistence.MemberDao;
@@ -78,6 +82,7 @@ public class MemberServiceImp implements MemberService {
 	public void logout(HttpSession httpSession) {
 		// TODO 로그아웃
 		httpSession.invalidate();
+		
 	}
 
 	@Override
@@ -179,6 +184,18 @@ public class MemberServiceImp implements MemberService {
 	public int ajaxNameCheck(String name) {
 		// TODO 닉네임 중복 체크
 		return mDao.ajaxNameCheck(name);
+	}
+
+	@Override
+	public void autoLoginCheck(MemberDto mDto) {
+		// TODO 자동 로그인 userid값, limit값 담기
+		mDao.autoLoginCheck(mDto);
+	}
+
+	@Override
+	public MemberDto checkUserWithSessionKey(String value) {
+		// TODO 쿠키에서 가져온 값으로 가져오기
+		return mDao.checkUserWithSessionKey(value);
 	}
 
 

@@ -130,6 +130,7 @@
 				var uri = '${uri}'
 				var id = $.trim($('#login-id').val())
 				var pw = $.trim($('#login-pw').val())
+				var check= true;
 				// 공백문자
 				var regEmpty = /\s/g;
 				if (id.length == 0 || id == '') {
@@ -155,7 +156,7 @@
 					type : 'POST',
 					async : true,
 					dataType : 'text',
-					data : 'userid=' + id + '&passwd=' + pw,
+					data : 'userid=' + id + '&passwd=' + pw + '&check='+ check,
 					success : function(data) {
 						if (data == '1') {
 							if(uri == ''){

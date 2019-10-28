@@ -1,28 +1,51 @@
 package com.biz.grank.interceptor;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.web.servlet.FlashMap;
 import org.springframework.web.servlet.FlashMapManager;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import org.springframework.web.servlet.support.RequestContextUtils;
+import org.springframework.web.util.WebUtils;
+
+import com.biz.grank.domain.MemberDto;
+import com.biz.grank.service.MemberService;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class LoginInterceptor extends HandlerInterceptorAdapter{
 
+	@Autowired
+	MemberService mSercice;
+	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		// TODO Auto-generated method stub
 		// session 체크 값이 있으면 통과
 		HttpSession httpSession = request.getSession();
+		// 로그인 된 세션이 없는 경우
 		if(httpSession.getAttribute("userid") == null) {
+			// 쿠키 가져오기
+			Cookie loginCookie = WebUtils.getCookie(request, "loginCookie");
+			// 쿠키가 존재하면
+			if(loginCookie != null) {
+				// loginCookie에서 값가져오기
+				log.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+				MemberDto mDto = mSercice.checkUserWithSessionKey(loginCookie.getValue());
+				httpSession.setAttribute("userid", mDto.getUserid());
+				httpSession.setAttribute("name", mDto.getName());
+				response.sendRedirect(request.getContextPath()+"/");
+				return true;
+			} 
 			// 이전 페이지 가져오기
+			log.info("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
 			String referer = request.getHeader("referer");
 			// 주소 직접입력했을때  예) http://localhost:8080/grank/board/write
 			if(referer == null) {

@@ -1,5 +1,7 @@
 package com.biz.grank.domain;
 
+import java.sql.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,4 +24,7 @@ public class MemberDto {
 	private String addr1; //  VARCHAR2(200) NOT NULL,
 	private String addr2; //  VARCHAR2(200) NOT NULL,
 	private String regdate; //  DATE DEFAULT SYSDATE
+	private boolean check;
+	private String sessionkey;
+	private Date sessionlimit;
 }

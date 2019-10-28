@@ -1,8 +1,12 @@
 package com.biz.grank.controller;
 
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.util.WebUtils;
 
 import com.biz.grank.domain.MemberDto;
 import com.biz.grank.service.BoardService;
@@ -34,14 +39,42 @@ public class MemberController {
 	// 로그인
 	@ResponseBody
 	@PostMapping("login")
-	public String login(MemberDto mDto, HttpSession httpSession) {
-		boolean result = mService.login(mDto, httpSession);
-		String flag ="-1";
-		if(result) {
-			flag ="1";
+	public String login(MemberDto mDto, HttpSession httpSession, HttpServletResponse response) {
+		// 자동로그인 체크시
+		if(mDto.isCheck()) {
+			
+			boolean result = mService.login(mDto, httpSession);
+			// 쿠키를 생성하고 현재 로그인되어 있는 세션 id를 쿠키에 담기
+			Cookie cookie = new Cookie("loginCookie", (String)httpSession.getAttribute("userid"));
+			// 쿠키를 찾을 경로를 컨텍스트를 경로로 변경
+			cookie.setPath("/");
+			// 단위는 (초)임으로 7일정도로 유효시간을 설정해 준다. 
+			int amount =60 * 60 * 24 * 7;
+			cookie.setMaxAge(amount);
+			// 쿠키를 적용해준다.
+			response.addCookie(cookie);
+			// currentTimeMillis()가 1/1000초 단위임으로 1000을 곱해서 더해야함
+			Date sessionLimit = new Date(System.currentTimeMillis()+(1000*amount));
+			mDto.setSessionkey((String)httpSession.getAttribute("userid"));
+			mDto.setSessionlimit(sessionLimit);
+			mService.autoLoginCheck(mDto);
+			String flag ="-1";
+			if(result) {
+				flag ="1";
+			}
+			
+			return flag;
+			
+		}else {
+			boolean result = mService.login(mDto, httpSession);
+			String flag ="-1";
+			if(result) {
+				flag ="1";
+			}
+			
+			return flag;
 		}
 		
-		return flag;
 	}
 	
 	// 회원가입 화면단
@@ -144,8 +177,27 @@ public class MemberController {
 	// 로그아웃
 	@ResponseBody
 	@GetMapping("logout")
-	public void logout(HttpSession httpSession) {
-		mService.logout(httpSession);
+	public void logout(HttpSession httpSession,HttpServletRequest request, HttpServletResponse response) {
+		log.info("<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+		Cookie cookie = WebUtils.getCookie(request,"loginCookie");
+		log.info(">>>>>>>>>>>>>>>>"+cookie);
+		if(cookie != null) {
+			MemberDto mDto = new MemberDto();
+			mDto.setUserid((String)httpSession.getAttribute("userid"));
+			mService.logout(httpSession);
+			cookie.setPath("/");
+			// 쿠키 값이 없을때 유효시간 0으로 설정
+			cookie.setMaxAge(0);
+			// 쿠키를 적용해준다.
+			response.addCookie(cookie);
+			// 테이블에도 유효시간을 현재시간으로 설정
+			Date sessionLimit = new Date(System.currentTimeMillis());
+			mDto.setSessionkey("none");
+			mDto.setSessionlimit(sessionLimit);
+			mService.autoLoginCheck(mDto);
+			
+		}
+		
 	}
 	// 비밀번호 변경
 	@PostMapping("psupdate")

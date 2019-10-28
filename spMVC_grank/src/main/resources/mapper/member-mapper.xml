@@ -58,4 +58,14 @@
 		SELECT COUNT(name) FROM tbl_member
 		WHERE name = #{name}
    </select>
+   <!-- 자동 로그인 -->
+   <update id="autoLoginCheck" parameterType="mDto">
+		UPDATE tbl_member SET sessionkey = #{sessionkey}, sessionlimit = #{sessionlimit}
+		WHERE userid = #{userid}
+   </update>
+   <!-- 유효기간이 남아있으면 해당 id값으로 사용자 정보 가져오기 -->
+   <select id="checkUserWithSessionKey" resultType="mDto">
+		SELECT * FROM tbl_member
+		WHERE sessionkey = #{value} AND sessionlimit > SYSDATE
+   </select>
 </mapper>

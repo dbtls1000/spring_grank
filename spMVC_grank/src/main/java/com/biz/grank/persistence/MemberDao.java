@@ -1,5 +1,6 @@
 package com.biz.grank.persistence;
 
+import java.sql.Date;
 import java.util.Map;
 
 import com.biz.grank.domain.MemberDto;
@@ -29,6 +30,10 @@ public interface MemberDao {
 	String ajaxPswordCheck(Map<String, Object> map);
 
 	int ajaxNameCheck(String name);
+
+	MemberDto checkUserWithSessionKey(String value);
+
+	void autoLoginCheck(MemberDto mDto);
 
 
 }
