@@ -8,8 +8,23 @@
 <div id="u-review">
 <c:forEach items ="${userList}" var="u" >
     <div class="review-content">
-        <div style="font-weight: bold;font-size:18px;"><span class="game-score">${u.u_score}</span>${u.u_name}</div>
+        <div style="font-weight: bold;font-size:18px;">
+        <c:choose>
+        	<c:when test="${u.u_score < 6}">
+        		<c:if test="${u.u_score >= 3}">
+        			<span class="game-score middle-score">${u.u_score}</span> 
+        		</c:if>
+        		<c:if test="${u.u_score < 3}">
+        			<span class="game-score low-score">${u.u_score}</span> 
+        		</c:if>
+        	</c:when> 
+        	<c:otherwise>
+            <span class="game-score high-score">${u.u_score}</span>
+			</c:otherwise>	
+        </c:choose>
+        ${u.u_name}</div>
         <div>${u.u_review}</div>
  	</div>
  </c:forEach>
 </div>
+

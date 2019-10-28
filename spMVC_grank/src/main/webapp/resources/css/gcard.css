@@ -42,3 +42,24 @@ div.g-card {
 	text-align: center;
 	justify-content: center;
 }
+
+
+.c-cards {
+	display: flex;
+}
+
+.c-cards a {
+	text-decoration: none;
+	color: black;
+}
+
+.game-nav {
+	display: flex;
+	width: 900px;
+	justify-content: space-between;
+}
+
+.game-nav li {
+	list-style: none;
+	cursor: pointer;
+}

@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.biz.grank.domain.AwardsRankDto;
 import com.biz.grank.domain.ComingSoonDto;
 import com.biz.grank.domain.CriticDto;
 import com.biz.grank.domain.GameRankDto;
@@ -48,14 +49,14 @@ public class GameServiceImp implements GameService {
 	@Override
 	public List<GameRankDto> gFindPlatform(String platform) {
 		List<GameRankDto> gList = gDao.gFindPlatform(platform);
+		log.info("service >>>>>>>>>>>>>>>>>>>>>>>>> gList:" + gList);
+		log.info("service >>>>>>>>>>>>>>>>>>>>>>>>> gList.size:" + gList.size());
 		return gList;
 	}
 
 	// 5. 게임평가순위리스트 몇 건만 출력
 	@Override
 	public List<GameRankDto> gMoreView(Map<String, Object> gMap) {
-		log.info(">>>platform>>>"+gMap.get("platform"));
-		log.info(">>>count>>>"+gMap.get("count"));
 		List<GameRankDto> gList = gDao.gMoreView(gMap);
 		return gList;
 	}
@@ -87,16 +88,23 @@ public class GameServiceImp implements GameService {
 		return userList;
 	}
 
-
+    // 10. Ajax 비평가 댓글 리스트 
 	@Override
 	public int cReviewSize(String game_code) {
 		return gDao.cReviewSize(game_code);
 	}
 
-
+	// 11. Ajax 유저 댓글 리스트 
 	@Override
 	public int uReviewSize(String game_code) {
 		return gDao.uReviewSize(game_code);
+	}
+
+	// 12. 수상 및 랭킹 리스트
+	@Override
+	public AwardsRankDto rFindAll(String game_code) {
+		AwardsRankDto rDto = gDao.rFindAll(game_code);
+		return rDto;
 	}
 
 

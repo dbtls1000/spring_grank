@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="include/include.jsp" %>
-<link rel="stylesheet" type="text/css" href="${path}/resources/css/searchbox.css?ver=20191024">
-<link rel="stylesheet" type="text/css" href="${path}/resources/css/gcard.css?ver=20191024">
-<link rel="stylesheet" type="text/css" href="${path}/resources/css/board-list.css?ver=20191024">
+<link rel="stylesheet" type="text/css" href="${path}/resources/css/searchbox.css?ver=20191028">
+<link rel="stylesheet" type="text/css" href="${path}/resources/css/gcard.css?ver=20191028">
+<link rel="stylesheet" type="text/css" href="${path}/resources/css/board-list.css?ver=20191028">
 <%@ include file="include/header.jsp" %>
 <div style="height: 110px;"></div>
 	<!-- 검색기능 box -->
@@ -129,4 +129,10 @@
 			alert("게임을 검색하는 박스")
 		}
 	})
+	
+    $(document).on('click', '#g_img', function(){
+    	let game_code = $(this).attr("data-code");
+		location.href = '${path}/game/gameview?game_code='+game_code;
+	})
+	
 </script>

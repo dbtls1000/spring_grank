@@ -1,31 +1,47 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="../include/include.jsp"%>
-<link rel="stylesheet" type="text/css" href="${path}/resources/css/gameview.css?ver=2019102501">
+<link rel="stylesheet" type="text/css" href="${path}/resources/css/gameview.css?ver=20191028">
 <%@ include file="../include/header.jsp"%>
 <style>
 </style>
   <div class="wrapper">
         <div class="wrapper-header"><span class="header-text">게임정보</span></div>
+               <div class="gameinfo-items">
+	               <div><img style="width:150px;" src="${gDto.img_src}" alt=""></div>
+		               <div class="score-items">
+		               	   <div class="game-title">${gDto.game_name}</div>
+			               <div class="score">Metascore :&nbsp;<span class="game-score">${gDto.m_score}</span> </div>
+			               <div class="score">User score :&nbsp;<span class="game-score">${gDto.u_score}</span></div>
+                       <div class="rank-item">
+  				           <div class="award-wrapper-header"><span class="award-header-text">Awards & Rankings</span></div>
+				            <c:forEach items="${rList}" var="r">
+				            	<div class="award-content">	
+				         				${r}
+				          </div>
+				            </c:forEach>
+        				</div>
+		               </div>
+           </div>
         <div class="review-wrapper">
             <div class="review-item">
                 <div class="wrapper-header"><span class="header-text">비평가</span></div>
                 <div id="c-review">
                 </div>
-                <div><a id="c_more" class="review a-button a-common">more+</a></div>
+                <div class="div-more"><a id="c_more" class="review a-button a-common">more+</a></div>
                <input type="hidden" id="cview-count" value="5">
             </div>
             <div class="review-item">
                 <div class="wrapper-header"><span class="header-text">유저</span></div>
                 <div id="u-review">
                 </div>
-                <div><a id="u_more" class="review a-button a-common">more+</a></div>
+                <div class="div-more"><a id="u_more" class="review a-button a-common">more+</a></div>
             </div> 
             <input type="hidden" id="uview-count" value="5">
         </div>
     </div>
  <script>
- 		// creview start
+ 		// 1.creview start
  		function creview(){
  			var game_code = '${gDto.game_code}'
  			var cmax = ${csize};
@@ -46,7 +62,8 @@
  				}
  			})// ajax end 
  		}// end
- 		// ureview start
+ 		
+ 		// 2.ureview start
  		function ureview(){ // function  start
  			var game_code = '${gDto.game_code}'
  			var umax = ${usize};
@@ -68,7 +85,7 @@
  			})// ajax end
  		}// function end
 		
- 		// userview more click
+ 		// 3.userview more click
  		$(document).on('click', '.review', function(){ // more button function start
  			var ccount = Number($('#cview-count').val());
  			var ucount = Number($('#uview-count').val());
@@ -95,9 +112,9 @@
 	 					alert('System error');
 	 				}
 	 			})// ajax end
-	 		}
+	 		}// more button function end
  			
- 			// user more button
+ 			// 4.user more button
  			if(id == 'u_more'){
  				ucount += 5;
 	 			if(ucount > umax) {
@@ -121,7 +138,7 @@
  		}) // more button function end
  		
  	
- 		// ureview document create
+ 		// 5.document create
  		$(document).ready(function(){
  			creview();
  			ureview();

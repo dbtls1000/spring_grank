@@ -9,6 +9,7 @@ import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.BasicQuery;
 import org.springframework.stereotype.Repository;
 
+import com.biz.grank.domain.AwardsRankDto;
 import com.biz.grank.domain.ComingSoonDto;
 import com.biz.grank.domain.CriticDto;
 import com.biz.grank.domain.GameRankDto;
@@ -58,7 +59,8 @@ public class GameDao {
 	// 4. 게임평가순위리스트 size 구하는 메소드
 	public List<GameRankDto> gFindPlatform(String platform){
 		BasicQuery query = (BasicQuery) new BasicQuery("{'platform':'"+platform+"'}, platform:'platform', game_code:'game_code', m_score:'m_score', game_name:'game_name', u_score:'u_score', img_src:'img_src' " );
-		List<GameRankDto> gList = mongoOper.find(query, GameRankDto.class, "metascore");		
+		List<GameRankDto> gList = mongoOper.find(query, GameRankDto.class, "metascore");	
+		log.info("Dao gList >>>>>>>>>>>>>>>>>>>>>>>" + gList);
 		return gList;
 		}
 	
@@ -93,9 +95,10 @@ public class GameDao {
 		List<CriticDto> criticList = mongoOper.find(query, CriticDto.class, "critic");
 		return criticList;
 	}
-
+    
+	// 9. 유저 리스트 출력
 	public List<UserDto> gFindUser(Map<String, Object> userMap) {
-		BasicQuery query = (BasicQuery) new BasicQuery("{'game_code' : '"+userMap.get("game_code")+"'}, game_code:'game_code', u_score:'u_score', u_name:'u_name', u_review:'u_review' ").limit( (int) userMap.get("count"));
+		BasicQuery query = (BasicQuery) new BasicQuery("{'game_code' : '"+userMap.get("game_code")+"'}, game_code:'game_code', u_score:'u_score', u_name:'u_name', u_review:'u_review' ").limit((int) userMap.get("count"));
 		List<UserDto> userList = mongoOper.find(query, UserDto.class, "userreview");
 		return userList;
 	}
@@ -110,6 +113,12 @@ public class GameDao {
 		BasicQuery query = (BasicQuery) new BasicQuery("{'game_code' : '"+game_code+"'}, game_code:'game_code', u_score:'u_score', u_name:'u_name', u_review:'u_review' ");
 		List<UserDto> userList = mongoOper.find(query, UserDto.class, "userreview");
 		return userList.size();
+	}
+
+	public AwardsRankDto rFindAll(String game_code) {
+		BasicQuery query = (BasicQuery) new BasicQuery("{'game_code' : '"+game_code+"'}, game_code:'game_code', awardslist:'awardslist' ");
+		AwardsRankDto rDto = mongoOper.findOne(query, AwardsRankDto.class, "awardsrank");
+		return rDto;
 	}	
 	
 	

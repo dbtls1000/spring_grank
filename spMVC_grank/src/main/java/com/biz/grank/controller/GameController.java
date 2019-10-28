@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.biz.grank.domain.AwardsRankDto;
 import com.biz.grank.domain.ComingSoonDto;
 import com.biz.grank.domain.CriticDto;
 import com.biz.grank.domain.GameRankDto;
@@ -49,7 +50,9 @@ public class GameController {
 	@RequestMapping(value ="rankmoreview", method = RequestMethod.GET)
 	public String RankMoreView(@RequestParam(defaultValue = "all")String platform,Model model) {
 		List<GameRankDto> gList = gameService.gFindPlatform(platform);
+		log.info(">>>gList>>" +gList);
 		int gSize = gList.size();
+		log.info(">>>gSize>>" +gSize);
 		//platform = var platform = '${platform}';로 데이터 받기위해서 보내줌
 		model.addAttribute("platform",platform);
 		model.addAttribute("gList", gList);
@@ -76,10 +79,11 @@ public class GameController {
 		GameRankDto gDto = gameService.gameView(game_code);
 		int cSize = gameService.cReviewSize(game_code);
 		int uSize = gameService.uReviewSize(game_code);
-		log.info(">>>>>>>>>>>>>>>>>>>>cSize :" + cSize);
-		log.info(">>>>>>>>>>>>>>>>>>>>uSize :" + uSize);
+		AwardsRankDto rDto = gameService.rFindAll(game_code);
+		List<String> rList = rDto.getAwardslist();
 		model.addAttribute("csize", cSize);
 		model.addAttribute("usize", uSize);
+		model.addAttribute("rList", rList);
 		model.addAttribute("gDto", gDto);
 		return "gameview/gameview";
 	}
@@ -91,8 +95,6 @@ public class GameController {
 		Map<String, Object>	criticMap = new HashMap<String, Object>();
 		criticMap.put("game_code", game_code);
 		criticMap.put("count", count);
-		log.info(">game_code>" + game_code);
-		log.info(">count>" + count);
 		List<CriticDto> criticList = gameService.gFindCritic(criticMap);
 		model.addAttribute("ccList", criticList);
 		return "gameview/creview";
@@ -109,5 +111,6 @@ public class GameController {
 		model.addAttribute("userList", userList);
 		return "gameview/ureview";
 	}
+	
 
 }

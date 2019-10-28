@@ -2,30 +2,10 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fnt"%>
+<%@ include file="../include/include.jsp"%>
 <link rel="stylesheet" type="text/css"
-	href="${path}/resources/css/gcard.css?ver=20191025">
+	href="${path}/resources/css/gcard.css?ver=2019102511">
 <c:set var="path" value="${pageContext.request.contextPath}" />
-<style>
-.c-cards {
-	display: flex;
-}
-
-.c-cards a {
-	text-decoration: none;
-	color: black;
-}
-
-.game-nav {
-	display: flex;
-	width: 900px;
-	justify-content: space-between;
-}
-
-.game-nav li {
-	list-style: none;
-	cursor: pointer;
-}
-</style>
 <%@ include file="../include/header.jsp"%>
 <div class="wrapper">
 	<div class="wrapper-header">

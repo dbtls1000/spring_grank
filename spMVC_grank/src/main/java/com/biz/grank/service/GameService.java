@@ -3,6 +3,7 @@ package com.biz.grank.service;
 import java.util.List;
 import java.util.Map;
 
+import com.biz.grank.domain.AwardsRankDto;
 import com.biz.grank.domain.ComingSoonDto;
 import com.biz.grank.domain.CriticDto;
 import com.biz.grank.domain.GameRankDto;
@@ -36,10 +37,15 @@ public interface GameService {
 	
 	// 9. Ajax 유저리뷰 리스트 출력
 	public List<UserDto> gFindUser(Map<String, Object> userMap);
-
+	
+	// 10. Ajax 비평가 댓글 리스트 
 	public int cReviewSize(String game_code);
 
+	// 11. Ajax 유저 댓글 리스트
 	public int uReviewSize(String game_code);
+	
+	// 12. 수상 및 랭킹 리스트
+	public AwardsRankDto rFindAll(String game_code);
 	
 	
 }	
