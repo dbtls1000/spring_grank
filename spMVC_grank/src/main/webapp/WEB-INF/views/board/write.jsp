@@ -73,6 +73,7 @@
 		if(flag == 'answer'){
 			$("#board-write-btn").text("등록")
 			$(".header-text").text("답변 작성")
+			$('#b_title').attr('readonly','readonly')
 		}else{
 			if(bno==''){
 				
