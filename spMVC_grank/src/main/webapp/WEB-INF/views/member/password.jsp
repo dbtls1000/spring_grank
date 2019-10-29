@@ -88,13 +88,12 @@ $(function() {
 	$('#new_psword').blur(function() {
 		var user = "${sessionScope.userid}";
 		var newpass = $.trim($(this).val());
-		var repass = $.trim($('#new_psword_re').val());
 		// newpass와 repass로 joinValidate의 checkPs로 유효성 체크 후 resultCode 값 담기
-		var checkResult = joinValidate.checkPs(newpass, repass);
+		var checkResult = joinValidate.checkPs(newpass);
 		// checkResult.code에 맞는 메시지 출력
 		if(checkResult.code != 0) {
 			$(this).next().text(checkResult.desc).css('display','block').css('color','red');
-			$('#new_psword_re').next().css('display','none');
+			
 		} else {
 			// 입력한 비밀번호와 로그인한 id의 비밀번호가 같은지 체크
 			if(ajaxPassCheck(user,newpass)) {
@@ -102,10 +101,11 @@ $(function() {
 				return false;
 			} else {
 				$(this).next().text(checkResult.desc).css('display','block').css('color','blue');
-				
 			}
+			$('#new_psword_re').focus();
+			$('#new_psword_re').next().css('display','none');
 			new_psword = true;
-			new_psword_re = true;
+			new_psword_re = false;
 			return true;
 		}
 		new_psword = false;
@@ -123,10 +123,10 @@ $(function() {
 		} else {
 			$(this).next().text(checkResult.desc).css("display","block").css('color','blue');
 			$('#new_psword').next().css('display','none');
-			new_psword = true;
 			new_psword_re = true;
 			return true;
 		}
+		new_psword = false;
 		new_psword_re = false;
 		return false;
 	})

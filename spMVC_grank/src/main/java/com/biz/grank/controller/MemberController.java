@@ -160,6 +160,7 @@ public class MemberController {
 		String userid = (String)httpSession.getAttribute("userid");
 		// mDto의 userid에 userid값 담기
 		mDto.setUserid(userid);
+		// 회원수정
 		mService.update(mDto);
 		// 회원 수정 후 model에 값 담기
 		model.addAttribute("mDto",mDto);
@@ -178,12 +179,13 @@ public class MemberController {
 	@ResponseBody
 	@GetMapping("logout")
 	public void logout(HttpSession httpSession,HttpServletRequest request, HttpServletResponse response) {
-		log.info("<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
 		Cookie cookie = WebUtils.getCookie(request,"loginCookie");
-		log.info(">>>>>>>>>>>>>>>>"+cookie);
+		// 쿠키 값이 있을때 로그아웃
 		if(cookie != null) {
 			MemberDto mDto = new MemberDto();
+			// mDto에 세션 아이디 값 담기
 			mDto.setUserid((String)httpSession.getAttribute("userid"));
+			// 로그아웃 처리
 			mService.logout(httpSession);
 			cookie.setPath("/");
 			// 쿠키 값이 없을때 유효시간 0으로 설정
@@ -192,10 +194,15 @@ public class MemberController {
 			response.addCookie(cookie);
 			// 테이블에도 유효시간을 현재시간으로 설정
 			Date sessionLimit = new Date(System.currentTimeMillis());
+			// sessionkey값 none로 담기
 			mDto.setSessionkey("none");
 			mDto.setSessionlimit(sessionLimit);
+			// mDto에 담겨있는 값으로 변경
 			mService.autoLoginCheck(mDto);
 			
+		} else {
+			// 쿠키 값이 없을때 로그아웃
+			mService.logout(httpSession);
 		}
 		
 	}

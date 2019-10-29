@@ -131,7 +131,7 @@
 				var uri = '${uri}'
 				var id = $.trim($('#login-id').val())
 				var pw = $.trim($('#login-pw').val())
-				var check= true;
+				var check= $('.checkbox').prop('checked');
 				// 공백문자
 				var regEmpty = /\s/g;
 				if (id.length == 0 || id == '') {

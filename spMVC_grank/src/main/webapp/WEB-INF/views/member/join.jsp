@@ -207,21 +207,21 @@ $(function() {
 	// 비밀번호 유효성 체크
 	$('#join-ps').blur(function() {
 		var pass = $.trim($(this).val());
-		var rpass = $.trim($('#join-rps').val());
-		// pass와 rpass 값으로 joinValidate의 checkPs로 유효성 검사 후 맞는 resultCode 담기
-		var checkResult = joinValidate.checkPs(pass, rpass);
+		// pass와 값으로 joinValidate의 checkPs로 유효성 검사 후 맞는 resultCode 담기
+		var checkResult = joinValidate.checkPs(pass);
 		// checkResult.code에 맞는 메시지 출력
 		if(checkResult.code != 0) {
 			$(this).next().text(checkResult.desc).css("display","block").css('color','red');
-			$('#join-rps').next().text(checkResult.desc).css("display","none");
 		} else {
 			$('#join-ps').next().text(checkResult.desc).css("display","block").css('color','blue');
+			$('#join-rps').next().css("display","none");
+			$('#join-rps').focus();
+			
 			join_ps = true;
-			join_rps = true;
+			join_rps =false;
 			return true;
 		}
 		join_ps = false;
-		join_rps = false;
 		return false;
 	})
 	// 비밀번호 확인 유효성 체크
@@ -236,7 +236,6 @@ $(function() {
 		} else {
 			$('#join-ps').next().text(checkResult.desc).css("display","none");
 			$(this).next().text(checkResult.desc).css("display","block").css('color','blue');
-			join_ps = true;
 			join_rps = true;
 			return true;
 		}

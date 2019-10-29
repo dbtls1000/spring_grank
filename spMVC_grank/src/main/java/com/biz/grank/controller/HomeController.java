@@ -48,6 +48,16 @@ public class HomeController {
 		model.addAttribute("gList", gList);
 		return "gameview/gameranklist";
 	}
-	
+	// 로그인 하지않았을때
+	@RequestMapping(value = "home.do", method = RequestMethod.GET)
+	public String homelogin(Model model) {
+		// 인기게시글 5건 출력
+		List<BoardDto> bList = bService.popularList();
+		// 출시 예정작 6건 출력
+		List<ComingSoonDto> cList = gameService.cFindLimit();
+		model.addAttribute("bList", bList);		
+		model.addAttribute("cList", cList);
+		return "home";
+	}
 	
 }

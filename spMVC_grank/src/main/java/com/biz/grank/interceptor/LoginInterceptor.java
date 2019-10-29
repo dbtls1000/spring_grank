@@ -36,16 +36,15 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 			Cookie loginCookie = WebUtils.getCookie(request, "loginCookie");
 			// 쿠키가 존재하면
 			if(loginCookie != null) {
+				
 				// loginCookie에서 값가져오기
-				log.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 				MemberDto mDto = mSercice.checkUserWithSessionKey(loginCookie.getValue());
+				// 세션에 값 담기
 				httpSession.setAttribute("userid", mDto.getUserid());
 				httpSession.setAttribute("name", mDto.getName());
-				response.sendRedirect(request.getContextPath()+"/");
-				return true;
-			} 
+				
+			}
 			// 이전 페이지 가져오기
-			log.info("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
 			String referer = request.getHeader("referer");
 			// 주소 직접입력했을때  예) http://localhost:8080/grank/board/write
 			if(referer == null) {
@@ -55,15 +54,19 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 				int length = uri.length();
 				// 마지막 "/"뒤에 값만 가져오기 예) /board/write 이면 write만 가져오기
 				uri = uri.substring(index+1,length);
-				if(uri.equals("write")) {
+				if(uri.equals("write") || uri.equals("answer")) {
 					// uri가 Write일 때 list로 이동
 					response.sendRedirect(request.getContextPath()+"/board/list");
 					return false;
 				} else if (uri.equals("member_delete")) {
 					// uri가 member_delete일때 /로 이동
-					response.sendRedirect(request.getContextPath()+"/");
+					response.sendRedirect(request.getContextPath()+"/home.do");
 					return false;
-				} 
+				} else {
+					// 로그인이 안되어 있을때 무한루프 안되게 하기
+					response.sendRedirect(request.getContextPath()+"/home.do");
+					return false;
+				}
 			}
 			// uri 값 가져오기
 			String uri = request.getRequestURI();
@@ -74,11 +77,17 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 //			log.info("referer: " + referer);
 //			log.info("uri: " + uri);
 //			log.info("url: " + url);
-			if(url.equals("write")) {
+			if(url.equals("write") || url.equals("answer")) {
+				// referer 값이 있을때 이동
 				response.sendRedirect(request.getContextPath()+"/board/list");
 				return false;
 			} else if (url.equals("member_delete")) {
-				response.sendRedirect(request.getContextPath()+"/");
+				// referer 값이 있을때 이동
+				response.sendRedirect(request.getContextPath()+"/home.do");
+				return false;
+			} else if (uri.equals("/grank/")) {
+				// referer 값이 있을때 이동
+				response.sendRedirect(request.getContextPath()+"/home.do");
 				return false;
 			}
 			// FlashMap
@@ -93,6 +102,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 			return false;
 		} else {
 			// 통과
+			
 			return true;
 		}
 	}

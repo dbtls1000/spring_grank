@@ -31,10 +31,6 @@ var joinValidate = {
 				code : 3,
 				desc : '올바른 비밀번호(특수문자 포함 영문 대소문자 8~16자)를 입력해 주세요.'
 			},
-			other_ps : {
-				code : 4,
-				desc : '비밀번호가 일치하지 않습니다.'
-			},
 			equal_ps : {
 				code : 5,
 				desc : '현재 비밀번호와 다르게 입력해 주세요.'
@@ -44,6 +40,10 @@ var joinValidate = {
 				code : 0,
 				desc : '비밀번호가 일치합니다.'
 			},
+			other_rps : {
+				code : 4,
+				desc : '비밀번호가 일치하지 않습니다.'
+			},
 			// 닉네임 체크
 			success_name : {
 				code : 0,
@@ -51,7 +51,11 @@ var joinValidate = {
 			},
 			invalid_name : {
 				code : 3,
-				desc : '올바른 닉네임(영문, 한글 2~10자)를 입력해 주세요.'
+				desc : '올바른 닉네임(영문, 한글, 숫자)을 입력해 주세요.'
+			},
+			length_name : {
+				code : 4,
+				desc : '글자수 2~10자로 입력해 주세요.'
 			},
 			// 전화번호 체크
 			success_ph : {
@@ -109,7 +113,7 @@ var joinValidate = {
 			}
 		},
 		// 비밀번호 유효성 체크
-		checkPs : function(pass, rpass) {
+		checkPs : function(pass) {
 			// 공백문자
 			var regEmpty = /\s/g;
 			// 비밀번호 유효성 체크
@@ -124,30 +128,27 @@ var joinValidate = {
 			// 비밀번호 정규식 체크
 			} else if (!regPs.test(pass)) {
 				return this.resultCode.invalid_ps;
-			// 비밀번호 확인 null 체크
-			} else if (rpass != "" || rpass.length != 0) {
-				// 비밀번호와 비밀번호 확인 일치하는지 체크
-				if(pass == rpass) {
-					return this.resultCode.success_ps;
-				} else {
-					return this.resultCode.other_ps;
-				}
-			} else {
+			}  else {
 				return this.resultCode.success_ps;
 			}
 		},
 		// 비밀번호 확인 유효성 체크
 		checkRps : function(rpass, pass) {
+			// 공백문자
+			var regEmpty = /\s/g;
 			// 비밀번호 확인 null 체크
 			if(rpass == "" || rpass.length == 0) {
 				return this.resultCode.empty_val;
+			// 비밀번호 확인 공백 체크
+			} else if (rpass.match(regEmpty)) {
+				return this.resultCode.space_val;
 			// 비밀번호 null 체크
 			} else if (pass != "" || pass.length != 0) {
 				// 비밀번호 확인과 비밀번호가 일치하는지 체크
 				if(rpass == pass) {
 					return this.resultCode.success_rps;
 				} else {
-					return this.resultCode.other_ps;
+					return this.resultCode.other_rps;
 				}
 			} else {
 				return this.resultCode.success_rps;
@@ -157,14 +158,17 @@ var joinValidate = {
 		checkName : function(name) {
 			// 공백문자
 			var regEmpty = /\s/g;
-			//영문, 한글만(2~10자)
-			var regLang =/[^a-zA-Z가-힣]{2,10}/;
+			//영문, 한글만
+			var regLang =/[^가-힣a-zA-Z]/;
 			// 닉네임 null 체크
 			if(name == "" || name.length == 0) {
 				return this.resultCode.empty_val;
 			// 닉네임 공백 체크
 			} else if (name.match(regEmpty)) {
 				return this.resultCode.space_val;
+			// 닉네임 길이(2~10) 체크
+			} else if ((name.length < 2) || (name.length > 10)) {
+				return this.resultCode.length_name;
 			// 닉네임 유효성 체크
 			} else if (regLang.test(name)) {
 				return this.resultCode.invalid_name;
@@ -220,6 +224,7 @@ var joinValidate = {
 			// 상세주소 null 체크
 			if(addr == "" || addr.length == 0) {
 				return this.resultCode.empty_val;
+			// 상세주소 유효성 체크
 			} else if (regAddr.test(addr)) {
 				return this.resultCode.invalid_ad;
 			} else {
