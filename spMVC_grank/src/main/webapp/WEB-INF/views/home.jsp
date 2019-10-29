@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="include/include.jsp" %>
-<link rel="stylesheet" type="text/css" href="${path}/resources/css/searchbox.css?ver=20191028">
+<link rel="stylesheet" type="text/css" href="${path}/resources/css/searchbox.css?ver=20191029">
 <link rel="stylesheet" type="text/css" href="${path}/resources/css/gcard.css?ver=20191028">
 <link rel="stylesheet" type="text/css" href="${path}/resources/css/board-list.css?ver=20191028">
 <%@ include file="include/header.jsp" %>
@@ -10,10 +10,13 @@
     <div class="s-box-wrapper">
         <div class="middle">
             <form class="search-box">
-                <input type="text" id="s-box-search" class="s-box-input">
+                <input autocomplete="off" type="text" id="s-box-search" class="s-box-input">
                 <button class="s-box-button" type="button"></button>
             </form>
         </div>
+        <div id="search-result">
+            
+        </div> 
     </div>
     <!-- 출시 예정작 -->
 	 <div class="wrapper">
@@ -111,7 +114,7 @@
  	})
  	
 	function gameranklist(){
-			$.ajax({
+		$.ajax({
 			url:'${path}/grank?platform=PS4',
 			type:'GET',
 			success:function(page){
@@ -119,17 +122,39 @@
 			}
 		})
  	}
+ 	function search_list(){
+ 		var keyword = $.trim($('#s-box-search').val());
+ 		$.ajax({
+ 			url:'${path}/game/search?keyword='+keyword,
+ 			type:'GET',
+ 			success:function(page){
+ 				$('#search-result').html(page);
+ 			}
+ 		})
+ 		
+ 	}
 	// 페이지가 준비되면 메소드 호출
 	$(document).ready(function(){
 		gameranklist();
 	})
-	$(document).on('keypress','#s-box-search',function(evt){
-		if(evt.keyCode == 13){
-			evt.preventDefault();
-			alert("게임을 검색하는 박스")
+	$(document).on('keyup','#s-box-search',function(evt){
+		evt.preventDefault();
+		var keyword = $.trim($('#s-box-search').val());
+		if(keyword.length >= 3){
+			search_list();	
 		}
 	})
-	
+	/*
+	$(document).on('blur','#s-box-search',function(){
+		$('#search-result').html('');
+	})
+	*/
+	$(document).on('focus','#s-box-search',function(){
+		var keyword = $.trim($('#s-box-search').val());
+		if(keyword.length >= 3){
+			search_list();	
+		}
+	})
     $(document).on('click', '#g_img', function(){
     	let game_code = $(this).attr("data-code");
 		location.href = '${path}/game/gameview?game_code='+game_code;

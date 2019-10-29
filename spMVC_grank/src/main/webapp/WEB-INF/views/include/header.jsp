@@ -57,8 +57,9 @@
 			})
 			// 검색박스 클릭시
 			$('.s-box-button').click(function() {
-				$('.s-box-input').toggleClass('inclicked')
-				$('.s-box-button').toggleClass('close')
+				$('.s-box-input').toggleClass('inclicked');
+				$('.s-box-button').toggleClass('close');
+				$('#s-box-search').val('');
 			})
 			// Community버튼 클릭시
 			$('#community-btn').click(function() {

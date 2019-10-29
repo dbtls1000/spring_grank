@@ -69,3 +69,25 @@
 .close::after{
     transform: rotate(45deg);
 }
+#search-result{
+    position: absolute;
+    width: 1000px;
+    top:170px;
+    box-sizing: border-box;
+    transform: translate(-47.5%,0);
+    background: ghostwhite;
+    z-index:995;
+}
+.search-result{
+    border: 4px solid #00b894;
+}
+.search-result-item{
+    width: 980px;
+    margin: 0 auto;
+    font-size: 20px;
+    border-bottom: 2px solid #00b894;
+    cursor: pointer;
+}
+.search-result-item:last-child {
+	margin-bottom: 10px;
+}

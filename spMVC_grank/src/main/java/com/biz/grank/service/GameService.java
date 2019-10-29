@@ -47,5 +47,8 @@ public interface GameService {
 	// 12. 수상 및 랭킹 리스트
 	public AwardsRankDto rFindAll(String game_code);
 	
+	// 13. 게임 검색결과 리스트
+	public List<GameRankDto> gSearchList(String keyword);
+	
 	
 }	

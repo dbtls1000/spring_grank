@@ -105,6 +105,13 @@ public class GameServiceImp implements GameService {
 		return rDto;
 	}
 
+	// 13. 게임 검색결과 리스트
+	@Override
+	public List<GameRankDto> gSearchList(String keyword) {
+		// TODO Auto-generated method stub
+		return gDao.gSearchList(keyword);
+	}
+
 
 
 }
