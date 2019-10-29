@@ -50,9 +50,8 @@ public class GameController {
 	@RequestMapping(value ="rankmoreview", method = RequestMethod.GET)
 	public String RankMoreView(@RequestParam(defaultValue = "all")String platform,Model model) {
 		List<GameRankDto> gList = gameService.gFindPlatform(platform);
-		log.info(">>>gList>>" +gList);
+		log.info(">>>>>platform>>>>"+platform);
 		int gSize = gList.size();
-		log.info(">>>gSize>>" +gSize);
 		//platform = var platform = '${platform}';로 데이터 받기위해서 보내줌
 		model.addAttribute("platform",platform);
 		model.addAttribute("gList", gList);
@@ -70,6 +69,7 @@ public class GameController {
 		// 게임 종류별로 클릭시 정렬하기 위한 변수
 		gMap.put("platform", platform);
 		List<GameRankDto> gList = gameService.gMoreView(gMap);
+		log.info("gList >>>>>>>>>>>>>>>>>>" + gList);
 		model.addAttribute("gList", gList);
 		return "gameview/rankmoreviewlist";
 	}

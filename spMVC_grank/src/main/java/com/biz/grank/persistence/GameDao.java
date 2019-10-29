@@ -58,11 +58,16 @@ public class GameDao {
 	
 	// 4. 게임평가순위리스트 size 구하는 메소드
 	public List<GameRankDto> gFindPlatform(String platform){
-		BasicQuery query = (BasicQuery) new BasicQuery("{'platform':'"+platform+"'}, platform:'platform', game_code:'game_code', m_score:'m_score', game_name:'game_name', u_score:'u_score', img_src:'img_src' " );
-		List<GameRankDto> gList = mongoOper.find(query, GameRankDto.class, "metascore");	
-		log.info("Dao gList >>>>>>>>>>>>>>>>>>>>>>>" + gList);
-		return gList;
+		BasicQuery query = (BasicQuery) new BasicQuery("{},");
+		if(platform.equals("all")) {
+			query = (BasicQuery) new BasicQuery("{}, platform:'platform', game_code:'game_code', m_score:'m_score', game_name:'game_name', u_score:'u_score', img_src:'img_src' " ); 
+		} else {
+			query = (BasicQuery) new BasicQuery("{'platform':'"+platform+"'}, platform:'platform', game_code:'game_code', m_score:'m_score', game_name:'game_name', u_score:'u_score', img_src:'img_src' " );
 		}
+		
+		List<GameRankDto> gList = mongoOper.find(query, GameRankDto.class, "metascore");	
+		return gList;
+	}
 	
 	// 5. 게임평가순위리스트 count건만 출력 
 	public List<GameRankDto> gMoreView(Map<String, Object> gMap) {
@@ -73,6 +78,7 @@ public class GameDao {
 			query = (BasicQuery) new BasicQuery("{'platform':'"+gMap.get("platform")+"'}, platform:'platform', game_code:'game_code', m_score:'m_score', game_name:'game_name', u_score:'u_score', img_src:'img_src' ").limit((int) gMap.get("count"));
 		}
 		List<GameRankDto> gList = mongoOper.find(query,	GameRankDto.class, "metascore");
+		
 		return gList;
 	}
 	

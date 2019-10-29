@@ -49,8 +49,6 @@ public class GameServiceImp implements GameService {
 	@Override
 	public List<GameRankDto> gFindPlatform(String platform) {
 		List<GameRankDto> gList = gDao.gFindPlatform(platform);
-		log.info("service >>>>>>>>>>>>>>>>>>>>>>>>> gList:" + gList);
-		log.info("service >>>>>>>>>>>>>>>>>>>>>>>>> gList.size:" + gList.size());
 		return gList;
 	}
 

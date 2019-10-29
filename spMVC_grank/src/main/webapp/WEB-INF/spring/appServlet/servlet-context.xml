@@ -49,7 +49,6 @@
 		<interceptor>
 			<mapping path="/board/write"/>
 			<mapping path="/member/member_delete"/>
-			<mapping path="/**"/>
 			<beans:ref bean="loginInterceptor"/>
 		</interceptor>
 	</interceptors>

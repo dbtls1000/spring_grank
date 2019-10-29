@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fnt"%>
 <%@ include file="../include/include.jsp"%>
 <link rel="stylesheet" type="text/css"
-	href="${path}/resources/css/gcard.css?ver=2019102511">
+	href="${path}/resources/css/gcard.css?ver=20191029">
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <%@ include file="../include/header.jsp"%>
 <div class="wrapper">
@@ -51,6 +51,7 @@
 		var platform = $('#platform-id').val();
 		// size값
 		var max = ${gSize};
+		alert(max)
 		count += 20;
 
 		// count 값이 max 값을 초과하면 count에 max값을 넣어주고 more 버튼이 없어짐
@@ -71,7 +72,7 @@
 				alert('system error!');
 			}
 		}) // ajax end 
-	}) // function start 
+	}) // function end
 
 	$(document).ready(function() {  // function start 
 		rankmoreviewlist();
