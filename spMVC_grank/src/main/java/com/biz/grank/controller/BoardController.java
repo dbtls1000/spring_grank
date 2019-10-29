@@ -126,9 +126,10 @@ public class BoardController {
 	
 	// 게시글 답변 화면단
 	@GetMapping("answer")
-	public String answer(int bno,Model model) {
-		
-		model.addAttribute("bDto", bService.readOne(bno));
+	public String answer(@RequestParam(defaultValue = "0")int bno,Model model) {
+		if(bno !=0) {
+			model.addAttribute("bDto", bService.readOne(bno));
+		}
 		// 답변등록일경우 flag에 answer값 담기
 		model.addAttribute("flag","answer");
 		return "board/write";

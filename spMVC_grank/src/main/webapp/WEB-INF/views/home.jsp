@@ -8,14 +8,13 @@
 <div style="height: 110px;"></div>
 	<!-- 검색기능 box -->
     <div class="s-box-wrapper">
-        <div class="middle">
+        <div class="middle s-box">
             <form class="search-box">
-                <input autocomplete="off" type="text" id="s-box-search" class="s-box-input">
-                <button class="s-box-button" type="button"></button>
+                <input autocomplete="off" type="text" id="s-box-search" class="s-box-input s-box">
+                <button class="s-box-button s-box" type="button"></button>
             </form>
         </div>
         <div id="search-result">
-            
         </div> 
     </div>
     <!-- 출시 예정작 -->
@@ -131,28 +130,39 @@
  				$('#search-result').html(page);
  			}
  		})
- 		
  	}
 	// 페이지가 준비되면 메소드 호출
 	$(document).ready(function(){
 		gameranklist();
 	})
+	// search-box에 글자를 입력하면
 	$(document).on('keyup','#s-box-search',function(evt){
 		evt.preventDefault();
 		var keyword = $.trim($('#s-box-search').val());
+		// s-box-search input태그의 값 길이가 3이상일때 검색 결과 리스트 출력
+		if(keyword.length >= 3){
+			search_list();	
+		} else{ // 2이하일때는 리스트 출력x
+			$('#search-result').html('');
+		}
+	})
+	// search-box에 포커스 되면
+	$(document).on('focus','#s-box-search',function(){
+		var keyword = $.trim($('#s-box-search').val());
+		// s-box-search input태그의 값 길이가 3이상일때
 		if(keyword.length >= 3){
 			search_list();	
 		}
 	})
-	/*
-	$(document).on('blur','#s-box-search',function(){
+	// search-box의 x버튼 누를경우
+	$(document).on('click','.s-box-button',function(){
+		// ajax로 띄어준 작은 페이지 없애기
 		$('#search-result').html('');
 	})
-	*/
-	$(document).on('focus','#s-box-search',function(){
-		var keyword = $.trim($('#s-box-search').val());
-		if(keyword.length >= 3){
-			search_list();	
+	// s-box 클래스영역 밖을 클릭할 시
+	$(document).on('click',function(evt){
+		if(!$(evt.target).hasClass('s-box')){
+			$('#search-result').html('');
 		}
 	})
     $(document).on('click', '#g_img', function(){
