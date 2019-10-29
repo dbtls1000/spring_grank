@@ -54,6 +54,8 @@ ALTER TABLE tbl_reply ADD CONSTRAINT pk_reply PRIMARY KEY(rno);
 ALTER TABLE tbl_reply ADD CONSTRAINT fk_reply_bno
 FOREIGN KEY(bno) REFERENCES tbl_board(bno)
 ON DELETE CASCADE;
+ALTER TABLE tbl_member ADD sessionkey VARCHAR2(50) DEFAULT 'none' NOT NULL;
+ALTER TABLE tbl_member ADD sessionlimit timestamp;
 
 -- 이전글 다음글 번호 가져오는 쿼리문
 SELECT * FROM(
