@@ -36,10 +36,8 @@ div.wrapper-header {
 .game-score {
 	width: 20px;
 	height: 20px;
-	border: 1px solid #00b894;
 	border-radius: 5px;
 	margin-right: 10px;
-	background: #00b894;
 }
 .high-score{
 	background: #00b894;
@@ -52,6 +50,11 @@ div.wrapper-header {
 .low-score{
 	background: crimson;
 	border: 1px solid crimson;
+}
+
+.common-score{
+	background: blue;
+	border: 1px solid blue;
 }
 .div-more{
 	margin-bottom: 10px;

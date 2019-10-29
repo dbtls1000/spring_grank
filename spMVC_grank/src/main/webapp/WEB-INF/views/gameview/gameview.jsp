@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="../include/include.jsp"%>
-<link rel="stylesheet" type="text/css" href="${path}/resources/css/gameview.css?ver=20191028">
+<link rel="stylesheet" type="text/css" href="${path}/resources/css/gameview.css?ver=20191029">
 <%@ include file="../include/header.jsp"%>
 <style>
 </style>
@@ -11,8 +11,40 @@
 	               <div><img style="width:150px;" src="${gDto.img_src}" alt=""></div>
 		               <div class="score-items">
 		               	   <div class="game-title">${gDto.game_name}</div>
-			               <div class="score">Metascore :&nbsp;<span class="game-score">${gDto.m_score}</span> </div>
-			               <div class="score">User score :&nbsp;<span class="game-score">${gDto.u_score}</span></div>
+				               <div class="score">Metascore :&nbsp;
+					               <c:choose>
+					                   <c:when test="${gDto.m_score <= 70}">
+					                   		<c:if test="${gDto.m_score >= 31}">
+								               <span class="game-score middle-score">${gDto.m_score}</span>
+								            </c:if>	
+						               		<c:if test="${gDto.m_score < 31 }">
+							               		<span class="game-score low-score">${gDto.m_score}</span>
+						               		</c:if>
+						               </c:when>
+						               <c:otherwise>
+						                  <span class="game-score high-score">${gDto.m_score}</span>
+						               </c:otherwise>
+					               </c:choose>
+				               </div>
+				               
+				               <div class="score">User score :&nbsp;
+					               	<c:choose>
+						               	<c:when test="${gDto.u_score <= '7' || gDto.u_score == 'tbd'}">
+						               		<c:if test="${gDto.u_score >= '3' && gDto.u_score != 'tbd'}">
+						               			 <span class="game-score middle-score">${gDto.u_score}</span>
+						               		</c:if>
+						               		<c:if test="${gDto.u_score < '3'}">
+						               			 <span class="game-score low-score">${gDto.u_score}</span>
+						               		</c:if>
+						               		<c:if test="${gDto.u_score == 'tbd'}">
+						               			 <span class="game-score">${gDto.u_score}</span>
+						               		</c:if>
+						               </c:when>
+						               <c:otherwise>
+						               		 <span class="game-score high-score">${gDto.u_score}</span>
+						               </c:otherwise>
+					               </c:choose>
+			              	 </div>
                        <div class="rank-item">
   				           <div class="award-wrapper-header"><span class="award-header-text">Awards & Rankings</span></div>
 				            <c:forEach items="${rList}" var="r">

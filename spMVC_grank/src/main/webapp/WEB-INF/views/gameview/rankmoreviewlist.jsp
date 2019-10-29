@@ -7,6 +7,7 @@
 <!-- 게임순위평가리스트 -->
 <div class="flex-wrapper">
 	<c:forEach items="${gList}" var="g">
+		<div id="gSize"></div>
 		<div class="g-card" data-code="${g.game_code}">
 			<div class="g-card-item g-card-header">${g.platform}</div>
 			<div class="g-card-item">
@@ -16,6 +17,7 @@
 			<div class="g-card-item g-card-content">유저 평점: ${g.u_score}</div>
 			<div class="g-card-item g-card-content">전문가 평점: ${g.m_score}</div>
 		</div>
+		<input type="hidden" id="gsize" value="${gSize}">
 	</c:forEach>
 </div>
 <script>
@@ -23,5 +25,4 @@
 		let game_code = $(this).attr("data-code");
 		location.href = "${path}/game/gameview?game_code="+game_code;
 	})
-	
 </script>

@@ -19,11 +19,11 @@
 			<button id="game-btn">Game</button>
 			<ul id="game-dropdown">
 				<li><a href="${path}/game/comingsoonmoreview">Commingsoon</a></li>
-				<li><a href="${path}/game/rankmoreview">All</a></li>
-				<li><a href="${path}/game/rankmoreview?platform=PS4">PS4</a></li>
-				<li><a href="${path}/game/rankmoreview?platform=XONE">XBOX</a></li>
-				<li><a href="${path}/game/rankmoreview?platform=Switch">SWITCH</a></li>
-				<li><a href="${path}/game/rankmoreview?platform=PC">PC</a></li>
+				<li><a class="moreview-game">All</a></li>
+				<li><a class="moreview-game" >PS4</a></li>
+				<li><a class="moreview-game" >XONE</a></li>
+				<li><a class="moreview-game" >Switch</a></li>
+				<li><a class="moreview-game" >PC</a></li>
 			</ul>
 			<input type="hidden" id="href-id" value="all"/>
 			<button id="community-btn">Community</button>
@@ -49,6 +49,11 @@
 	<%@ include file="login-modal.jsp"%>
 	<%@ include file="delete-modal.jsp"%>
 	<script>
+		
+	    $(document).on('click','.moreview-game',function(){
+	        var platform = $(this).text();
+	        location.href="${path}/game/redirectpage?platform="+platform;
+	    })
 	
 		$(function() {
 			// 로고 클릭시
@@ -179,6 +184,6 @@
 					}
 				})
 			})
-		
+			
 		})
 	</script>

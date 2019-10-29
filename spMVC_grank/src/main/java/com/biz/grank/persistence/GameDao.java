@@ -53,13 +53,12 @@ public class GameDao {
 		// 3) 쿼리문 리스트에 저장
 		List<GameRankDto> gList = mongoOper.find(query, GameRankDto.class, "metascore");		
 		return gList;
-		
 	}
 	
 	// 4. 게임평가순위리스트 size 구하는 메소드
 	public List<GameRankDto> gFindPlatform(String platform){
 		BasicQuery query = (BasicQuery) new BasicQuery("{},");
-		if(platform.equals("all")) {
+		if(platform.equals("All")) {
 			query = (BasicQuery) new BasicQuery("{}, platform:'platform', game_code:'game_code', m_score:'m_score', game_name:'game_name', u_score:'u_score', img_src:'img_src' " ); 
 		} else {
 			query = (BasicQuery) new BasicQuery("{'platform':'"+platform+"'}, platform:'platform', game_code:'game_code', m_score:'m_score', game_name:'game_name', u_score:'u_score', img_src:'img_src' " );
@@ -72,10 +71,12 @@ public class GameDao {
 	// 5. 게임평가순위리스트 count건만 출력 
 	public List<GameRankDto> gMoreView(Map<String, Object> gMap) {
 		BasicQuery query = (BasicQuery) new BasicQuery("{},");
-		if(gMap.get("platform").equals("all")) {
+		if(gMap.get("platform").equals("All")) {
 			query = (BasicQuery) new BasicQuery("{}, platform:'platform', game_code:'game_code', m_score:'m_score', game_name:'game_name', u_score:'u_score', img_src:'img_src' ").limit((int) gMap.get("count"));
+			query.with(new Sort(Sort.Direction.DESC, "m_score"));
 		} else {
 			query = (BasicQuery) new BasicQuery("{'platform':'"+gMap.get("platform")+"'}, platform:'platform', game_code:'game_code', m_score:'m_score', game_name:'game_name', u_score:'u_score', img_src:'img_src' ").limit((int) gMap.get("count"));
+			query.with(new Sort(Sort.Direction.DESC, "m_score"));
 		}
 		List<GameRankDto> gList = mongoOper.find(query,	GameRankDto.class, "metascore");
 		
@@ -98,6 +99,7 @@ public class GameDao {
 	// 8. 비평가 리스트 출력
 	public List<CriticDto> gFindCritic(Map<String, Object> criticMap) {
 		BasicQuery query = (BasicQuery) new BasicQuery("{'game_code' : '"+criticMap.get("game_code")+"'}, game_code:'game_code', c_score:'c_score', c_critic:'c_critic', c_review:'c_review' ").limit((int) criticMap.get("count"));
+		query.with(new Sort(Sort.Direction.DESC, "c_score"));
 		List<CriticDto> criticList = mongoOper.find(query, CriticDto.class, "critic");
 		return criticList;
 	}
@@ -105,31 +107,35 @@ public class GameDao {
 	// 9. 유저 리스트 출력
 	public List<UserDto> gFindUser(Map<String, Object> userMap) {
 		BasicQuery query = (BasicQuery) new BasicQuery("{'game_code' : '"+userMap.get("game_code")+"'}, game_code:'game_code', u_score:'u_score', u_name:'u_name', u_review:'u_review' ").limit((int) userMap.get("count"));
+		query.with(new Sort(Sort.Direction.DESC, "u_score"));
 		List<UserDto> userList = mongoOper.find(query, UserDto.class, "userreview");
 		return userList;
 	}
-
+	
+	// 10. 비평가 리스트 사이즈값 
 	public int cReviewSize(String game_code) {
 		BasicQuery query = (BasicQuery) new BasicQuery("{'game_code' : '"+game_code+"'}, game_code:'game_code', c_score:'c_score', c_critic:'c_critic', c_review:'c_review' ");
 		List<CriticDto> criticList = mongoOper.find(query,CriticDto.class, "critic");
 		return criticList.size();
 	}
-
+	
+	// 11. 유저 리스트 사이즈값
 	public int uReviewSize(String game_code) {
 		BasicQuery query = (BasicQuery) new BasicQuery("{'game_code' : '"+game_code+"'}, game_code:'game_code', u_score:'u_score', u_name:'u_name', u_review:'u_review' ");
 		List<UserDto> userList = mongoOper.find(query, UserDto.class, "userreview");
 		return userList.size();
 	}
-
+	
+	// 12. 수상 경력 및 랭킹 리스트 출력 
 	public AwardsRankDto rFindAll(String game_code) {
 		BasicQuery query = (BasicQuery) new BasicQuery("{'game_code' : '"+game_code+"'}, game_code:'game_code', awardslist:'awardslist' ");
 		AwardsRankDto rDto = mongoOper.findOne(query, AwardsRankDto.class, "awardsrank");
 		return rDto;
 	}
-
+	
+	// 13. 게임 검색
 	public List<GameRankDto> gSearchList(String keyword) {
-		// TODO Auto-generated method stub
-		BasicQuery query = (BasicQuery) new BasicQuery("{'game_code' : /"+keyword+"/i}, game_code:'game_code', platform:'platform', c_img:'c_img', c_name:'c_name', c_date:'c_date");
+		BasicQuery query = (BasicQuery) new BasicQuery("{'game_name' : /"+keyword+"/i}, game_code:'game_code', platform:'platform', c_img:'c_img', c_name:'c_name', c_date:'c_date");
 		List<GameRankDto> gList = mongoOper.find(query, GameRankDto.class, "metascore");
 		return gList;
 	}	
