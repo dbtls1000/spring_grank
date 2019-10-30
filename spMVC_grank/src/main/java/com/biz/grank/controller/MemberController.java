@@ -44,23 +44,24 @@ public class MemberController {
 		if(mDto.isCheck()) {
 			
 			boolean result = mService.login(mDto, httpSession);
-			// 쿠키를 생성하고 현재 로그인되어 있는 세션 id를 쿠키에 담기
-			Cookie cookie = new Cookie("loginCookie", (String)httpSession.getAttribute("userid"));
-			// 쿠키를 찾을 경로를 컨텍스트를 경로로 변경
-			cookie.setPath("/");
-			// 단위는 (초)임으로 7일정도로 유효시간을 설정해 준다. 
-			int amount =60 * 60 * 24 * 7;
-			cookie.setMaxAge(amount);
-			// 쿠키를 적용해준다.
-			response.addCookie(cookie);
-			// currentTimeMillis()가 1/1000초 단위임으로 1000을 곱해서 더해야함
-			Date sessionLimit = new Date(System.currentTimeMillis()+(1000*amount));
-			mDto.setSessionkey((String)httpSession.getAttribute("userid"));
-			mDto.setSessionlimit(sessionLimit);
-			mService.autoLoginCheck(mDto);
+			
 			String flag ="-1";
 			if(result) {
 				flag ="1";
+				// 쿠키를 생성하고 현재 로그인되어 있는 세션 id를 쿠키에 담기
+				Cookie cookie = new Cookie("loginCookie", (String)httpSession.getAttribute("userid"));
+				// 쿠키를 찾을 경로를 컨텍스트를 경로로 변경
+				cookie.setPath("/");
+				// 단위는 (초)임으로 7일정도로 유효시간을 설정해 준다. 
+				int amount =60 * 60 * 24 * 7;
+				cookie.setMaxAge(amount);
+				// 쿠키를 적용해준다.
+				response.addCookie(cookie);
+				// currentTimeMillis()가 1/1000초 단위임으로 1000을 곱해서 더해야함
+				Date sessionLimit = new Date(System.currentTimeMillis()+(1000*amount));
+				mDto.setSessionkey((String)httpSession.getAttribute("userid"));
+				mDto.setSessionlimit(sessionLimit);
+				mService.autoLoginCheck(mDto);
 			}
 			
 			return flag;
