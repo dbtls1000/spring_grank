@@ -169,5 +169,9 @@
     	let game_code = $(this).attr("data-code");
 		location.href = '${path}/game/gameview?game_code='+game_code;
 	})
+	$(document).on('click','.view-one',function(){
+		var bno = $(this).attr('data-seq');
+		location.href = '${path}/board/view?bno='+bno;
+	})
 	
 </script>

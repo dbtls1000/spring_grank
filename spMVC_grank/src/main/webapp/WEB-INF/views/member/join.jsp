@@ -12,6 +12,14 @@
 			</script>
 		</c:if>
 	</c:when>
+	<c:otherwise>
+		<c:if test="${sessionScope.userid == null}">
+			<script>
+				alert("로그인 후 사용해주세요.");
+				location.href="${path}/";
+			</script>
+		</c:if>
+	</c:otherwise>
 </c:choose>
 	<div class="join-wrapper">
         <div class="join-wrapper-header"><span class="join-header-text">회원가입</span></div>
@@ -317,5 +325,10 @@ $(function() {
 		join_addr = false;
 		return false;
 	})
+	window.onpageshow = function(event){
+		if(event.persisted || (window.performance && window.performance.navigation.type == 2)){
+			location.reload();
+		}
+	}
 })
 </script>

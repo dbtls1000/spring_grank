@@ -131,6 +131,18 @@
 				$('#login-pw').val('');
 				$('.login-err-msg').css('visibility','hidden')
 			})
+			// 아이디 입력란에서 엔터키를 입력했을때
+			$('#login-id').keypress(function(evt){
+				if(evt.keyCode == 13){
+					$('#login-submit').click();
+				}
+			})
+			// 비밀번호 입력란에서 엔터키를 입력했을때
+			$('#login-pw').keypress(function(evt){
+				if(evt.keyCode == 13){
+					$('#login-submit').click();
+				}
+			})
 			// 로그인모달창의 로그인버튼 클릭시
 			$("#login-submit").click(function() {
 				var uri = '${uri}'
