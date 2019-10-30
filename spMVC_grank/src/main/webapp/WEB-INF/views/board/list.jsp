@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="../include/include.jsp"%>
-<link rel="stylesheet" type="text/css" href="${path}/resources/css/board-list.css?ver=2019102202">
+<link rel="stylesheet" type="text/css" href="${path}/resources/css/board-list.css?ver=20191030">
 <%@ include file="../include/header.jsp"%>
 <%
 	String message= request.getParameter("message");
@@ -132,5 +132,10 @@
 			var keyword = $.trim($('#keyword').val());
 			location.href = '${path}/board/list?search_option=' + search_option + '&keyword=' + keyword + '&sort_option=' + sort;
 		})
+		window.onpageshow = function(event){
+			if(event.persisted || (window.performance && window.performance.navigation.type == 2)){
+				location.reload();
+			}
+		}
 	})
 </script>
