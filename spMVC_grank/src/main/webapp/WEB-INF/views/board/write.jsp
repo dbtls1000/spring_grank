@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="../include/include.jsp"%>
-<link rel="stylesheet" type="text/css" href="${path}/resources/css/board-write.css?ver=20191024">
+<link rel="stylesheet" type="text/css" href="${path}/resources/css/board-write.css?ver=20191030">
 	<%@ include file="../include/header.jsp"%>
 	<c:if test="${sessionScope.userid == null}">
 	<script>
@@ -27,7 +27,7 @@
 				</div>
 				<div class="title-input">
 					<label class="title-label" for="">제목</label> <input
-						class="title-in title-title-input" id="b_title" name="b_title" type="text" value="${bDto.b_title}">
+						class="title-in title-title-input" autocomplete="off" id="b_title" name="b_title" type="text" value="${bDto.b_title}">
 				</div>
 				<div>
 					<textarea id="title-text" class="title-text" cols="30" rows="10" name="b_content">${bDto.b_content }</textarea>

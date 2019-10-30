@@ -263,10 +263,10 @@ function ajaxIdCheck(memid) {
 function ajaxPassCheck(user, pass) {
 	var return_val = false;
 	$.ajax({
-		url : 'passCheck?userid='+user+ '&passwd=' + pass,
+		url : 'passCheck',
+		data : {'userid':user,'passwd':pass},
 		type : 'POST',
 		async: false,
-		contentType: "application/json",
 		success : function(data) {
 			if(data == 1) {
 				return_val = true;
@@ -328,6 +328,7 @@ function ajaxPswordCheck(userid, email) {
 // 닉네임 중복 체크
 function ajaxNameCheck(name) {
 	check = null;
+	
 	$.ajax({
 		url : 'namecheck?name='+name,
 		type : 'POST',

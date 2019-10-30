@@ -228,6 +228,7 @@ public class MemberController {
 	@ResponseBody
 	@PostMapping("passCheck")
 	public int passCheck(String userid, String passwd) {
+		log.info(">>>>>"+userid+"/"+passwd);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("userid",userid);
 		map.put("passwd",passwd);

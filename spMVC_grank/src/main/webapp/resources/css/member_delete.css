@@ -1,7 +1,12 @@
 @charset "UTF-8";
-
+div.delete-wrapper{
+	width:600px;
+	border: 2px solid #00b894;
+	margin: 100px auto 60px auto;
+	box-sizing: border-box;
+}
 div.delete-info {
-	width: 960px;
+	width: 560px;
 	border: 2px solid #00b894;
 	border-radius: 10px;
 	margin: 20px auto;
@@ -12,8 +17,8 @@ div.delete-info h3 {
 }
 
 div.delete-info-content {
-	width: 900px;
-	font-size: 16px;
+	width: 540px;
+	font-size: 14px;
 	margin: 0 auto 15px auto;
 	text-align: left
 }

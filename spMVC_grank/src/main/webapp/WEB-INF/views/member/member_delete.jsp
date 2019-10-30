@@ -2,9 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="../include/include.jsp"%>
 <link rel="stylesheet" type="text/css"
-	href="${path}/resources/css/member_delete.css?ver=2019101703">
+	href="${path}/resources/css/member_delete.css?ver=20191030">
 <%@ include file="../include/header.jsp"%>
-<div class="wrapper">
+<div class="delete-wrapper">
 	<div class="wrapper-header">
 		<span class="header-text">회원 탈퇴</span>
 	</div>
@@ -36,34 +36,42 @@
 	</form>
 </div>
 <%@ include file="../include/footer.jsp"%>
-<script type="text/javascript" src="${path}/resources/js/validation.js"></script>
+<script type="text/javascript" src="${path}/resources/js/validation.js?ver=20191030"></script>
 <script>
 $(function() {
 	var state = false;
+	var pass_check = false;
 	// 비밀번호 체크
 	$('#delete-password').blur(function() {
 		var user = "${sessionScope.userid}";
 		var pass = $.trim($(this).val());
+		var regEmpty = /\s/g;
 		// 비밀번호 공백 체크
 		if(pass == null || pass.length == 0) {
-			$('.member-delete-err').css('visibility','visible');
+			$('.member-delete-err').css('visibility','visible').css('color','crimson');
 			$('#delete-password').focus();
+			pass_check = false;
 		// 비밀번호 같은지 확인
+		} else if(pass.match(regEmpty)){
+			$('.member-delete-err').css('visibility','visible').text('공백없이 입력해주세요.').css('color','crimson');
+			pass_check = false;
 		} else {
-			$('.member-delete-err').css('visibility','hidden');
-			state = ajaxPassCheck(user,pass);
+			if(ajaxPassCheck(user,pass)){
+				$('.member-delete-err').css('visibility','visible').text('비밀번호가 일치합니다.').css('color','skyblue');
+				pass_check = true;
+			} else{
+				$('.member-delete-err').css('visibility','visible').text('비밀번호가 일치하지 않습니다.').css('color','crimson');
+				pass_check = false;
+			}
 		}
 	})
 	// 탈퇴 클릭시 true이면 delete-modal 띄우고 false이면 delete-modal = none하고 경고글 출력
 	$('#delete-yes').click(function() {
-		if(state) {
+		if(pass_check) {
 			$('.delete-modal').css('display','block')
 			$('.delete-comment').text('정말 탈퇴하시겠습니까?')
-		} else {
-			$('.delete-modal').css('display','none');
-			$('.member-delete-err').css('visibility','visible').text('비밀번호가 틀립니다.');
-			$("#delete-password").val('');
-			$("#delete-password").focus();
+		} else{
+			$('#delete-password').focus();
 		}
 	})
 	// 취소 클릭시 마이페이지로 이동
