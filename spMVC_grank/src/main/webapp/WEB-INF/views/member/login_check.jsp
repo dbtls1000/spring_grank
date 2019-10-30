@@ -4,6 +4,7 @@
 <%@ include file="../include/header.jsp"%>
 <link rel="stylesheet" type="text/css"
 	href="${path}/resources/css/login-check.css?ver=2019101703">
+	
 <c:if test="${sessionScope.userid != null}">
 	<script>
 		alert("로그아웃 후 사용해주세요");
