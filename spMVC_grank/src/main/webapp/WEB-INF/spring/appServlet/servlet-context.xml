@@ -43,14 +43,22 @@
 	
 	<!-- 인터셉터 빈을 등록 -->
 	<beans:bean id="loginInterceptor" class="com.biz.grank.interceptor.LoginInterceptor"></beans:bean>
-	
 	<!-- 인터셉터 호출을 위한 url mapping -->
 	<interceptors>
 		<interceptor>
 			<mapping path="/board/write"/>
 			<mapping path="/member/member_delete"/>
-			<mapping path="/"/>
 			<beans:ref bean="loginInterceptor"/>
+		</interceptor>
+	</interceptors>
+	
+	<!-- 자동로그인 -->
+	<beans:bean id="RememberInterceptor" class="com.biz.grank.interceptor.RememberInterceptor"></beans:bean>
+	<!-- 인터셉터 호출을 위한 url mapping -->
+	<interceptors>
+		<interceptor>
+			<mapping path="/**"/>
+			<beans:ref bean="RememberInterceptor"/>
 		</interceptor>
 	</interceptors>
 </beans:beans>

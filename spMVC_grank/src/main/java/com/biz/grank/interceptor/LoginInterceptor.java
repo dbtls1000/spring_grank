@@ -32,18 +32,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 		HttpSession httpSession = request.getSession();
 		// 로그인 된 세션이 없는 경우
 		if(httpSession.getAttribute("userid") == null) {
-			// 쿠키 가져오기
-			Cookie loginCookie = WebUtils.getCookie(request, "loginCookie");
-			// 쿠키가 존재하면
-			if(loginCookie != null) {
-				
-				// loginCookie에서 값가져오기
-				MemberDto mDto = mSercice.checkUserWithSessionKey(loginCookie.getValue());
-				// 세션에 값 담기
-				httpSession.setAttribute("userid", mDto.getUserid());
-				httpSession.setAttribute("name", mDto.getName());
-				
-			}
+			
 			// 이전 페이지 가져오기
 			String referer = request.getHeader("referer");
 			// 주소 직접입력했을때  예) http://localhost:8080/grank/board/write
@@ -60,13 +49,9 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 					return false;
 				} else if (uri.equals("member_delete")) {
 					// uri가 member_delete일때 /로 이동
-					response.sendRedirect(request.getContextPath()+"/home.do");
+					response.sendRedirect(request.getContextPath()+"/");
 					return false;
-				} else {
-					// 로그인이 안되어 있을때 무한루프 안되게 하기
-					response.sendRedirect(request.getContextPath()+"/home.do");
-					return false;
-				}
+				} 
 			}
 			// uri 값 가져오기
 			String uri = request.getRequestURI();
@@ -83,13 +68,9 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 				return false;
 			} else if (url.equals("member_delete")) {
 				// referer 값이 있을때 이동
-				response.sendRedirect(request.getContextPath()+"/home.do");
+				response.sendRedirect(request.getContextPath()+"/");
 				return false;
-			} else if (uri.equals("/grank/")) {
-				// referer 값이 있을때 이동
-				response.sendRedirect(request.getContextPath()+"/home.do");
-				return false;
-			}
+			} 
 			// FlashMap
 			FlashMap flashMap = new FlashMap();
 			// flashMap noklogin, uri 값 담기
