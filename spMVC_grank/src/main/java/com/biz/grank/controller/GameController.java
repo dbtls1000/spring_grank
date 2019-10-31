@@ -72,7 +72,6 @@ public class GameController {
 								   @RequestParam(defaultValue = "All")String platform,
 								   Model model) {
 		int gSize = gameService.gFindPlatform(platform).size();
-		log.info(">>>>>gSize>>>>>"+gSize);
 		Map<String, Object> gMap = new HashMap<String, Object>();
 		// 20개씩 출력하기 위한 변수
 		gMap.put("count", count);
@@ -88,7 +87,6 @@ public class GameController {
 	@RequestMapping(value = "gameview", method = RequestMethod.GET)
 	public String gameView(@RequestParam String game_code, Model model) {
 		GameRankDto gDto = gameService.gameView(game_code);
-		log.info(">>>>>gDto>>>"+gDto);
 		int cSize = gameService.cReviewSize(game_code);
 		int uSize = gameService.uReviewSize(game_code);
 		AwardsRankDto rDto = gameService.rFindAll(game_code);

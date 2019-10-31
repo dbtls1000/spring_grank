@@ -30,6 +30,7 @@
 	// rankmoreviewlist 생성
 	function rankmoreviewlist() { //function start
 		var platform = '${platform}';
+		var count = Number($("#limit-count").val());
 		$('#platform-id').val(platform);
 		$.ajax({ // ajax start
 			url : '${path}/game/rankmoreviewlist?platform='+platform,
@@ -57,7 +58,6 @@
 		// size값
 		var max = $('#gsize').val();
 		count += 20;
-
 		// count 값이 max 값을 초과하면 count에 max값을 넣어주고 more 버튼이 없어짐
 		if (count > max) { // if start
 			count = max;
