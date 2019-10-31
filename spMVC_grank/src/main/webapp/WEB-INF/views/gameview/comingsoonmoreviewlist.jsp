@@ -8,12 +8,23 @@
 <div class="flex-wrapper">
 	<c:forEach items="${cList}" var="c">
 		<div class="g-card">
-			<div class="g-card-item g-card-header">${c.platform}</div>
+                	<c:if test="${c.platform == 'PS4' }">
+	                    <div class="g-card-item g-card-header PS4-color">${c.platform}</div>
+                    </c:if>
+                   	<c:if test="${c.platform == 'XONE' }">
+    	                <div class="g-card-item g-card-header XONE-color">${c.platform}</div>
+                    </c:if>
+                   	<c:if test="${c.platform == 'Switch' }">
+        	            <div class="g-card-item g-card-header switch-color">${c.platform}</div>
+                    </c:if>
+                   	<c:if test="${c.platform == 'PC' }">
+            	        <div class="g-card-item g-card-header PC-color">${c.platform}</div>
+                    </c:if>
 			<div class="g-card-item">
 				<img src="${c.c_img}">
 			</div>
 			<div class="g-card-item g-card-content game-name">${c.c_name}</div>
-			<div class="g-card-item g-card-content">날짜 : ${c.c_date}</div>
+			<div class="g-card-item g-card-content">${c.c_date}</div>
 		</div>
 	</c:forEach>
 </div>

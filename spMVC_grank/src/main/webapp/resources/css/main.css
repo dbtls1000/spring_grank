@@ -35,6 +35,14 @@ div.wrapper {
 	box-sizing: border-box;
 }
 
+div.g-wrapper {
+	width: 1000px;
+	border: 2px solid #00b894;
+	margin: 100px auto 60px auto;
+	box-sizing: border-box;
+	height: 555px;
+}
+
 div.wrapper-reply {
 	width: 960px;
 	border: 2px solid #00b894;
@@ -313,6 +321,12 @@ img {
 	text-align: right;
 }
 
+.g-more {
+	width: 960px;
+	margin: 80px auto;
+	text-align: right;
+}
+
 .home-game-nav {
 	width: 960px;
 	margin: 10px auto;
@@ -322,6 +336,11 @@ img {
 
 .home-game-nav li {
 	list-style: none;
+	font-weight: bold;
+}
+
+.home-game-nav li span.platform:hover{
+	color:black;
 	font-weight: bold;
 }
 

@@ -21,10 +21,18 @@ div.wrapper-header {
 	justify-content: space-between;
 }
 
-.review-item {
+.creview-item {
 	display: inline-block;
 	width: 460px;
 	border: 2px solid #00b894;
+	height: 100%;
+}
+
+.ureview-item {
+	display: inline-block;
+	width: 460px;
+	border: 2px solid #00b894;
+	height: 100%;
 }
 
 .review-content {

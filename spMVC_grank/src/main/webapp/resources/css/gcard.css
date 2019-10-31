@@ -10,14 +10,16 @@
 
 div.g-card {
 	width: 170px;
-	height: 300px;
+	height: 350px;
 	margin: 20px 10px;
 	cursor: pointer;
+	border: 1px solid #dfe6e9;
 }
 
 .g-card-item {
 	text-align: center;
 	width: 170px;
+	padding-top: 5px;
 }
 
 .g-card-item img {
@@ -30,12 +32,14 @@ div.g-card {
 }
 
 .g-card-content {
-	font-size: 13px;
+	font-size: 16px;
+	font-weight: bold;
+	color:#0984e3;
 }
 
 .game-name {
 	font-weight: bold;
-	color: cadetblue;
+	color: #4a69bd;
 }
 
 .a-common{
@@ -63,3 +67,41 @@ div.g-card {
 	list-style: none;
 	cursor: pointer;
 }
+
+.game-nav li:hover{
+	font-weight: bold;
+	color: black;
+}
+
+.g-card-content span.u-score{
+	color: #f0932b;
+	font-weight: bold;
+}
+
+.g-card-content span.c-score{
+	color: #e056fd;
+	font-weight: bold;
+}
+
+.g-card-content span.t-score{
+	color: #e55039;
+	font-weight: bold;
+}
+
+.switch-color{
+	color:#eb4d4b;
+}
+
+.PC-color{
+	color:#130f40;
+}
+
+.PS4-color{
+	color:#4834d4;
+}
+
+.XONE-color{
+	color:#6ab04c;
+}
+
+

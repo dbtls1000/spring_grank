@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file="include/include.jsp" %>
 <link rel="stylesheet" type="text/css" href="${path}/resources/css/searchbox.css?ver=20191031">
-<link rel="stylesheet" type="text/css" href="${path}/resources/css/gcard.css?ver=20191028">
+<link rel="stylesheet" type="text/css" href="${path}/resources/css/gcard.css?ver=20191031">
 <link rel="stylesheet" type="text/css" href="${path}/resources/css/board-list.css?ver=20191028">
 <%@ include file="include/header.jsp" %>
 <div style="height: 110px;"></div>
@@ -25,10 +25,21 @@
             <div class="flex-wrapper">
             	<c:forEach items="${cList}" var="c">
                 <div class="g-card">
-                    <div class="g-card-item g-card-header">${c.platform}</div>
+                	<c:if test="${c.platform == 'PS4' }">
+	                    <div class="g-card-item g-card-header PS4-color">${c.platform}</div>
+                    </c:if>
+                   	<c:if test="${c.platform == 'XONE' }">
+    	                <div class="g-card-item g-card-header XONE-color">${c.platform}</div>
+                    </c:if>
+                   	<c:if test="${c.platform == 'PC' }">
+        	            <div class="g-card-item g-card-header PC-color">${c.platform}</div>
+                    </c:if>
+                   	<c:if test="${c.platform == 'Switch' }">
+            	        <div class="g-card-item g-card-header switch-color">${c.platform}</div>
+                    </c:if>
                     <div class="g-card-item"><img src="${c.c_img}"></div>
                     <div class="g-card-item g-card-content game-name">${c.c_name}</div>
-                    <div class="g-card-item g-card-content">날짜 :  ${c.c_date}</div>
+                    <div class="g-card-item g-card-content">${c.c_date}</div>
                 </div>
                 </c:forEach>
                 <div class="more"><a class="a-button a-common" href="${path}/game/comingsoonmoreview">more+</a></div>
@@ -36,20 +47,20 @@
         </div>
     </div>
     <!-- 게임평가 순위 -->
-    <div class="wrapper">
+    <div class="g-wrapper">
         <div class="wrapper-header"><span class="header-text">게임평가 순위</span></div>
             <ul class="home-game-nav">
-                <li><span class="platform"><input class="input" type="hidden" value="PS4">PS4</span></li>
-                <li><span class="platform"><input class="input" type="hidden" value="XONE">XBOX</span></li>
-                <li><span class="platform"><input class="input" type="hidden" value="Switch">SWITCH</span></li>
-               <li><span class="platform"><input class="input" type="hidden" value="PC">PC</span></li>
+                <li><span class="platform"  id="PS4"><input class="input" type="hidden" value="PS4">PS4</span></li>
+                <li><span class="platform"  id="XONE"><input class="input" type="hidden" value="XONE">XONE</span></li>
+                <li><span class="platform" id="Switch"><input class="input" type="hidden" value="Switch" >SWITCH</span></li>
+               <li><span class="platform" id="PC"><input class="input" type="hidden" value="PC" >PC</span></li>
             </ul>
         <div>
             <div class="flex-item item1">
      			<div id="gameranklist" class="gameranklist">
      			</div>
             </div>
-            <div class="more"><a class="a-button a-common" href ="${path}/game/rankmoreview">more+</a></div>
+            <div class="g-more"><a class="a-button a-common" href ="${path}/game/rankmoreview">more+</a></div>
         </div>
     </div>
     <!-- 오늘의 화제글 -->
@@ -101,6 +112,28 @@
  	$(document).on('click','.platform',function(){
  		// 플랫폼별로 클릭했을 때 보여주기 위해 변수를 받아옴
  		var platform = $(this).children('input').val();
+ 		var p_color = $(this).attr('id');
+		if(platform == 'PS4'){
+			$('#PS4').css('color', '#4834d4').css('font-weight', 'bold').css('font-size', '20px');
+		}else{
+			$('#PS4').css('color', '').css('font-weight', '').css('font-size', '');
+		}
+		if(platform == 'XONE'){
+			$('#XONE').css('color', '#6ab04c').css('font-weight', 'bold').css('font-size', '20px');
+		}else{
+			$('#XONE').css('color', '').css('font-weight', '').css('font-size', '');
+		}
+		if(platform == 'Switch'){
+			$('#Switch').css('color', '#eb4d4b').css('font-weight', 'bold').css('font-size', '20px');
+		}else{
+			$('#Switch').css('color', '').css('font-weight', '').css('font-size', '');
+		}
+		if(platform == 'PC'){
+			$('#PC').css('color', '#130f40').css('font-weight', 'bold').css('font-size', '20px');
+		}else{
+			$('#PC').css('color', '').css('font-weight', '').css('font-size', '');
+		}
+ 		
 		$.ajax({
 			url:'${path}/grank?platform='+platform,
 			type:'GET',

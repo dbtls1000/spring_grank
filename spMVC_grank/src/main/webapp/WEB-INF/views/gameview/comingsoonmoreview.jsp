@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fnt"%>
 <c:set var="path" value="${pageContext.request.contextPath}" />
-<link rel="stylesheet" type="text/css" href="${path}/resources/css/gcard.css?ver=2019102301">
+<link rel="stylesheet" type="text/css" href="${path}/resources/css/gcard.css?ver=201910311">
 <%@ include file="../include/header.jsp"%>
 <!-- 출시 예정작 -->
 <div class="wrapper">

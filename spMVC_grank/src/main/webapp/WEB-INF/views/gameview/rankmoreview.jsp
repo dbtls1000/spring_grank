@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fnt"%>
 <%@ include file="../include/include.jsp"%>
 <link rel="stylesheet" type="text/css"
-	href="${path}/resources/css/gcard.css?ver=20191029">
+	href="${path}/resources/css/gcard.css?ver=20191031">
 <%@ include file="../include/header.jsp"%>
 <div class="wrapper">
 	<div class="wrapper-header">
@@ -77,11 +77,35 @@
 			}
 		}) // ajax end 
 	}) // function end
-
 	// platform 클릭 시 해당 플랫폼별로 게임을 보여줌 
 	$(document).on('click', '.platform', function() { // function start
 		// 해당하는 platform id 값을 불러옴
 		var platform = $(this).attr('id');
+		if(platform == 'All'){
+			$('#All').css('color', '#00b894').css('font-weight', 'bold').css('font-size', '20px');
+		}else{
+			$('#All').css('color', '').css('font-weight', '').css('font-size', '');
+		}
+		if(platform == 'PS4'){
+			$('#PS4').css('color', '#4834d4').css('font-weight', 'bold').css('font-size', '20px');
+		}else{
+			$('#PS4').css('color', '').css('font-weight', '').css('font-size', '');
+		}
+		if(platform == 'XONE'){
+			$('#XONE').css('color', '#6ab04c').css('font-weight', 'bold').css('font-size', '20px');
+		}else{
+			$('#XONE').css('color', '').css('font-weight', '').css('font-size', '');
+		}
+		if(platform == 'Switch'){
+			$('#Switch').css('color', '#eb4d4b').css('font-weight', 'bold').css('font-size', '20px');
+		}else{
+			$('#Switch').css('color', '').css('font-weight', '').css('font-size', '');
+		}
+		if(platform == 'PC'){
+			$('#PC').css('color', '#130f40').css('font-weight', 'bold').css('font-size', '20px');
+		}else{
+			$('#PC').css('color', '').css('font-weight', '').css('font-size', '');
+		}
 		// 불러온 id값을 input tag에 넣어줌
 		$('#platform-id').val(platform);
 		$('#limit-count').val('20');
@@ -97,5 +121,6 @@
 			} 
 		})// ajax end
 	})// function end
+	
 </script>
 <%@ include file="../include/footer.jsp"%>

@@ -1,10 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="../include/include.jsp"%>
-<link rel="stylesheet" type="text/css" href="${path}/resources/css/gameview.css?ver=20191030">
+<link rel="stylesheet" type="text/css" href="${path}/resources/css/gameview.css?ver=2019103103">
 <%@ include file="../include/header.jsp"%>
-<style>
-</style>
   <div class="wrapper">
         <div class="wrapper-header"><span class="header-text">게임정보</span></div>
                <div class="gameinfo-items">
@@ -56,14 +54,14 @@
 		               </div>
            </div>
         <div class="review-wrapper">
-            <div class="review-item">
+            <div class="creview-item">
                 <div class="wrapper-header"><span class="header-text">비평가</span></div>
                 <div id="c-review">
                 </div>
                 <div class="div-more"><a id="c_more" class="review a-button a-common">more+</a></div>
                <input type="hidden" id="cview-count" value="5">
             </div>
-            <div class="review-item">
+            <div class="ureview-item">
                 <div class="wrapper-header"><span class="header-text">유저</span></div>
                 <div id="u-review">
                 </div>
@@ -73,7 +71,7 @@
         </div>
     </div>
  <script>
- 		// 1.creview start
+ 		// 1.creview 
  		function creview(){
  			var game_code = '${gDto.game_code}'
  			var cmax = ${csize};
@@ -95,7 +93,7 @@
  			})// ajax end 
  		}// end
  		
- 		// 2.ureview start
+ 		// 2.ureview 
  		function ureview(){ // function  start
  			var game_code = '${gDto.game_code}'
  			var umax = ${usize};
