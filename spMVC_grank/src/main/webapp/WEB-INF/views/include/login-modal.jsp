@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<link rel="stylesheet" type="text/css" href="${path}/resources/css/login.css?ver=20191028">
+<link rel="stylesheet" type="text/css" href="${path}/resources/css/login.css?ver=20191031">
 <div id="modal-login" class="modal">
 	<div class="modal-box">
 		<span class="modal-close"><i class="fas fa-times"></i></span>

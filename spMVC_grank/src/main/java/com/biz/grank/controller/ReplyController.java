@@ -32,17 +32,22 @@ public class ReplyController {
 	// 댓글 작성 Ajax
 	@ResponseBody
 	@PostMapping("write")
-	public void write(ReplyDto rDto,HttpSession httpSession) {
+	public int write(ReplyDto rDto,HttpSession httpSession) {
 		String name = (String)httpSession.getAttribute("name");
 		rDto.setR_writer(name);
 		log.info(">>rDto>>" + rDto);
 		rService.save(rDto);
+		int bno = rDto.getBno();
+		log.info(">>>>"+rService.countReply(bno));
+		return rService.countReply(bno);
 	}
 	
 	// 댓글 삭제 Ajax
 	@ResponseBody
 	@GetMapping("delete")
-	public void delete(ReplyDto rDto) {
+	public int delete(ReplyDto rDto) {
 		rService.delete(rDto);
+		int bno = rDto.getBno();
+		return rService.countReply(bno);
 	}
 }

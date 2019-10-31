@@ -198,5 +198,15 @@ public class MemberServiceImp implements MemberService {
 		return mDao.checkUserWithSessionKey(value);
 	}
 
+	@Override
+	public boolean emailOverlapCheck(String email) {
+		// TODO Auto-generated method stub
+		int check = mDao.emailOverlapCheck(email);
+		if(check == 1) {
+			return true;
+		}
+		return false;
+	}
+
 
 }

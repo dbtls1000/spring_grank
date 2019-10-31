@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="include/include.jsp" %>
-<link rel="stylesheet" type="text/css" href="${path}/resources/css/searchbox.css?ver=20191029">
+<link rel="stylesheet" type="text/css" href="${path}/resources/css/searchbox.css?ver=20191031">
 <link rel="stylesheet" type="text/css" href="${path}/resources/css/gcard.css?ver=20191028">
 <link rel="stylesheet" type="text/css" href="${path}/resources/css/board-list.css?ver=20191028">
 <%@ include file="include/header.jsp" %>
 <div style="height: 110px;"></div>
 	<!-- 검색기능 box -->
+	<div class="s-box-comment">버튼을 클릭해 게임을 검색해주세요.</div>
     <div class="s-box-wrapper">
         <div class="middle s-box">
             <form class="search-box">
@@ -121,6 +122,7 @@
 			}
 		})
  	}
+ 	// 게임 검색결과를담은 jsp를 search-result에 담는 함수 생성 
  	function search_list(){
  		var keyword = $.trim($('#s-box-search').val());
  		$.ajax({
@@ -134,6 +136,12 @@
 	// 페이지가 준비되면 메소드 호출
 	$(document).ready(function(){
 		gameranklist();
+	})
+	// 검색박스 클릭시
+	$('.s-box-button').click(function() {
+		$('.s-box-input').toggleClass('inclicked');
+		$('.s-box-button').toggleClass('close');
+		$('#s-box-search').val('');
 	})
 	// search-box에 글자를 입력하면
 	$(document).on('keyup','#s-box-search',function(evt){

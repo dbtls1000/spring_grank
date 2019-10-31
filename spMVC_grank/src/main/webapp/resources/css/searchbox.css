@@ -72,14 +72,16 @@
 #search-result{
     position: absolute;
     width: 1000px;
-    top:170px;
+    top:210px;
     box-sizing: border-box;
     transform: translate(-47.5%,0);
     background: ghostwhite;
     z-index:995;
 }
 .search-result{
-    border: 4px solid #00b894;
+    border-left: 4px solid #00b894;
+    border-right: 4px solid #00b894;
+    border-bottom: 4px solid #00b894;
 }
 .search-result-item{
     width: 980px;

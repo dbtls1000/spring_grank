@@ -17,4 +17,6 @@ public interface ReplyDao {
 
 	public void update_reply(ReplyDto rDto);
 
+	public int countReply(int bno);
+
 }

@@ -95,6 +95,9 @@
 .auto-login{
     height: 40px;
 }
+.login-err-msg{
+	font-size:13px;
+}
 .checkbox{
     position: relative;
     top: 7px;

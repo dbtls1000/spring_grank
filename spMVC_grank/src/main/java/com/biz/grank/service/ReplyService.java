@@ -12,4 +12,6 @@ public interface ReplyService {
 
 	public void delete(ReplyDto rDto);
 
+	public int countReply(int bno);
+
 }

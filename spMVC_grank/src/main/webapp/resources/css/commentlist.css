@@ -16,27 +16,26 @@
 .commentlist ul li{
     list-style: none;
 }
-.commentlist ul li:nth-child(2){
+.commentlist ul li:nth-child(2),
+.commentlist ul li:nth-child(3){
     margin-left: 20px;
 }
-.commentlist ul li:nth-child(3){
+.commentlist ul li:last-child{
     margin-left: auto;
 }
-.commentlist ul li:last-child{
-    margin-left: 10px;
-}
 .commentlist ul li span{
-	font-size:13px;
+	font-size:11px;
 }
 .commentlist span{
-	font-size:13px;
+	font-size:11px;
 }
 .commentlist ul li span.reply-btn{
 	cursor: pointer;
 }
 .comment{
-    font-size: 16px;
-    margin: 5px 0;
+    font-size: 18px;
+    margin: 10px 0;
+    padding-bottom: 10px;
 }
 div.center{
     text-align: center;
@@ -49,7 +48,7 @@ div.infocomment{
     margin-top: 5px;
     width:895px;
     outline: none;
-    
+    resize: none;
 }
 .comment-btn{
     position: relative;
@@ -64,4 +63,16 @@ div.infocomment{
 	visibility: hidden;
 	padding-right: 10px;
 	color:crimson;
+}
+#reply-update-btn{
+	color:#f39c12;
+	font-weight: bold;
+}
+#reply-delete-btn{
+	color:crimson;
+	font-weight: bold;
+}
+.reply-login-btn{
+	cursor: pointer;
+	border-bottom: 1px solid #34495e;
 }

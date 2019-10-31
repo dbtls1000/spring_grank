@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="../include/include.jsp"%>
-<link rel="stylesheet" type="text/css" href="${path}/resources/css/board-list.css?ver=20191030">
+<link rel="stylesheet" type="text/css" href="${path}/resources/css/board-list.css?ver=2019103101">
 <%@ include file="../include/header.jsp"%>
 <%
 	String message= request.getParameter("message");
@@ -83,7 +83,7 @@
 				<li><a href="${path}/board/list?curPage=${page.blockBegin -10}&search_option=${search_option}&keyword=${keyword}&sort_option=${sort}"><i class="fas fa-angle-left"></i></a></li>
 			</c:if>
 			<c:forEach begin="${page.blockBegin}" end="${page.blockEnd}" var="idx">
-				<li <c:out value="${page.curPage == idx ? 'class=active' : '' }"/> ><a href="${path}/board/list?curPage=${idx}&search_option=${search_option}&keyword=${keyword}&sort_option=${sort}" >${idx}</a></li>
+				<li><a  <c:out value="${page.curPage == idx ? 'class=active' : '' }"/> href="${path}/board/list?curPage=${idx}&search_option=${search_option}&keyword=${keyword}&sort_option=${sort}" >${idx}</a></li>
 			</c:forEach>
 			<c:if test="${page.curBlock < page.totalBlock}">
 				<li><a href="${path}/board/list?curPage=${page.blockEnd+1}&search_option=${search_option}&keyword=${keyword}&sort_option=${sort}"><i class="fas fa-angle-right"></i></a></li>
@@ -131,6 +131,12 @@
 			var search_option = $.trim($('#search_option').val());
 			var keyword = $.trim($('#keyword').val());
 			location.href = '${path}/board/list?search_option=' + search_option + '&keyword=' + keyword + '&sort_option=' + sort;
+		})
+		// 검색하는 input태그에서 엔터키로 검색
+		$('#keyword').keyup(function(evt){
+			if(evt.keyCode == 13){
+				$('#board-search-btn').click();
+			}
 		})
 		window.onpageshow = function(event){
 			if(event.persisted || (window.performance && window.performance.navigation.type == 2)){

@@ -68,4 +68,8 @@
 		SELECT * FROM tbl_member
 		WHERE sessionkey = #{value} AND sessionlimit > SYSDATE
    </select>
+   <select id="emailOverlapCheck" resultType="int">
+   		SELECT COUNT(*) FROM tbl_member
+   		WHERE email = #{email}
+   </select>
 </mapper>

@@ -273,4 +273,17 @@ public class MemberController {
 	public int ajaxNameCheck(String name) {
 		return mService.ajaxNameCheck(name);
 	}
+	
+	@ResponseBody
+	@PostMapping("emailOverlap")
+	public int emailOverlapCheck(String email) {
+		log.info(">>>"+email);
+		boolean result = mService.emailOverlapCheck(email);
+		log.info(">>>>"+result);
+		int flag = -1;
+		if(result) {
+			flag = 1;
+		}
+		return flag;
+	}
 }

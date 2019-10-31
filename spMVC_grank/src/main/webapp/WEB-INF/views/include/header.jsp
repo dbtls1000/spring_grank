@@ -16,7 +16,7 @@
 		<img id="home-img" style="float: left;" width="150px"
 			src="${path}/resources/images/ranklogo.png">
 		<div class="dropdown">
-			<button id="game-btn">Game</button>
+			<button class="header-button" id="game-btn">Game</button>
 			<ul id="game-dropdown">
 				<li><a href="${path}/game/comingsoonmoreview">Commingsoon</a></li>
 				<li><a class="moreview-game">All</a></li>
@@ -26,7 +26,7 @@
 				<li><a class="moreview-game" >PC</a></li>
 			</ul>
 			<input type="hidden" id="href-id" value="all"/>
-			<button id="community-btn">Community</button>
+			<button class="header-button" id="community-btn">Community</button>
 		</div>
 		<c:choose>
 			<c:when test="${!empty sessionScope.name}">
@@ -59,12 +59,6 @@
 			// 로고 클릭시
 			$('#home-img').click(function() {
 				location.href = '${path}/'
-			})
-			// 검색박스 클릭시
-			$('.s-box-button').click(function() {
-				$('.s-box-input').toggleClass('inclicked');
-				$('.s-box-button').toggleClass('close');
-				$('#s-box-search').val('');
 			})
 			// Community버튼 클릭시
 			$('#community-btn').click(function() {

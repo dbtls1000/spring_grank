@@ -23,4 +23,5 @@ public interface MemberService {
 	public int ajaxNameCheck(String name);
 	public MemberDto checkUserWithSessionKey(String value);
 	public void autoLoginCheck(MemberDto mDto);
+	public boolean emailOverlapCheck(String email);
 }

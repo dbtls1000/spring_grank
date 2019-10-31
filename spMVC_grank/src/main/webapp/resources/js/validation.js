@@ -245,7 +245,7 @@ function ajaxIdCheck(memid) {
 		contentType: "application/json",
 		success : function(data) {
 			if(data == 1) {
-				$("#join-id").next().text("중복 된 아이디 입니다.").css("display","block")
+				$("#join-id").next().text("이미 사용중인 아이디 입니다.").css("display","block")
 				return_val = false;
 			} else {
 				$("#join-id").next().text("!멋진 아이디네요.").css("display","block").css("color","blue")
@@ -277,6 +277,27 @@ function ajaxPassCheck(user, pass) {
 		error:function(){
 			alert("err~~~~~~~~~");
 		} 
+	})
+	return return_val;
+}
+
+function ajaxEmailOverlapCheck(email){
+	var return_val = false;
+	$.ajax({
+		url:'emailOverlap?email='+email,
+		type:'POST',
+		async:false,
+		contentType:'application/json',
+		success:function(data){
+			if(data == 1){
+				return_val = true;
+			} else{
+				return_val = false;
+			}
+		},
+		error:function(){
+			alert('error');
+		}
 	})
 	return return_val;
 }
@@ -336,7 +357,7 @@ function ajaxNameCheck(name) {
 		contentType : "application/json",
 		success : function(data) {
 			if(data == 1) {
-				$("#join-name").next().text("중복 된 닉네임 입니다.").css("display","block")
+				$("#join-name").next().text("이미 사용중인 닉네임 입니다.").css("display","block")
 				check = false;
 			} else {
 				$("#join-name").next().text("사용 가능한 닉네임 입니다.").css("display","block").css("color","blue")

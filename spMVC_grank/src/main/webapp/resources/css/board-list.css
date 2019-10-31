@@ -1,97 +1,134 @@
 @charset "UTF-8";
 
-.board-list{
-    width: 960px;
-    margin: 20px auto;
-    border-collapse: collapse;
-}
-.board-list th,.board-list td{
-    border-bottom: 1px solid #95a5a6;
-    height:30px;
-}
-.board-list th{
-    border-top: 1px solid #95a5a6;
-}
-.center{
-    text-align: center;
-}
-.title{
-    padding-left: 5px;
-}
-.recordNum{
-    width:80px;
-}
-.board-title{
-    width: 590px;
-}
-.board-writer{
-    width:150px;
-}
-.board-regdate{
-    width:80px;
-}
-.board-viewcnt{
-    width:60px;
-}
-.board-content{
-    font-size: 14px;
-}
-.pagination{
-    display: flex;
-    justify-content: center;
-}
-.pagination li{
-    list-style: none;
-    margin: 10px 10px;
-    padding: 0 5px;
-    color:#341f97;
-    border:1px solid #16a085
+.board-list {
+	width: 960px;
+	margin: 20px auto;
+	border-collapse: collapse;
 }
 
-.pagination li a{
+.board-list th, .board-list td {
+	border-bottom: 1px solid #95a5a6;
+	height: 30px;
+}
+
+.board-list th {
+	border-top: 1px solid #95a5a6;
+}
+
+.center {
+	text-align: center;
+}
+
+.title {
+	padding-left: 5px;
+}
+
+.recordNum {
+	width: 80px;
+}
+
+.board-title {
+	width: 590px;
+}
+
+.board-writer {
+	width: 150px;
+}
+
+.board-regdate {
+	width: 80px;
+}
+
+.board-viewcnt {
+	width: 60px;
+}
+
+.board-content {
+	font-size: 14px;
+}
+
+.pagination {
+	display: flex;
+	justify-content: center;
+	margin: 0;
+	padding: 0;
+}
+
+.pagination li {
+	list-style: none;
+}
+
+.pagination li a {
+	position: relative;
+	display: block;
+	width: 30px;
+	height: 30px;
+	font-size: 15px;
+	text-align: center;
+	line-height: 30px;
+	background: #34495e;
+	color: #bdc3c7;
 	text-decoration: none;
-	color:inherit;
+	margin: 5px;
+	border-radius: 4px;
+	box-shadow: inset 0 5px 10px rgba(0, 0, 0, .1), 0 2px 5px
+		rgba(0, 0, 0, .5);
 }
-.pagination li.active{
-	background: #16a085;
+.pagination li a i{
+	font-size: 15px;
+	line-height: 32px;
 }
-.list-search{
-	margin:20px auto 0 auto;
-	width:960px;
-	height:30px;
+
+.pagination li a.active, .pagination li a:hover {
+	color: #fff;
+	text-shadow: 0 0 15px rgb(255, 224, 27), 0 0 15px rgb(255, 224, 27), 0 0
+		15px rgb(255, 224, 27), 0 0 15px rgb(255, 224, 27), 0 0 15px
+		rgb(255, 224, 27), 0 0 15px rgb(255, 224, 27), 0 0 15px
+		rgb(255, 224, 27);
+}
+
+.list-search {
+	margin: 20px auto 0 auto;
+	width: 960px;
+	height: 30px;
 	display: flex;
 	justify-content: space-between;
 }
-.flex-item{
+
+.flex-item {
 	display: inline-block;
 }
-.list-search select,
-.list-search input{
+
+.list-search select, .list-search input {
 	outline: none;
 }
-.list-search select{
+
+.list-search select {
 	height: 28px;
-	
 }
-.list-search input{
-	position:relative;
-	bottom:1px;
-	height:28px;
-	font-size:17px;
+
+.list-search input {
+	position: relative;
+	bottom: 1px;
+	height: 28px;
+	font-size: 17px;
 }
-.board-sort a{
+
+.board-sort a {
 	text-decoration: none;
-	color:inherit;
+	color: inherit;
 }
-#board-new{
-	font-size:12px;
-	color:#341f97;
-	animation-name:twinkle;
-	animation-duration:1.2s;
-	animation-iteration-count:infinite;
+
+#board-new {
+	font-size: 12px;
+	color: #341f97;
+	animation-name: twinkle;
+	animation-duration: 1.2s;
+	animation-iteration-count: infinite;
 }
-@keyframes twinkle{
-	0%   {opacity:0;}
-	50% {opacity:1;}
+
+@keyframes twinkle { 
+	0% {opacity: 0;}
+	50%{opacity:1;}
 	100%{opacity:0;}
 }

@@ -68,4 +68,10 @@ public class ReplyServiceImp implements ReplyService {
 		rDao.updateReplyCnt(map);
 		
 	}
+
+	@Override
+	public int countReply(int bno) {
+		// TODO Auto-generated method stub
+		return rDao.countReply(bno);
+	}
 }

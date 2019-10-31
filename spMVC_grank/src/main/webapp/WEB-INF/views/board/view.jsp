@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="../include/include.jsp"%>
-<link rel="stylesheet" type="text/css" href="${path}/resources/css/board-view.css?ver=2019102101">
-<link rel="stylesheet" type="text/css" href="${path}/resources/css/commentlist.css?ver=2019101803">
+<link rel="stylesheet" type="text/css" href="${path}/resources/css/board-view.css?ver=2019103101">
+<link rel="stylesheet" type="text/css" href="${path}/resources/css/commentlist.css?ver=2019103103">
 	<%@ include file="../include/header.jsp"%>
 	<div class="wrapper">
 		<div class="wrapper-header">
@@ -26,17 +26,13 @@
 			</c:choose>
 		</div>
 		<table class="board-view">
-			<colgroup>
-				<col width="200" />
-				<col width="500" />
-			</colgroup>
 			<jsp:useBean id="now" class="java.util.Date"/>
 			<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today"/>
 			<fmt:formatDate value="${bDto.b_regdate}" pattern="yyyy-MM-dd" var="regdate"/>
 			<tr class="view_writer">
-				<th colspan="2">[${bDto.b_platform}] ${bDto.b_title}</th>
-				<th>${bDto.b_writer}</th>
-				<th>
+				<th class="view-title" colspan="2">[${bDto.b_platform}] ${bDto.b_title}</th>
+				<th class="view-writer">${bDto.b_writer}</th>
+				<th class="view-date">
 					<c:choose>
 						<c:when test="${today == regdate}">
 							<fmt:formatDate value="${bDto.b_regdate}" pattern="HH:mm:ss"/>
@@ -72,7 +68,7 @@
 		</div>
 		<!-- 댓글 -->
 		<div class="wrapper-reply">
-			<div class="wrapper-header"><span class="header-text">댓글</span></div>
+			<div class="wrapper-header"><span class="header-text">댓글 (<span id="view-reply-cnt">${bDto.b_replycnt}</span>)</span></div>
 			<div id="commentlist"></div>
 		</div>
 	</div>
@@ -120,29 +116,38 @@
 	// 댓글등록버튼 클릭시 이벤트
 	$(document).on('click','#board-reply-btn',function(){
 		var reply = $('#txt').val();
-		console.log(reply)
-		if(reply == '' || reply.length == 0){
-			$('#txt').focus();
-			$('#reply-err').css('visibility','visible');
-			return false;
-		} else {
-			var bno = '${bDto.bno}';
-			$('#re_bno').val(bno);
-			$.ajax({
-				url:'${path}/reply/write',
-			 	type:'POST',
-				data: $('#frm_reply').serialize(),
-				contentType:'application/x-www-form-urlencoded;charset=UTF-8',
-				success:function(){
-					comment_list();
-					$('#reply-err').css('visibility','hidden');
-					$('#txt').val('');
-				},
-				error:function(){
-					alert("댓글 등록 실패")
-				}
-			})
+		var name = '${sessionScope.name}';
+		
+		if(name == ''){
+			$('#modal-login').css('display', 'block');
+			$('#login-id').focus();
+			$('.login-err-msg').text('로그인후 사용할 수 있습니다.').css('visibility','visible');
+		} else{
+			if(reply == '' || reply.length == 0){
+				$('#txt').focus();
+				$('#reply-err').css('visibility','visible');
+				return false;
+			} else {
+				var bno = '${bDto.bno}';
+				$('#re_bno').val(bno);
+				$.ajax({
+					url:'${path}/reply/write',
+				 	type:'POST',
+					data: $('#frm_reply').serialize(),
+					contentType:'application/x-www-form-urlencoded;charset=UTF-8',
+					success:function(result){
+						comment_list();
+						$('#reply-err').css('visibility','hidden');
+						$('#view-reply-cnt').text(result);
+						$('#txt').val('');
+					},
+					error:function(){
+						alert("댓글 등록 실패")
+					}
+				})
+			}
 		}
+		
 	})
 	// 댓글삭제버튼 클릭시 이벤트
 	$(document).on('click','#reply-delete-btn',function(){
@@ -153,6 +158,7 @@
 			data:"rno="+rno+"&bno="+bno,
 			success:function(result){
 				comment_list();
+				$('#view-reply-cnt').text(result);
 			},
 			error:function(){
 				alert("System Error")
@@ -243,7 +249,20 @@
 	// 로그인하지 않은상태로 좋아요 버튼을 클릭하면 로그인 모달창을 띄우고 경고메세지를 출력한다
 	$(document).on('click','#like-btn-login',function(){
 		$('#modal-login').css('display', 'block');
+		$('#login-id').focus();
 		$('.login-err-msg').text('로그인후 사용할 수 있습니다.').css('visibility','visible');
 	})
-
+	$(document).on('click','.reply-login-btn',function(){
+		$('#modal-login').css('display', 'block');
+		$('#login-id').focus();
+	})
+	$(document).on('click','#nologin-reply',function(){
+		$('#modal-login').css('display', 'block');
+		$('#login-id').focus();
+		$('.login-err-msg').text('로그인후 사용할 수 있습니다.').css('visibility','visible');
+	})
+	$(document).on('keyup','#nologin-reply',function(){
+		$(this).val('');
+		$('#nologin-reply').click();
+	})
 </script>

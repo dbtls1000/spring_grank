@@ -35,5 +35,7 @@ public interface MemberDao {
 
 	void autoLoginCheck(MemberDto mDto);
 
+	int emailOverlapCheck(String email);
+
 
 }

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../include/include.jsp" %>
-<link rel="stylesheet" type="text/css" href="${path}/resources/css/join.css?ver=20191025">
+<link rel="stylesheet" type="text/css" href="${path}/resources/css/join.css?ver=20191031">
 <%@ include file="../include/header.jsp" %>
 <c:choose>
 	<c:when test="${mDto.userid == null}">
@@ -30,7 +30,7 @@
 	                    <span>아이디</span>
 	                </div>
 	                <div class="input-field">
-	                    <input autocomplete="off" class="join-input" id="join-id" type="text" name="userid" required="">
+	                    <input autocomplete="off" class="join-input" id="join-id" type="text" name="userid" >
 	                	<div class="join-err">
 	                		<span></span>
 	                	</div>
@@ -41,7 +41,7 @@
 	                    <span>비밀번호</span>
 	                </div>
 	                <div class="input-field">
-	                    <input class="join-input" id="join-ps" type="password" name="passwd" required="">
+	                    <input class="join-input" id="join-ps" type="password" name="passwd" >
 	                	<div class="join-err">
 	                		<span></span>
 	                	</div>
@@ -52,7 +52,7 @@
 	                    <span>비밀번호확인</span>
 	                </div>
 	                <div class="input-field">
-	                    <input class="join-input"  id="join-rps" type="password" name="" required="">
+	                    <input class="join-input"  id="join-rps" type="password" name="" >
 	                	<div class="join-err">
 	                		<span></span>
 	                	</div>
@@ -62,7 +62,7 @@
                     <span>닉네임</span>
                 </div>
                 <div class="input-field">
-                    <input autocomplete="off" class="join-input" id="join-name" type="text" name="name" required="" value="${mDto.name}">
+                    <input autocomplete="off" class="join-input" id="join-name" type="text" name="name"  value="${mDto.name}">
                 	<div class="join-err">
 	                		<span></span>
 	                	</div>
@@ -71,7 +71,7 @@
                     <span>전화번호</span>
                 </div>
                 <div class="input-field">
-                    <input autocomplete="off" class="join-input" id="join-phone" type="text" name="phone" required=""  value="${mDto.phone}">
+                    <input autocomplete="off" class="join-input" id="join-phone" type="text" name="phone"   value="${mDto.phone}">
                 	<div class="join-err">
 	                		<span></span>
 	                	</div>
@@ -80,7 +80,7 @@
                     <span>이메일</span>
                 </div>
                 <div class="input-field">
-                    <input autocomplete="off" class="join-input" id="join-email" type="text" name="email" required="" value="${mDto.email}">
+                    <input autocomplete="off" class="join-input" id="join-email" type="text" name="email"  value="${mDto.email}">
                 	<div class="join-err">
 	                		<span></span>
 	                	</div>
@@ -115,7 +115,7 @@
 <%@ include file="../include/footer.jsp" %>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="${path}/resources/js/daumpost.js"></script>
-<script type="text/javascript" src="${path}/resources/js/validation.js"></script>
+<script type="text/javascript" src="${path}/resources/js/validation.js?ver=20191031"></script>
 <script>
 $(function() {
 	var id = '${sessionScope.userid}';
@@ -137,31 +137,31 @@ $(function() {
 	$('#join-join-btn').click(function() {
 		if(!join_id) {
 			$('#join-id').focus();
-			$('#join-id').next().text('필수 입력정보 입니다.').css("display","block").css('color','red');
+			$('#join-id').next().css("display","block").css('color','crimson');
 			return false;
 		} else if(!join_ps) {
 			$('#join-ps').focus();
-			$('#join-ps').next().text('필수 입력정보 입니다.').css("display","block").css('color','red');
+			$('#join-ps').next().css("display","block").css('color','crimson');
 			return false;
 		} else if(!join_rps) {
 			$('#join_rps').focus();
-			$('#join_rps').next().text('필수 입력정보 입니다.').css("display","block").css('color','red');
+			$('#join_rps').next().css("display","block").css('color','crimson');
 			return false;
 		} else if(!join_name) {
 			$('#join_name').focus();
-			$('#join_name').next().text('필수 입력정보 입니다.').css("display","block").css('color','red');
+			$('#join_name').next().css("display","block").css('color','crimson');
 			return false;
 		} else if(!join_phone) {
 			$('#join_phone').focus();
-			$('#join_phone').next().text('필수 입력정보 입니다.').css("display","block").css('color','red');
+			$('#join_phone').next().css("display","block").css('color','crimson');
 			return false;
 		} else if(!join_email) {
 			$('#join_email').focus();
-			$('#join_email').next().text('필수 입력정보 입니다.').css("display","block").css('color','red');
+			$('#join_email').next().css("display","block").css('color','crimson');
 			return false;
 		} else if(!join_addr) {
 			$('#join_addr').focus();
-			$('#join_addr').next().text('필수 입력정보 입니다.').css("display","block").css('color','red');
+			$('#join_addr').next().css("display","block").css('color','crimson');
 			return false;
 		}
 		if(id != '') {
@@ -201,7 +201,7 @@ $(function() {
 		var checkResult = joinValidate.checkId(memid);
 		// checkResult.code에 맞는 메시지 출력
 		if(checkResult.code != 0) {
-			$(this).next().text(checkResult.desc).css("display","block").css('color','red');
+			$(this).next().text(checkResult.desc).css("display","block").css('color','crimson');
 		} else {
 			// ajax로 ID 중복 체크
 			if(ajaxIdCheck(memid)) {
@@ -219,7 +219,7 @@ $(function() {
 		var checkResult = joinValidate.checkPs(pass);
 		// checkResult.code에 맞는 메시지 출력
 		if(checkResult.code != 0) {
-			$(this).next().text(checkResult.desc).css("display","block").css('color','red');
+			$(this).next().text(checkResult.desc).css("display","block").css('color','crimson');
 		} else {
 			$('#join-ps').next().text(checkResult.desc).css("display","block").css('color','blue');
 			$('#join-rps').next().css("display","none");
@@ -240,7 +240,7 @@ $(function() {
 		var checkResult = joinValidate.checkRps(rpass, pass);
 		// checkResult.code에 맞는 메시지 출력
 		if(checkResult.code != 0) {
-			$(this).next().text(checkResult.desc).css("display","block").css('color','red');
+			$(this).next().text(checkResult.desc).css("display","block").css('color','crimson');
 		} else {
 			$('#join-ps').next().text(checkResult.desc).css("display","none");
 			$(this).next().text(checkResult.desc).css("display","block").css('color','blue');
@@ -258,7 +258,7 @@ $(function() {
 		var checkResult = joinValidate.checkName(name);
 		// checkResult.code에 맞는 메시지 출력
 		if(checkResult.code != 0) {
-			$(this).next().text(checkResult.desc).css("display","block").css('color','red');
+			$(this).next().text(checkResult.desc).css("display","block").css('color','crimson');
 		} else {
 			// 닉네임 중복 체크
 			if(ajaxNameCheck(name)) {
@@ -276,7 +276,7 @@ $(function() {
 		var checkResult = joinValidate.checkPhone(phone);
 		// checkResult.code에 맞는 메시지 출력
 		if(checkResult.code != 0) {
-			$(this).next().text(checkResult.desc).css("display","block").css('color','red');
+			$(this).next().text(checkResult.desc).css("display","block").css('color','crimson');
 		} else {
 			$(this).next().text(checkResult.desc).css("display","block").css('color','blue');
 			join_phone = true;
@@ -290,10 +290,15 @@ $(function() {
 		var email = $.trim($(this).val());
 		// email 값으로 joinValidate의 checkEmail로 유효성 검사 후 맞는 resultCode 담기
 		var checkResult = joinValidate.checkEmail(email);
+		state = ajaxEmailOverlapCheck(email);
 		// checkResult.code에 맞는 메시지 출력
 		if(checkResult.code != 0) {
-			$(this).next().text(checkResult.desc).css("display","block").css('color','red');
-		} else {
+			$(this).next().text(checkResult.desc).css("display","block").css('color','crimson');
+			join_email = false;
+		} else if(state) {
+			$(this).next().text('이미 사용중인 이메일입니다.').css("display","block").css('color','crimson');
+			join_email = false;
+		} else{
 			$(this).next().text(checkResult.desc).css("display","block").css('color','blue');
 			join_email = true;
 			return true;
@@ -308,7 +313,7 @@ $(function() {
 		var checkResult = joinValidate.checkAddr(addr);
 		// checkResult.code에 맞는 메시지 출력
 		if(checkResult.code != 0) {
-			$(this).next().text(checkResult.desc).css("display","block").css('color','red');
+			$(this).next().text(checkResult.desc).css("display","block").css('color','crimson');
 		} else {
 			$(this).next().text(checkResult.desc).css("display","block").css('color','blue');
 			// 주소가 공백이 아닐때
@@ -317,7 +322,7 @@ $(function() {
 				return true;
 			// 주소가 공백일때
 			} else {
-				$('#sample6_detailAddress').next().text('주소를 입력해주세요.').css('color','red');
+				$('#sample6_detailAddress').next().text('주소를 입력해주세요.').css('color','crimson');
 				join_addr = false;
 				return false;
 			}
