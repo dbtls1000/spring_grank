@@ -1,18 +1,14 @@
 package com.biz.grank.service;
 
-import java.sql.Date;
 import java.util.Map;
 import java.util.Random;
 
 import javax.inject.Inject;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.util.WebUtils;
 
 import com.biz.grank.domain.MemberDto;
 import com.biz.grank.persistence.MemberDao;
@@ -200,7 +196,7 @@ public class MemberServiceImp implements MemberService {
 
 	@Override
 	public boolean emailOverlapCheck(String email) {
-		// TODO Auto-generated method stub
+		// TODO 이메일 중복 체크
 		int check = mDao.emailOverlapCheck(email);
 		if(check == 1) {
 			return true;

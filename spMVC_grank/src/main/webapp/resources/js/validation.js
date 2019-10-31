@@ -245,7 +245,7 @@ function ajaxIdCheck(memid) {
 		contentType: "application/json",
 		success : function(data) {
 			if(data == 1) {
-				$("#join-id").next().text("이미 사용중인 아이디 입니다.").css("display","block")
+				$("#join-id").next().text("이미 사용중인 아이디 입니다.").css("display","block").css('color','crimson')
 				return_val = false;
 			} else {
 				$("#join-id").next().text("!멋진 아이디네요.").css("display","block").css("color","blue")
@@ -357,7 +357,7 @@ function ajaxNameCheck(name) {
 		contentType : "application/json",
 		success : function(data) {
 			if(data == 1) {
-				$("#join-name").next().text("이미 사용중인 닉네임 입니다.").css("display","block")
+				$("#join-name").next().text("이미 사용중인 닉네임 입니다.").css("display","block").css('color','crimson')
 				check = false;
 			} else {
 				$("#join-name").next().text("사용 가능한 닉네임 입니다.").css("display","block").css("color","blue")

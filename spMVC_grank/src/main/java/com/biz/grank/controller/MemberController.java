@@ -1,6 +1,5 @@
 package com.biz.grank.controller;
 
-import java.sql.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -273,7 +272,7 @@ public class MemberController {
 	public int ajaxNameCheck(String name) {
 		return mService.ajaxNameCheck(name);
 	}
-	
+	// 이메일 중복 확인
 	@ResponseBody
 	@PostMapping("emailOverlap")
 	public int emailOverlapCheck(String email) {
