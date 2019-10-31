@@ -31,7 +31,7 @@ public interface MemberDao {
 
 	int ajaxNameCheck(String name);
 
-	MemberDto checkUserWithSessionKey(String value);
+	MemberDto checkUserWithSessionKey(Map<String, Object> map);
 
 	void autoLoginCheck(MemberDto mDto);
 

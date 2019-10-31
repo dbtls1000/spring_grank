@@ -58,7 +58,7 @@ public class MemberController {
 				// 쿠키를 적용해준다.
 				response.addCookie(cookie);
 				// currentTimeMillis()가 1/1000초 단위임으로 1000을 곱해서 더해야함
-				Date sessionLimit = new Date(System.currentTimeMillis()+(1000*amount));
+				long sessionLimit = System.currentTimeMillis()+(1000*amount);
 				mDto.setSessionkey((String)httpSession.getAttribute("userid"));
 				mDto.setSessionlimit(sessionLimit);
 				mService.autoLoginCheck(mDto);
@@ -194,7 +194,7 @@ public class MemberController {
 			// 쿠키를 적용해준다.
 			response.addCookie(cookie);
 			// 테이블에도 유효시간을 현재시간으로 설정
-			Date sessionLimit = new Date(System.currentTimeMillis());
+			long sessionLimit = System.currentTimeMillis();
 			// sessionkey값 none로 담기
 			mDto.setSessionkey("none");
 			mDto.setSessionlimit(sessionLimit);

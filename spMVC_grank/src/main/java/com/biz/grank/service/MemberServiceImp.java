@@ -193,9 +193,9 @@ public class MemberServiceImp implements MemberService {
 	}
 
 	@Override
-	public MemberDto checkUserWithSessionKey(String value) {
+	public MemberDto checkUserWithSessionKey(Map<String, Object> map) {
 		// TODO 쿠키에서 가져온 값으로 가져오기
-		return mDao.checkUserWithSessionKey(value);
+		return mDao.checkUserWithSessionKey(map);
 	}
 
 	@Override

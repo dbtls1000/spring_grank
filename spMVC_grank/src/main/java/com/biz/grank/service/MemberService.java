@@ -21,7 +21,7 @@ public interface MemberService {
 	public String ajaxPswordCheck(Map<String, Object> map);
 	public String passWordRandom();
 	public int ajaxNameCheck(String name);
-	public MemberDto checkUserWithSessionKey(String value);
+	public MemberDto checkUserWithSessionKey(Map<String, Object> map);
 	public void autoLoginCheck(MemberDto mDto);
 	public boolean emailOverlapCheck(String email);
 }

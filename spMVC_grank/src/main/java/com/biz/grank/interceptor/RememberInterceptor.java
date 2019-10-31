@@ -1,5 +1,8 @@
 package com.biz.grank.interceptor;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,6 +15,8 @@ import org.springframework.web.util.WebUtils;
 import com.biz.grank.domain.MemberDto;
 import com.biz.grank.service.MemberService;
 
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 public class RememberInterceptor extends HandlerInterceptorAdapter {
 
 	@Autowired
@@ -27,8 +32,15 @@ public class RememberInterceptor extends HandlerInterceptorAdapter {
 			Cookie loginCookie = WebUtils.getCookie(request, "loginCookie");
 			// 쿠키가 존재하면
 			if(loginCookie != null) {
-				// loginCookie에서 값가져오기
-				MemberDto mDto = mSercice.checkUserWithSessionKey(loginCookie.getValue());
+				// System.currentTimeMillis() 값가져와 담기
+				long currentTimeMillis = System.currentTimeMillis();
+				Map<String, Object> map =new HashMap<String, Object>();
+				// currentTimeMillis 값 map에 담기
+				map.put("currentTimeMillis",currentTimeMillis);
+				// loginCookie에서 값가져와 map에 담기
+				map.put("sessionkey",loginCookie.getValue());
+				// sessionkey를 비교해서 맞으면 sessionlimit가 currentTimeMillis 보다 크면은 값 가져오와 mDto에 담기
+				MemberDto mDto = mSercice.checkUserWithSessionKey(map);
 				// 세션에 값 담기
 				httpSession.setAttribute("userid", mDto.getUserid());
 				httpSession.setAttribute("name", mDto.getName());		
