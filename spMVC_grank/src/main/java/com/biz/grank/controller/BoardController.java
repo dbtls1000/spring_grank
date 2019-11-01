@@ -3,6 +3,7 @@ package com.biz.grank.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.biz.grank.domain.BoardDto;
+import com.biz.grank.domain.FileDto;
 import com.biz.grank.domain.LikeDto;
 import com.biz.grank.service.AjaxFileService;
 import com.biz.grank.service.BoardService;
@@ -193,5 +195,19 @@ public class BoardController {
 		obj.put("like_check", like_check);
 		obj.put("like_cnt", like_cnt);
 		return obj.toJSONString();
+	}
+	
+	@GetMapping("download")
+	public String down(int fno,HttpServletRequest request, HttpSession httpSession) {
+		FileDto fileDto = afService.readOne(fno);
+		
+		String path = "c:/bizwork/upload";
+		String originName = fileDto.getOrigin_name();
+		String fileName = fileDto.getFile_name();
+		
+		request.setAttribute("path", path);
+		request.setAttribute("originName", originName);
+		request.setAttribute("fileName", fileName);
+		return "board/download";
 	}
 }

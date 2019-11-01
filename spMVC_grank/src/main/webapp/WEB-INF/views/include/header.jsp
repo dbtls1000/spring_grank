@@ -16,8 +16,8 @@
 		<img id="home-img" style="float: left;" width="150px"
 			src="${path}/resources/images/ranklogo.png">
 		<div class="dropdown">
-			<button class="header-button" id="game-btn">Game</button>
-			<ul id="game-dropdown">
+			<button class="header-button dropdown-game" id="game-btn">Game</button>
+			<ul id="game-dropdown" class="dropdown-game">
 				<li><a href="${path}/game/comingsoonmoreview">Commingsoon</a></li>
 				<li><a class="moreview-game">All</a></li>
 				<li><a class="moreview-game" >PS4</a></li>
@@ -49,7 +49,12 @@
 	<%@ include file="login-modal.jsp"%>
 	<%@ include file="delete-modal.jsp"%>
 	<script>
-		
+		// 드랍다운 메뉴를 펼친 후 드랍다운 메뉴를 제외한 영역을 클릭할 시 드랍다운 메뉴를 접는다.
+		$(document).on('click',function(evt){
+			if(!$(evt.target).hasClass('dropdown-game')){
+				$('#game-dropdown').attr('class','')
+			}
+		})
 	    $(document).on('click','.moreview-game',function(){
 	        var platform = $(this).text();
 	        location.href="${path}/game/redirectpage?platform="+platform;

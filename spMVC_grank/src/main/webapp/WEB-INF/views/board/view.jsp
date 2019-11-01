@@ -50,7 +50,7 @@
 			</tr>
 			<c:forEach items="${fList}" var="f">
 				<tr>
-					<td colspan="4"><img src="${path}/images/${f.file_name}"></td>
+					<td colspan="4"><img style="max-width: 200px;" src="${path}/images/${f.file_name}"><a href="${path}/board/download?fno=${f.fno}">다운로드</a></td>
 				</tr>
 			</c:forEach>
 		</table>

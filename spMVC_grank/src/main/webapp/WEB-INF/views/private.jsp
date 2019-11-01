@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="include/include.jsp" %>
+<link rel="stylesheet" type="text/css" href="${path}/resources/css/private.css?ver=20191101">
 <%@ include file="include/header.jsp" %>
-<div class="priavate-wrapper">
+<div class="private-wrapper">
         <div class="wrapper-header"><span class="header-text">개인정보 처리방침</span></div>
         <div class="scroll-control">
             <div class="scroll-item" id="private1"><span>1. 개인정보처리방침이란?</span></div>
@@ -165,3 +166,33 @@
         </div>
     </div>
 <%@ include file="include/footer.jsp" %>
+<script>
+$(document).on('click','.scroll-item',function(){
+    var item = $(this).attr('id');
+    if(item == 'private1'){
+        $('html,body').animate({
+			scrollTop : 195
+		}, 400)
+    } else if(item == 'private2'){
+        $('html,body').animate({
+			scrollTop : 400
+		}, 400)
+    } else if(item == 'private3'){
+        $('html,body').animate({
+			scrollTop : 891
+		}, 400)
+    } else if(item == 'private4'){
+        $('html,body').animate({
+			scrollTop : 1144
+		}, 400)
+    } else if(item == 'private5'){
+        $('html,body').animate({
+			scrollTop : 1444
+		}, 400)
+    } else{
+        $('html,body').animate({
+			scrollTop : 1762
+		}, 400)
+    }
+})
+</script>

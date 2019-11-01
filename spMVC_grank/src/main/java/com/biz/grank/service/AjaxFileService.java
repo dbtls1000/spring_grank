@@ -20,4 +20,6 @@ public interface AjaxFileService {
 	public void files_delete(int bno);
 
 	public List<FileDto> readByBno(int bno);
+
+	public FileDto readOne(int fno);
 }

@@ -169,5 +169,11 @@ public class AjaxFileServiceImp implements AjaxFileService {
 		return fDao.readByBno(bno);
 	}
 
+	@Override
+	public FileDto readOne(int fno) {
+		// TODO Auto-generated method stub
+		return fDao.read(fno);
+	}
+
 	
 }

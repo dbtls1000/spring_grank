@@ -8,7 +8,7 @@
 <!-- jquery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <!-- css파일 -->
-<link rel="stylesheet" type="text/css" href="${path}/resources/css/main.css?ver=2019103101">
+<link rel="stylesheet" type="text/css" href="${path}/resources/css/main.css?ver=20191101">
 
 
 
