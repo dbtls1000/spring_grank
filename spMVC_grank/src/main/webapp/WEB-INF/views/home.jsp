@@ -113,27 +113,26 @@
  		// 플랫폼별로 클릭했을 때 보여주기 위해 변수를 받아옴
  		var platform = $(this).children('input').val();
  		var p_color = $(this).attr('id');
-		if(platform == 'PS4'){
-			$('#PS4').css('color', '#4834d4').css('font-weight', 'bold').css('font-size', '20px');
+ 		if(platform == 'PS4'){
+			$('#PS4').css('color', 'white').css('background-color', '#4834d4').css('font-weight', 'bold').css('font-size', '20px');
 		}else{
-			$('#PS4').css('color', '').css('font-weight', '').css('font-size', '');
+			$('#PS4').css('color', '').css('background', '').css('font-weight', '').css('font-size', '');
 		}
 		if(platform == 'XONE'){
-			$('#XONE').css('color', '#6ab04c').css('font-weight', 'bold').css('font-size', '20px');
+			$('#XONE').css('color', 'white').css('background-color', '#6ab04c').css('font-weight', 'bold').css('font-size', '20px');
 		}else{
-			$('#XONE').css('color', '').css('font-weight', '').css('font-size', '');
+			$('#XONE').css('color', '').css('background', '').css('font-weight', '').css('font-size', '');
 		}
 		if(platform == 'Switch'){
-			$('#Switch').css('color', '#eb4d4b').css('font-weight', 'bold').css('font-size', '20px');
+			$('#Switch').css('color', 'white').css('background-color', '#eb4d4b').css('font-weight', 'bold').css('font-size', '20px');
 		}else{
-			$('#Switch').css('color', '').css('font-weight', '').css('font-size', '');
+			$('#Switch').css('color', '').css('background', '').css('font-weight', '').css('font-size', '');
 		}
 		if(platform == 'PC'){
-			$('#PC').css('color', '#130f40').css('font-weight', 'bold').css('font-size', '20px');
+			$('#PC').css('color', 'white').css('background-color', '#130f40').css('font-weight', 'bold').css('font-size', '20px');
 		}else{
-			$('#PC').css('color', '').css('font-weight', '').css('font-size', '');
+			$('#PC').css('color', '').css('background', '').css('font-weight', '').css('font-size', '');
 		}
- 		
 		$.ajax({
 			url:'${path}/grank?platform='+platform,
 			type:'GET',

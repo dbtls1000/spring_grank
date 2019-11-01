@@ -26,7 +26,6 @@ public class GameRankDto {
 	private String u_score;
 	private String img_src;
 	private double tot_score;
-	
 	public GameRankDto(String game_code, String m_score, String game_name, String platform, String u_score,  String img_src, double tot_score) {
 		this.game_code = game_code;
 		this.m_score = m_score;

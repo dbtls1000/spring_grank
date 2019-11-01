@@ -10,7 +10,7 @@
 
 div.g-card {
 	width: 170px;
-	height: 350px;
+	height: 370px;
 	margin: 20px 10px;
 	cursor: pointer;
 	border: 1px solid #dfe6e9;
@@ -83,8 +83,18 @@ div.g-card {
 	font-weight: bold;
 }
 
-.g-card-content span.t-score{
-	color: #e55039;
+.g-card-content span.high-score{
+	color: #ee5253;
+	font-weight: bold;
+}
+
+.g-card-content span.middle-score{
+	color: #5f27cd;
+	font-weight: bold;
+}
+
+.g-card-content span.low-score{
+	color: #4b4b4b;
 	font-weight: bold;
 }
 

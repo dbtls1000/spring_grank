@@ -27,14 +27,24 @@
 			<div class="g-card-item g-card-content game-name"> 게임명 : ${g.game_name}</div>
 			<div class="g-card-item g-card-content">전문가 평점:&nbsp;<span class='c-score'>${g.m_score}</span></div>
 			<div class="g-card-item g-card-content">유저 평점:&nbsp;<span class="u-score">${g.u_score}</span></div>
+		    <c:choose>
+				<c:when test="${g.tot_score <= 70}">
+					<c:if test="${g.tot_score >= 30}">
+						<div class="g-card-item g-card-content">Grank:&nbsp;<span class="middle-score">A</span></div>
+					</c:if>
+	`				<c:if test="${g.tot_score < 30}">
+						<div class="g-card-item g-card-content">Grank:&nbsp;<span class="low-score">B</span></div>
+					</c:if>
+				</c:when>
+			<c:otherwise>
+				<div class="g-card-item g-card-content">Grank:&nbsp;<span class="high-score">S</span></div>
+			</c:otherwise>
+			</c:choose>
 		</div>
 		<input type="hidden" id="gsize" value="${gSize}">
 	</c:forEach>
 </div>
 <script>
-	
-	
-	
 	$(".g-card").click(function(){
 		let game_code = $(this).attr("data-code");
 		location.href = "${path}/game/gameview?game_code="+game_code;

@@ -1,5 +1,6 @@
 package com.biz.grank.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -68,6 +69,21 @@ public class GameServiceImp implements GameService {
 	@Override
 	public List<GameRankDto> gMoreView(Map<String, Object> gMap) {
 		List<GameRankDto> gList = gDao.gMoreView(gMap);
+		
+		// 유저점수. 전문가 점수 합산 후 평균값 구해서 Grank 점수 만드는 로직
+		for(GameRankDto gDto : gList) {
+			if(gDto.getU_score().equals("tbd")) {
+				gDto.setTot_score(Double.valueOf(gDto.getM_score()));
+			} else {
+				double u_score = Double.valueOf(gDto.getU_score())*10;
+				double m_score = Double.valueOf(gDto.getM_score());
+				double tot_score = (m_score + u_score)/2;
+				int uscore = (int) u_score;
+				gDto.setU_score(String.valueOf(uscore));
+				gDto.setTot_score(tot_score);
+			}
+			
+		}
 		return gList;
 	}
 
