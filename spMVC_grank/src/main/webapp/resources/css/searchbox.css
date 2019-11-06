@@ -88,8 +88,10 @@
     margin: 0 auto;
     font-size: 20px;
     border-bottom: 2px solid #00b894;
-    cursor: pointer;
 }
 .search-result-item:last-child {
 	margin-bottom: 10px;
+}
+.search-result-item span{
+	cursor: pointer;
 }
