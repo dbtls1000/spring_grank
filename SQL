@@ -32,7 +32,9 @@ CREATE TABLE tbl_member(
     zipcode VARCHAR2(20) NOT NULL,
     addr1 VARCHAR2(200) NOT NULL,
     addr2 VARCHAR2(200) NOT NULL,
-    regdate DATE DEFAULT SYSDATE
+    regdate DATE DEFAULT SYSDATE,
+    sessionkey VARCHAR2(50) DEFAULT 'none' NOT NULL,
+    sessionlimit number
 );
 ALTER TABLE tbl_member ADD CONSTRAINT tbl_member_pk_userid PRIMARY KEY(userid);
 
@@ -86,11 +88,14 @@ START WITH 1
 INCREMENT BY 1;
 
 -- 파일 업로드 관련 테이블
+drop table tbl_file;
 create table tbl_file(
 fno	NUMBER,
 bno	NUMBER,
+thumbnail nVARCHAR2(1000),
 origin_name	nVARCHAR2(1000)	,
-file_name	nVARCHAR2(1000)	
+file_name	nVARCHAR2(1000)	,
+format_name varchar2(30)
 );
 ALTER TABLE tbl_file ADD CONSTRAINT pk_file PRIMARY KEY(fno);
 ALTER TABLE tbl_file ADD CONSTRAINT fk_file_bno
