@@ -54,3 +54,68 @@
 .view-title{width:560px;text-align: left}
 .view-writer{width:180px;}
 .view-date{width:120px;}
+div.view-item {
+    width: 960px;
+    margin: 0 auto;
+    border-bottom: 1px dashed grey;
+}
+.view-item:last-child{
+    margin-bottom: 20px;
+}
+.view-content{
+    padding: 10px 0;
+}
+.board-view-info{
+    display: flex;
+    padding-inline-start: 0;
+}
+.board-view-info li{
+    list-style: none;
+    font-weight: bold;
+}
+.board-view-info li:nth-child(2){
+    margin-left: auto;
+}
+.board-view-info li:last-child{
+    margin-left: 20px;
+}
+.download{
+    position: relative;
+    cursor: pointer;
+    border:none;
+    outline: none;
+    background: ghostwhite;
+    font-size: 16px;
+}
+.download-dropbox{
+    position: absolute;
+    cursor: default;
+    right: 0;
+    padding-inline-start: 0;
+    margin: 0;
+    padding: 5px;
+    text-align:left;
+    transform: perspective(1000px) rotateX(-90deg);
+    transform-origin: top;
+    transition: 0.5s;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+}
+.download-dropdown ul.download-active {
+    transform: perspective(1000px) rotateX(0deg);
+}
+.download-dropbox li{
+    list-style: none;
+}
+.download-dropbox li a{
+	text-decoration: none;
+	color:grey;
+}
+.download-dropbox li a:hover{
+	border-bottom:1px solid grey;
+}
+.download-dropdown{
+    width: 960px;
+    position: absolute;
+    text-align: right;
+    left: 20px;
+}

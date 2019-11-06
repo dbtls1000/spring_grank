@@ -42,16 +42,26 @@
 						});
 					</script>
 				</div>
-				<div class="drag-box"><div class="drag-comment">첨부할 이미지파일을 Drag&Drop해주세요.</div></div>
-				<div class="image_box">
+				<div class="drag-box"><div class="drag-comment">첨부할 파일을 Drag&Drop해주세요.</div></div>
+				<div class="uploadedList">
 					<c:forEach items="${fList}" var="f">
-					<div style="display:inline-block;text-align: right;">
-						<span data-fno="${f.fno}" class="image-delete" style="cursor:pointer;"><i class="fas fa-times"></i></span>
-						<div>
-							<img width="150px" src="${path}/images/${f.file_name}">
-						</div>
-						<div>${f.origin_name}</div>
-					</div>
+						<c:choose>
+							<c:when test="${f.format_name == 'PNG' || f.format_name == 'JPG' || f.format_name == 'GIF' }">
+								<div>
+									<div>
+										<img width="150px" src="${path}/images/${f.file_name}">
+										<span data-fno="${f.fno}" data-src="${f.thumbnail}" style="cursor:pointer;">[삭제]</span>
+									</div>
+								</div>
+							</c:when>
+							<c:otherwise>
+								<div>
+									<div>${f.origin_name}
+										<span data-fno="${f.fno}" data-src="${f.file_name}" style="cursor:pointer;">[삭제]</span>
+									</div>
+								</div>
+							</c:otherwise>
+						</c:choose>
 					</c:forEach>
 				</div>
 				<div class="between title-file">
@@ -118,6 +128,7 @@
 			$('#frm_board').submit()
 			
 		})
+		/* 첨부파일 이전 방식
 		// dragover drop 이벤트는 jquery에 함수가 만들어지지 않은 상태이므로
 		// on을 이용해서 이벤트를 핸들링 해야 한다.
 		$(".drag-box").on('dragover', function () {
@@ -207,8 +218,97 @@
 			})
 		})
 	})
+	*/
+	//이벤트 설정시에는 jquery의 .on()을 사용한다.
+    //드래그 기본 효과를 막음
+    $(".drag-box").on("dragenter dragover", function(event){
+        //drop영역에 들어가고, 드롭영역에 드래그 되고있을때의 기본 효과를 막음
+        event.preventDefault();
+    });
+    $(".drag-box").on("drop",function(event){
+        //drop이 될 때 기본 효과를 막음
+        //기본 효과를 막지 않으면 드래그시에 브라우저에서 이미지파일이 열려버림
+        event.preventDefault();
+        
+        //첨부파일 배열
+        var files=event.originalEvent.dataTransfer.files;
+        var file=files[0]; //첫번째 첨부파일
+        var name = file.name
+        //AJAX로 (이미지를 넘길때)폼 전송을 가능케해주는 FormData 객체
+        var formData=new FormData(); 
+        formData.append("file",file); //폼에 file 변수 추가
+        //서버에 파일 업로드(백그라운드에서 실행됨)
+        // contentType: false => multipart/form-data로 처리됨
+        $.ajax({
+            //AjaxUploadController에 post방식으로 넘어감
+            type: "post",
+            url: "${path}/upload/uploadAjax",
+            data: formData,
+            dataType: "text",
+            processData: false,
+            contentType: false,
+            success: function(data,status,req){
+                console.log("data:"+data); //업로드된 파일 이름
+                console.log("status:"+status); //성공,실패 여부
+                console.log("req:"+req.status);//요청코드값
+                var str="";
+                if(checkImageType(data)){ //이미지 파일
+					str="<div>";
+					str+="<img src='${path}/upload/displayFile?fileName="+data+"'>";
+					str+='<input type="hidden" name="board_files" value="'+getImageLink(data)+'">'
+                }else{ //이미지가 아닌 경우
+                    str="<div>"+getOriginalName(data)+"";
+					str+='<input type="hidden" name="board_files" value="'+data+'">'
+                }
+                str+="<span style='cursor:pointer' data-src="+data+">[삭제]</span></div>";
+                
+                $(".uploadedList").append(str);
+            }
+        });
+    });
+  	//첨부파일 삭제 함수
+    $(".uploadedList").on("click","span",function(event){
+        //현재 클릭한 태그
+        var that=$(this);
+		//data: "fileName="+$(this).attr("data-src"),        
+        $.ajax({
+            url: "${path}/upload/deleteFile",
+            type: "post",
+            data: {
+                fileName: $(this).attr("data-src"),fno:$(this).attr("data-fno")
+            },
+            dataType: "text",
+            success: function(result){
+                if(result=="deleted"){
+                    that.parent("div").remove();
+                }
+            }
+        });
+    });
+    
+    function getOriginalName(fileName){
+        if(checkImageType(fileName)){ //이미지 파일이면 skip
+            return;
+        }
+        var idx=fileName.indexOf("_")+1; //uuid를 제외한 파일이름
+        return fileName.substr(idx);
+    }
+    function getImageLink(fileName){
+        if(!checkImageType(fileName)){//이미지 파일이 아니면 skip
+            return;
+        }
+        var front=fileName.substr(0,12);//연월일 경로
+        var end=fileName.substr(14);// s_ 제거
+        return front+end;
+    }
+    function checkImageType(fileName){
+        // '/i': ignore case
+        var pattern=/jpg|png|jpeg/i; //정규표현식(대소문자 무시)
+        return fileName.match(pattern); //규칙에 맞으면 true
+    }
 	// delete-modal 아니오버튼 클릭시 이벤트
 	$(document).on('click','#confirm-no',function(){
 		$('.delete-modal').css('display','none');
 	})
+})
 </script>

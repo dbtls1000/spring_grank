@@ -29,6 +29,7 @@ div#header img {
 }
 
 div.wrapper {
+	position:relative;
 	width: 1000px;
 	border: 2px solid #00b894;
 	margin: 100px auto 60px auto;

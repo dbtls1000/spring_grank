@@ -197,17 +197,18 @@ public class BoardController {
 		return obj.toJSONString();
 	}
 	
-	@GetMapping("download")
-	public String down(int fno,HttpServletRequest request, HttpSession httpSession) {
-		FileDto fileDto = afService.readOne(fno);
-		
-		String path = "c:/bizwork/upload";
-		String originName = fileDto.getOrigin_name();
-		String fileName = fileDto.getFile_name();
-		
-		request.setAttribute("path", path);
-		request.setAttribute("originName", originName);
-		request.setAttribute("fileName", fileName);
-		return "board/download";
-	}
+//	// 다운로드
+//	@GetMapping("download")
+//	public String down(int fno,HttpServletRequest request, HttpSession httpSession) {
+//		FileDto fileDto = afService.readOne(fno);
+//		
+//		String path = "c:/bizwork/upload";
+//		String originName = fileDto.getOrigin_name();
+//		String fileName = fileDto.getFile_name();
+//		
+//		request.setAttribute("path", path);
+//		request.setAttribute("originName", originName);
+//		request.setAttribute("fileName", fileName);
+//		return "board/download";
+//	}
 }

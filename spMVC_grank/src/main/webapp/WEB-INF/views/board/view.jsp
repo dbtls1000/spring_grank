@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="../include/include.jsp"%>
-<link rel="stylesheet" type="text/css" href="${path}/resources/css/board-view.css?ver=2019103101">
+<link rel="stylesheet" type="text/css" href="${path}/resources/css/board-view.css?ver=2019110601">
 <link rel="stylesheet" type="text/css" href="${path}/resources/css/commentlist.css?ver=2019103103">
 	<%@ include file="../include/header.jsp"%>
 	<div class="wrapper">
@@ -25,35 +25,44 @@
 				</c:otherwise>
 			</c:choose>
 		</div>
-		<table class="board-view">
-			<jsp:useBean id="now" class="java.util.Date"/>
-			<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today"/>
-			<fmt:formatDate value="${bDto.b_regdate}" pattern="yyyy-MM-dd" var="regdate"/>
-			<tr class="view_writer">
-				<th class="view-title" colspan="2">[${bDto.b_platform}] ${bDto.b_title}</th>
-				<th class="view-writer">${bDto.b_writer}</th>
-				<th class="view-date">
-					<c:choose>
-						<c:when test="${today == regdate}">
-							<fmt:formatDate value="${bDto.b_regdate}" pattern="HH:mm:ss"/>
-						</c:when>
-						<c:otherwise>
-							${regdate}
-						</c:otherwise>
-					</c:choose>
-				</th>
-			</tr>
-			<tr>
-				<td class="view_content" colspan="4" style="height: 100px;"><p style="text-align: left;">
-					${bDto.b_content}		
-				</p></td>
-			</tr>
-			<c:forEach items="${fList}" var="f">
-				<tr>
-					<td colspan="4"><img style="max-width: 200px;" src="${path}/images/${f.file_name}"><a href="${path}/board/download?fno=${f.fno}">다운로드</a></td>
-				</tr>
-			</c:forEach>
-		</table>
+		<jsp:useBean id="now" class="java.util.Date"/>
+		<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today"/>
+		<fmt:formatDate value="${bDto.b_regdate}" pattern="yyyy-MM-dd" var="regdate"/>
+		<div class="view-item">
+            <ul class="board-view-info">
+                <li>[${bDto.b_platform}] ${bDto.b_title}</li>
+                <li>${bDto.b_writer}</li>
+                <li>
+                <c:choose>
+					<c:when test="${today == regdate}">
+						<fmt:formatDate value="${bDto.b_regdate}" pattern="HH:mm:ss"/>
+					</c:when>
+					<c:otherwise>
+						${regdate}
+					</c:otherwise>
+				</c:choose>
+				</li>
+            </ul>
+        </div>
+        <div class="download-dropdown">
+        	<button class="download">첨부파일</button>
+            <ul class="download-dropbox">
+            	<c:forEach items="${fList}" var="f">
+                	<li><a href="${path}/upload/displayFile?fileName=${f.file_name}">${f.origin_name}</a></li>
+                </c:forEach>
+            </ul>
+        </div>
+        <div class="view-item view-content">
+            
+            
+            ${bDto.b_content}
+            <c:forEach items="${fList}" var="f">
+            	<c:if test="${f.format_name == 'PNG' || f.format_name == 'JPG' || f.format_name == 'GIF' }">
+            		<img width="200px;" src="${path}/images/${f.file_name}"><br>
+            	</c:if>
+            </c:forEach>
+        </div>
+		
 		<div class="view_button">
 			<ul>
 				<li><a class="a-button a-common" id="board-list-btn">목록</a></li>
@@ -252,17 +261,19 @@
 		$('#login-id').focus();
 		$('.login-err-msg').text('로그인후 사용할 수 있습니다.').css('visibility','visible');
 	})
-	$(document).on('click','.reply-login-btn',function(){
-		$('#modal-login').css('display', 'block');
-		$('#login-id').focus();
-	})
+	// 로그인하지 않은 상태로 댓글을 작성하려고 할경우 로그인 모달창 출력
 	$(document).on('click','#nologin-reply',function(){
 		$('#modal-login').css('display', 'block');
 		$('#login-id').focus();
 		$('.login-err-msg').text('로그인후 사용할 수 있습니다.').css('visibility','visible');
 	})
+	// 위와같음
 	$(document).on('keyup','#nologin-reply',function(){
 		$(this).val('');
 		$('#nologin-reply').click();
+	})
+	// 첨부파일 클릭시 드랍다운메뉴
+	$(document).on('click','.download',function(){
+		$('.download-dropbox').toggleClass('download-active');
 	})
 </script>

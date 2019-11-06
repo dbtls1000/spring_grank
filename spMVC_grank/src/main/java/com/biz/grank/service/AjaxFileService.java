@@ -9,11 +9,9 @@ import com.biz.grank.domain.FileDto;
 
 public interface AjaxFileService {
 
-	public List<FileDto> upLoads(MultipartHttpServletRequest files);
+//	public List<FileDto> upLoads(MultipartHttpServletRequest files);
 	
-	public boolean file_remove(String file_name);
-	
-	public boolean file_delete(int fno,String file_name);
+//	public boolean file_delete(int fno,String file_name);
 	
 	public void insert(BoardDto bDto);
 	
@@ -22,4 +20,6 @@ public interface AjaxFileService {
 	public List<FileDto> readByBno(int bno);
 
 	public FileDto readOne(int fno);
+
+	public void deleteFile(int fno);
 }

@@ -25,6 +25,11 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
+	
+	<beans:bean id="uploadPath" class="java.lang.String">
+        <beans:constructor-arg value="C:/bizwork/upload" />
+    </beans:bean>
+	
 	<!-- aop의 설정으로 Proxy 객체를 자동으로 생성 -->
 	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
 	

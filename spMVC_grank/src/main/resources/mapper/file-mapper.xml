@@ -11,8 +11,8 @@
 		SELECT * FROM tbl_file WHERE bno = #{bno}
 	</select>
 	<insert id="insert">
-		INSERT INTO tbl_file(fno,bno,origin_name,file_name) 
-		VALUES(seq_file.NEXTVAL,#{bno},#{origin_name},#{file_name})
+		INSERT INTO tbl_file(fno,bno,thumbnail,origin_name,file_name,format_name) 
+		VALUES(seq_file.NEXTVAL,#{bno},#{thumbnail},#{origin_name},#{file_name},#{format_name})
 	</insert>
 	<delete id="delete">
 		DELETE FROM tbl_file WHERE fno = #{fno}

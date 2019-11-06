@@ -16,6 +16,8 @@ import lombok.ToString;
 public class FileDto {
 	private int fno;
 	private int bno;
+	private String thumbnail;
 	private String origin_name;
 	private String file_name;
+	private String format_name;
 }
