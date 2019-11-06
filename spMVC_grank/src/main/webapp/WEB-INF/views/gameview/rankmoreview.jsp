@@ -198,6 +198,18 @@
 					str_hash = platform + "^" + count + "^" + height;
 					document.location.hash = "#" + str_hash;
 				})
+				// keydown이 발생했을때
+				document.onkeydown = function(event) {
+					// f5키 , ctrl + r 눌렀을때
+					if((event.ctrlKey == true && event.keyCode == 82) || event.keyCode == 116) {
+						var platform = $('#platform-id').val();
+						var count = Number($("#limit-count").val());
+						var height = $(document).scrollTop();
+						str_hash = platform + "^" + count + "^" + height;
+						document.location.hash = "#" + str_hash;
+					}
+					return document.location.hash;
+				}
 				function checkForHash() {
 					if (document.location.hash) {
 						// hash가 있다면 ^ 를 구분자로하여 string을 추출하여 각각 페이지정보를 가져옴
@@ -264,6 +276,7 @@
 							$('#PC').css('color', '').css('background', '').css(
 									'font-weight', '').css('font-size', '');
 							}
+							console.log(document.location.hash);
 					}// document.location.hash
 				}
 			})
