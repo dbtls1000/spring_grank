@@ -61,6 +61,7 @@ div.g-card {
 	display: flex;
 	width: 900px;
 	justify-content: space-between;
+	margin: 10px 10px 10px 10px;
 }
 
 .game-nav li {

@@ -3,6 +3,7 @@
 <%@ include file="../include/include.jsp"%>
 <link rel="stylesheet" type="text/css" href="${path}/resources/css/gameview.css?ver=2019103103">
 <%@ include file="../include/header.jsp"%>
+<title>${gDto.game_name}</title>
   <div class="wrapper">
         <div class="wrapper-header"><span class="header-text">게임정보</span></div>
                <div class="gameinfo-items">
@@ -55,14 +56,14 @@
            </div>
         <div class="review-wrapper">
             <div class="creview-item">
-                <div class="wrapper-header"><span class="header-text">비평가</span></div>
+                <div class="wrapper-header"><span class="header-text">Critic review : ${csize}</span></div>
                 <div id="c-review">
                 </div>
                 <div class="div-more"><a id="c_more" class="review a-button a-common">more+</a></div>
                <input type="hidden" id="cview-count" value="5">
             </div>
             <div class="ureview-item">
-                <div class="wrapper-header"><span class="header-text">유저</span></div>
+                <div class="wrapper-header"><span class="header-text">User review : ${usize}</span></div>
                 <div id="u-review">
                 </div>
                 <div class="div-more"><a id="u_more" class="review a-button a-common">more+</a></div>

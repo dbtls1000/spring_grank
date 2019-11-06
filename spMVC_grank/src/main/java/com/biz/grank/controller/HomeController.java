@@ -47,7 +47,6 @@ public class HomeController {
 	public String Grank(Model model, String platform) {
 		// 게임 순위 리스트 5건 출력
 		List<GameRankDto> gList = gameService.gFindLimit(platform);
-		log.info(">>>"+gList);
 		model.addAttribute("gList", gList);
 		return "gameview/gameranklist";
 	}

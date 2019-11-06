@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="include/include.jsp" %>
-<link rel="stylesheet" type="text/css" href="${path}/resources/css/searchbox.css?ver=20191031">
-<link rel="stylesheet" type="text/css" href="${path}/resources/css/gcard.css?ver=20191031">
-<link rel="stylesheet" type="text/css" href="${path}/resources/css/board-list.css?ver=20191028">
+<link rel="stylesheet" type="text/css" href="${path}/resources/css/searchbox.css?ver=20191106">
+<link rel="stylesheet" type="text/css" href="${path}/resources/css/gcard.css?ver=20191106">
+<link rel="stylesheet" type="text/css" href="${path}/resources/css/board-list.css?ver=20191106">
 <%@ include file="include/header.jsp" %>
 <div style="height: 110px;"></div>
 	<!-- 검색기능 box -->
@@ -113,6 +113,7 @@
  		// 플랫폼별로 클릭했을 때 보여주기 위해 변수를 받아옴
  		var platform = $(this).children('input').val();
  		var p_color = $(this).attr('id');
+ 		
  		if(platform == 'PS4'){
 			$('#PS4').css('color', 'white').css('background-color', '#4834d4').css('font-weight', 'bold').css('font-size', '20px');
 		}else{
@@ -133,6 +134,7 @@
 		}else{
 			$('#PC').css('color', '').css('background', '').css('font-weight', '').css('font-size', '');
 		}
+		
 		$.ajax({
 			url:'${path}/grank?platform='+platform,
 			type:'GET',

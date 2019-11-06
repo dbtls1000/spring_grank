@@ -120,12 +120,19 @@ div#footer {
 	color: #393e46;
 }
 
+.footer-addr {
+	margin: 0 10px;
+    color: #393e46;
+}
+
+
 .footer-ul li:nth-child(4) {
 	margin-left: auto;
 }
 .footer-ul li a{
 	text-decoration: none;
 	color:inherit;
+	font-weight: bold;
 }
 
 .footer-ul li i {

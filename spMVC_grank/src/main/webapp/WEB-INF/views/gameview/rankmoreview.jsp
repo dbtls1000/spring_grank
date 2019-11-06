@@ -31,6 +31,7 @@
 	function rankmoreviewlist() { //function start
 		var platform = '${platform}';
 		var count = Number($("#limit-count").val());
+		
 		$('#platform-id').val(platform);
 		$.ajax({ // ajax start
 			url : '${path}/game/rankmoreviewlist?platform=' + platform,
@@ -42,8 +43,50 @@
 				alert('System error');
 			}
 		}) // ajax start
+		if (platform == 'All') {
+			$('#All').css('color', 'white').css('background-color',
+					'#00b894').css('font-weight', 'bold').css(
+					'font-size', '20px');
+			
+		} else {
+			$('#All').css('color', '').css('background', '').css(
+					'font-weight', '').css('font-size', '');
+		}
+		if (platform == 'PS4') {
+			$('#PS4').css('color', 'white').css('background-color',
+					'#4834d4').css('font-weight', 'bold').css(
+					'font-size', '20px');
+		} else {
+			$('#PS4').css('color', '').css('background', '').css(
+					'font-weight', '').css('font-size', '');
+		}
+		if (platform == 'XONE') {
+			$('#XONE').css('color', 'white').css('background-color',
+					'#6ab04c').css('font-weight', 'bold').css(
+					'font-size', '20px');
+		} else {
+			$('#XONE').css('color', '').css('background', '').css(
+					'font-weight', '').css('font-size', '');
+		}
+		if (platform == 'Switch') {
+			$('#Switch').css('color', 'white').css('background-color',
+					'#eb4d4b').css('font-weight', 'bold').css(
+					'font-size', '20px');
+		} else {
+			$('#Switch').css('color', '').css('background', '').css(
+					'font-weight', '').css('font-size', '');
+		}
+		if (platform == 'PC') {
+			$('#PC').css('color', 'white').css('background-color',
+					'#130f40').css('font-weight', 'bold').css(
+					'font-size', '20px');
+		} else {
+			$('#PC').css('color', '').css('background', '').css(
+					'font-weight', '').css('font-size', '');
+		}
 	} // function end
 
+	
 	// 페이지가 로딩이 되면
 	$(document).ready(function() { // function start 
 		rankmoreviewlist();
@@ -55,8 +98,8 @@
 				var count = Number($("#limit-count").val());
 				// input tag hidden에 담겨진 값을 platform 변수에 담음
 				var platform = $('#platform-id').val();
-				// size값
-				var max = $('#gsize').val();
+				// rankmorerist.jsp에서 가져온 size값
+				var max = $('#gsize').val(); 
 				count += 20;
 				// count 값이 max 값을 초과하면 count에 max값을 넣어주고 more 버튼이 없어짐
 				if (count > max) { // if start
@@ -67,8 +110,7 @@
 				$('#limit-count').val(count);
 
 				$.ajax({ // ajax start
-					url : '${path}/game/rankmoreviewlist?count=' + count
-							+ '&platform=' + platform,
+					url : '${path}/game/rankmoreviewlist?count=' + count + '&platform=' + platform,
 					type : 'GET',
 					success : function(page) {
 						$('#rankmoreviewlist').html(page);
@@ -76,7 +118,7 @@
 					error : function() {
 						alert('system error!');
 					}
-				}) // ajax end 
+				}) // ajax end
 			}) // function end
 	// platform 클릭 시 해당 플랫폼별로 게임을 보여줌 
 	$(document).on('click', '.platform', function() { // function start
@@ -150,23 +192,38 @@
 					// 쿼리스트링으로 따라다닐 값 
 					var platform = $('#platform-id').val();
 					var count = Number($("#limit-count").val());
-					var platform_id = $(this).attr('id');
 					var height = $(document).scrollTop(); // 윈도우 스크롤에서 가지고 있는 값
 					// 이 페이지에서 세개의 값을 ^로 구분해서 현제페이지정보에 마킹
 // 					str_hash = platform + "^" + count + "^" + height + "^" + platform_id;
-					str_hash = platform + "&" + count + "&" + height + "&" + platform_id;
-					document.location.hash = "?" + str_hash;
+					str_hash = platform + "^" + count + "^" + height;
+					document.location.hash = "#" + str_hash;
 				})
 				function checkForHash() {
 					if (document.location.hash) {
 						// hash가 있다면 ^ 를 구분자로하여 string을 추출하여 각각 페이지정보를 가져옴
 						var str_hash = document.location.hash;
-						str_hash = str_hash.replace("?", "");
-						arr_hash = str_hash.split("&");
+						str_hash = str_hash.replace("#", "");
+						arr_hash = str_hash.split("^");
 						var platform = arr_hash[0];
 						var count = Number(arr_hash[1]);
 			            var height = arr_hash[2];
-			            var platform_id = arr_hash[3];
+			            // 뒤로가기 했을 때 나타날 현재 페이지
+						$.ajax({ // ajax start
+							url : '${path}/game/rankmoreviewlist?count=' + count + '&platform=' + platform,
+							type : 'GET',
+							success : function(page) {
+								$('#rankmoreviewlist').html(page);
+							},
+							error : function() {
+								alert('system error!');
+							}
+						}) // ajax end 
+							$('#limit-count').val(count);
+			            	$('#platform-id').val(platform);
+						// 현재 담겨있는 스크롤값으로 이동
+				        	$('html,body').animate({
+								scrollTop : height
+							}, 15)
 							if (platform == 'All') {
 							$('#All').css('color', 'white').css('background-color',
 									'#00b894').css('font-weight', 'bold').css(
@@ -207,23 +264,7 @@
 							$('#PC').css('color', '').css('background', '').css(
 									'font-weight', '').css('font-size', '');
 							}
-			            // 뒤로가기 했을 때 나타날 현재 페이지
-						$.ajax({ // ajax start
-							url : '${path}/game/rankmoreviewlist?count=' + count + '&platform=' + platform,
-							type : 'GET',
-							success : function(page) {
-								$('#rankmoreviewlist').html(page);
-							},
-							error : function() {
-								alert('system error!');
-							}
-						}) // ajax end 
-							$('#limit-count').val(count);
-						// 현재 담겨있는 스크롤값으로 이동
-				        	$('html,body').animate({
-								scrollTop : height
-							}, 15)
-					}
+					}// document.location.hash
 				}
 			})
 </script>

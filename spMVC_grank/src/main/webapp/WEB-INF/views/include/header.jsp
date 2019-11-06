@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Grank</title>
 
 </head>
 <body>
@@ -59,7 +59,7 @@
 	        var platform = $(this).text();
 	        location.href="${path}/game/redirectpage?platform="+platform;
 	    })
-	
+		
 		$(function() {
 			// 로고 클릭시
 			$('#home-img').click(function() {
