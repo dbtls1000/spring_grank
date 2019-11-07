@@ -99,7 +99,7 @@
 			<li><a href="${path}/member/mypage?curPage=${page.blockBegin -10}&userid=${sessionScope.userid}"><i class="fas fa-angle-left"></i></a></li>
 		</c:if>
 		<c:forEach begin="${page.blockBegin}" end="${page.blockEnd}" var="idx">
-			<li <c:out value="${page.curPage == idx ? 'class=active' : '' }"/> ><a href="${path}/member/mypage?curPage=${idx}&userid=${sessionScope.userid}" >${idx}</a></li>
+			<li><a <c:out value="${page.curPage == idx ? 'class=active' : '' }"/>  href="${path}/member/mypage?curPage=${idx}&userid=${sessionScope.userid}" >${idx}</a></li>
 		</c:forEach>
 		<c:if test="${page.curBlock < page.totalBlock}">
 			<li><a href="${path}/member/mypage?curPage=${page.blockEnd+1}&userid=${sessionScope.userid}"><i class="fas fa-angle-right"></i></a></li>

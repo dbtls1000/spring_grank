@@ -308,7 +308,7 @@
     }
     function checkImageType(fileName){
         // '/i': ignore case
-        var pattern=/jpg|png|jpeg/i; //정규표현식(대소문자 무시)
+        var pattern=/jpg|png|jpeg|gif/i; //정규표현식(대소문자 무시)
         return fileName.match(pattern); //규칙에 맞으면 true
     }
 	// delete-modal 아니오버튼 클릭시 이벤트
