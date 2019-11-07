@@ -179,6 +179,7 @@ public class MemberController {
 	@ResponseBody
 	@GetMapping("logout")
 	public void logout(HttpSession httpSession,HttpServletRequest request, HttpServletResponse response) {
+		// 쿠키 값을 꺼내온다
 		Cookie cookie = WebUtils.getCookie(request,"loginCookie");
 		// 쿠키 값이 있을때 로그아웃
 		if(cookie != null) {

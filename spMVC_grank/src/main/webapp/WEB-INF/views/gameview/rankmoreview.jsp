@@ -87,11 +87,6 @@
 	} // function end
 
 	
-	// 페이지가 로딩이 되면
-	$(document).ready(function() { // function start 
-		rankmoreviewlist();
-	}) // function end
-
 	// 클릭 시 20개식 list 보여줌
 	$(document).on('click',	'.rankmoreviewlist', function() { // function start
 				// more 클릭시 더해줄 카운트 수
@@ -210,6 +205,7 @@
 					}
 					return document.location.hash;
 				}
+				 
 				function checkForHash() {
 					if (document.location.hash) {
 						// hash가 있다면 ^ 를 구분자로하여 string을 추출하여 각각 페이지정보를 가져옴
@@ -220,11 +216,14 @@
 						var count = Number(arr_hash[1]);
 			            var height = arr_hash[2];
 			            // 뒤로가기 했을 때 나타날 현재 페이지
+			           
 						$.ajax({ // ajax start
 							url : '${path}/game/rankmoreviewlist?count=' + count + '&platform=' + platform,
 							type : 'GET',
 							success : function(page) {
+								
 								$('#rankmoreviewlist').html(page);
+								
 							},
 							error : function() {
 								alert('system error!');
@@ -276,8 +275,13 @@
 							$('#PC').css('color', '').css('background', '').css(
 									'font-weight', '').css('font-size', '');
 							}
-							console.log(document.location.hash);
-					}// document.location.hash
+							// #뒤에오는것 삭제
+							history.replaceState({}, null, location.pathname);
+					} else {// document.location.hash
+						// rankmoreviewlist 페이지 생성
+						rankmoreviewlist();	
+					}
+					
 				}
 			})
 </script>
