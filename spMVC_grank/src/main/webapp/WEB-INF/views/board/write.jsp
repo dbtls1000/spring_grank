@@ -234,37 +234,42 @@
         var files=event.originalEvent.dataTransfer.files;
         var file=files[0]; //첫번째 첨부파일
         var name = file.name
-        //AJAX로 (이미지를 넘길때)폼 전송을 가능케해주는 FormData 객체
-        var formData=new FormData(); 
-        formData.append("file",file); //폼에 file 변수 추가
-        //서버에 파일 업로드(백그라운드에서 실행됨)
-        // contentType: false => multipart/form-data로 처리됨
-        $.ajax({
-            //AjaxUploadController에 post방식으로 넘어감
-            type: "post",
-            url: "${path}/upload/uploadAjax",
-            data: formData,
-            dataType: "text",
-            processData: false,
-            contentType: false,
-            success: function(data,status,req){
-                console.log("data:"+data); //업로드된 파일 이름
-                console.log("status:"+status); //성공,실패 여부
-                console.log("req:"+req.status);//요청코드값
-                var str="";
-                if(checkImageType(data)){ //이미지 파일
-					str="<div>";
-					str+="<img src='${path}/upload/displayFile?fileName="+data+"'>";
-					str+='<input type="hidden" name="board_files" value="'+getImageLink(data)+'">'
-                }else{ //이미지가 아닌 경우
-                    str="<div>"+getOriginalName(data)+"";
-					str+='<input type="hidden" name="board_files" value="'+data+'">'
-                }
-                str+="<span style='cursor:pointer' data-src="+data+">[삭제]</span></div>";
-                
-                $(".uploadedList").append(str);
-            }
-        });
+        var size = file.size
+        if(size > 104857600){
+        	alert('업로드 할 수 있는 파일의 최대 크기는 104MB입니다.')
+        } else{
+	        //AJAX로 (이미지를 넘길때)폼 전송을 가능케해주는 FormData 객체
+	        var formData=new FormData(); 
+	        formData.append("file",file); //폼에 file 변수 추가
+	        //서버에 파일 업로드(백그라운드에서 실행됨)
+	        // contentType: false => multipart/form-data로 처리됨
+	        $.ajax({
+	            //AjaxUploadController에 post방식으로 넘어감
+	            type: "post",
+	            url: "${path}/upload/uploadAjax",
+	            data: formData,
+	            dataType: "text",
+	            processData: false,
+	            contentType: false,
+	            success: function(data,status,req){
+	                console.log("data:"+data); //업로드된 파일 이름
+	                console.log("status:"+status); //성공,실패 여부
+	                console.log("req:"+req.status);//요청코드값
+	                var str="";
+	                if(checkImageType(data)){ //이미지 파일
+						str="<div>";
+						str+="<img src='${path}/upload/displayFile?fileName="+data+"'>";
+						str+='<input type="hidden" name="board_files" value="'+getImageLink(data)+'">'
+	                }else{ //이미지가 아닌 경우
+	                    str="<div>"+getOriginalName(data)+"";
+						str+='<input type="hidden" name="board_files" value="'+data+'">'
+	                }
+	                str+="<span style='cursor:pointer' data-src="+data+">[삭제]</span></div>";
+	                
+	                $(".uploadedList").append(str);
+	            }
+	        });
+        }
     });
   	//첨부파일 삭제 함수
     $(".uploadedList").on("click","span",function(event){
