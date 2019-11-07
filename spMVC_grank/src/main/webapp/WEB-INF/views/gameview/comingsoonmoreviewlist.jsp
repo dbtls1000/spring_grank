@@ -6,6 +6,7 @@
 
 <!-- 출시 예정작 -->
 <div class="flex-wrapper">
+
 	<c:forEach items="${cList}" var="c">
 		<div class="g-card">
                 	<c:if test="${c.platform == 'PS4' }">

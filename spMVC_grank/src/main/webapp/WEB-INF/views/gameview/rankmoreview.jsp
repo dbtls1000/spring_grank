@@ -235,6 +235,8 @@
 				        	$('html,body').animate({
 								scrollTop : height
 							}, 15)
+							
+							// 플랫폼 값이 같으면 css 변경
 							if (platform == 'All') {
 							$('#All').css('color', 'white').css('background-color',
 									'#00b894').css('font-weight', 'bold').css(

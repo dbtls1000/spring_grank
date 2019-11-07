@@ -45,6 +45,7 @@
 	</c:forEach>
 </div>
 <script>
+	// 상세게시글을 보기위해서 data-code를 controller로 보내줌
 	$(".g-card").click(function(){
 		let game_code = $(this).attr("data-code");
 		location.href = "${path}/game/gameview?game_code="+game_code;

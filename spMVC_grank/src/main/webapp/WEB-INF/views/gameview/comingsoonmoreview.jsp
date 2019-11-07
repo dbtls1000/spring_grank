@@ -19,6 +19,7 @@
 </div>
 
 <script>
+	// Ajax로 페이지 생성
 	function comingsoonmoreviewlist() {
 		$.ajax({
 			url : '${path}/game/comingsoonmoreviewlist',

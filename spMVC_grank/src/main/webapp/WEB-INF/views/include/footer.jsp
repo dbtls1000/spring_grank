@@ -12,8 +12,11 @@
 		</ul>
 	</div>
 	<div class="footer-addr">
-	<span>광주 북구 중흥동 712-3 한경빌딩 5층 | </span><span>Grank | </span><span>팀장:윤보선 팀원:김종민,장홍기</span>
-	<span>&nbsp;&nbsp;&nbsp;대표전화:062-403-0403</span><span>&nbsp;&nbsp;&nbsp;&nbsp;Copyright (c) Grank All rights reserved.</span>
+	<span>광주 북구 중흥동 712-3 한경빌딩 5층 | </span><span>Grank | </span><span>팀장:윤보선 팀원:김종민,장홍기 |</span>
+	<span>사업자등록번호 : 000-00-015402</span><span>&nbsp;&nbsp;&nbsp;대표전화:062-403-0403</span>
+	</div>
+	<div class="footer-right">
+	<span>(주)Grank 사이트의 컨텐츠, UI 등에 대한 무단 복제, 전송, 배포, 스프래핑 등의 행위는 저작권법, 콘텐츠사업 진흥법 등에 의하여 엄격히 금지됩니다</span>
 	</div>
 </div>
 </body>
