@@ -124,7 +124,7 @@
 	})
 	// 댓글등록버튼 클릭시 이벤트
 	$(document).on('click','#board-reply-btn',function(){
-		var reply = $('#txt').val();
+		var reply = $('#reply-txt').val();
 		var name = '${sessionScope.name}';
 		
 		if(name == ''){
@@ -133,7 +133,7 @@
 			$('.login-err-msg').text('로그인후 사용할 수 있습니다.').css('visibility','visible');
 		} else{
 			if(reply == '' || reply.length == 0){
-				$('#txt').focus();
+				$('#reply-txt').focus();
 				$('#reply-err').css('visibility','visible');
 				return false;
 			} else {
@@ -157,6 +157,35 @@
 			}
 		}
 		
+	})
+	// 댓글수정의 글쓰기버튼 클릭시 이벤트
+	$(document).on('click','#board-reply-update-btn',function(){
+		var reply = $('#update-txt').val();
+		var name = '${sessionScope.name}';
+		
+		if(reply == '' || reply.length == 0){
+			$('#update-txt').focus();
+			$('#update-reply-err').css('visibility','visible');
+			return false;
+		} else {
+			var bno = '${bDto.bno}';
+			$('#re_bno').val(bno);
+			$.ajax({
+				url:'${path}/reply/write',
+			 	type:'POST',
+				data: $('#frm_reply').serialize(),
+				contentType:'application/x-www-form-urlencoded;charset=UTF-8',
+				success:function(result){
+					comment_list();
+					$('#reply-err').css('visibility','hidden');
+					$('#view-reply-cnt').text(result);
+					$('#txt').val('');
+				},
+				error:function(){
+					alert("댓글 등록 실패")
+				}
+			})
+		}
 	})
 	// 댓글삭제버튼 클릭시 이벤트
 	$(document).on('click','#reply-delete-btn',function(){
@@ -184,12 +213,12 @@
 		// 수정버튼 클릭시 기존의 댓글 폼을 없애고 댓글을 등록하는 폼에 댓글내용을 담아 새로 생성해준다.
 		htmls += '<form id="frm_reply" method="POST">'
 		htmls += '<div class="reply-info">'
-		htmls += '<span>${sessionScope.name}</span><span id="reply-err">댓글을 공백없이 입력해주세요</span>'
+		htmls += '<span>${sessionScope.name}</span><span style="visibility:hidden" id="update-reply-err">댓글을 공백없이 입력해주세요</span>'
 		htmls += '</div>'
 		htmls += '<div class="comment-text" style="border-bottom:1px solid grey">'
 		// 댓글내용을 담는부분
-		htmls += '<textarea style="width:860px;" name="r_content" id="txt" cols="30" rows="2">' + content + '</textarea>'
-		htmls += '<a style="margin-left:5px;" class="a-button a-comment comment-btn" id="board-reply-btn"><i class="fas fa-pencil-alt"></i></a>'
+		htmls += '<textarea style="width:860px;" name="r_content" id="update-txt" cols="30" rows="2">' + content + '</textarea>'
+		htmls += '<a style="margin-left:5px;" class="a-button a-comment comment-btn" id="board-reply-update-btn"><i class="fas fa-pencil-alt"></i></a>'
 		// 수정 취소하는 버튼도 생성
 		htmls += '<a style="margin-left:5px;" class="a-button a-delete-comment comment-btn" id="board-cancel-btn"><i class="fas fa-times"></i></a>'
 		htmls += '</div>'

@@ -5,7 +5,7 @@
   
 <mapper namespace="com.biz.grank.persistence.ReplyDao">
 	<select id="listAll" resultType="rDto">
-		SELECT * FROM tbl_reply WHERE bno = #{bno}
+		SELECT * FROM tbl_reply WHERE bno = #{bno} ORDER BY rno
 	</select>
 	<select id="countReply" resultType="int">
 		SELECT COUNT(*) FROM tbl_reply WHERE bno = #{bno}

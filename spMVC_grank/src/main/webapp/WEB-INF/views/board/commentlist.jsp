@@ -43,7 +43,7 @@
 		<div class="commentlist" id="reply-write-form">
 			<form id="frm_reply" method="POST">
 			<div class="comment-text">
-				<textarea name="r_content" id="txt" cols="30" rows="2"></textarea>
+				<textarea name="r_content" id="reply-txt" cols="30" rows="2"></textarea>
 				<a class="a-button a-comment comment-btn" id="board-reply-btn"><i class="fas fa-pencil-alt i-btn"></i></a>
 			</div>
 			<div class="reply-info">
