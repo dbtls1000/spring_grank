@@ -159,7 +159,7 @@ var joinValidate = {
 			// 공백문자
 			var regEmpty = /\s/g;
 			//영문, 한글만
-			var regLang =/[^가-힣a-zA-Z]/;
+			var regLang =/[^가-힣a-zA-Z0-9]/;
 			// 닉네임 null 체크
 			if(name == "" || name.length == 0) {
 				return this.resultCode.empty_val;

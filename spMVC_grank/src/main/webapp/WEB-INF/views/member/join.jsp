@@ -115,7 +115,7 @@
 <%@ include file="../include/footer.jsp" %>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="${path}/resources/js/daumpost.js"></script>
-<script type="text/javascript" src="${path}/resources/js/validation.js?ver=20191031"></script>
+<script type="text/javascript" src="${path}/resources/js/validation.js?ver=20191108"></script>
 <script>
 $(function() {
 	var id = '${sessionScope.userid}';

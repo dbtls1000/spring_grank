@@ -155,4 +155,10 @@ public class BoardServiceImp implements BoardService {
 		return bDao.popularList();
 	}
 
+	@Override
+	public void updateWriter(Map<String, String> map) {
+		// TODO 회원정보에서 닉네임 변경시 게시글정보의 작성자를 바꾸어주는 작업
+		bDao.updateWriter(map);
+	}
+
 }

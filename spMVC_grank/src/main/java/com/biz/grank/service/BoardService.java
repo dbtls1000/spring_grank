@@ -21,4 +21,5 @@ public interface BoardService {
 	public List<BoardDto> readByWriter(Map<String, Object> map);
 	public int countByWriter(String name);
 	public List<BoardDto> popularList();
+	public void updateWriter(Map<String, String> map);
 }

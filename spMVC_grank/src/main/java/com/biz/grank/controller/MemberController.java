@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -154,14 +155,28 @@ public class MemberController {
 	}
 	
 	// 회원 수정
+	@Transactional
 	@PostMapping("update")
 	public String update(MemberDto mDto,HttpSession httpSession,Model model) {
 		// 로그인 한 세션값에서 userid 값 을 꺼내와 userid에 담기
 		String userid = (String)httpSession.getAttribute("userid");
+		// 수정하기 이전 닉네임
+		String name = (String)httpSession.getAttribute("name");
+		log.info("update"+name);
 		// mDto의 userid에 userid값 담기
 		mDto.setUserid(userid);
+		// 수정할 닉네임
+		String re_name = mDto.getName();
+		log.info("update"+re_name);
 		// 회원수정
+		Map<String,String> map = new HashMap<String,String>();
+		map.put("name", name);
+		map.put("re_name", re_name);
 		mService.update(mDto);
+		// 회원정보 수정이 완료되면 session의 name을 바꾼 닉네임으로 설정
+		httpSession.setAttribute("name", re_name);
+		// 수정이 완료되면 게시글의 작성자도 바꾸어주기
+		bService.updateWriter(map);
 		// 회원 수정 후 model에 값 담기
 		model.addAttribute("mDto",mDto);
 		return "redirect:/member/mypage";

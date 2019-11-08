@@ -71,7 +71,9 @@
 	<update id="like_cnt_down">
 		UPDATE tbl_board SET like_cnt = like_cnt - 1 WHERE bno = #{bno}
 	</update>
-	
+	<update id="updateWriter">
+		UPDATE tbl_board SET b_writer = #{re_name} WHERE b_writer = #{name}
+	</update>
 	<delete id="delete">
 		DELETE FROM tbl_board WHERE bno = #{bno}
 	</delete>

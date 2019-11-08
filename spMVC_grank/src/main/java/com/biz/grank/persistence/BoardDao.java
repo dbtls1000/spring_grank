@@ -36,6 +36,8 @@ public interface BoardDao {
 
 	public List<BoardDto> popularList();
 
+	public void updateWriter(Map<String, String> map);
+
 	
 
 }
