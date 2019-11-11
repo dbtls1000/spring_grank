@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="../include/include.jsp"%>
-<link rel="stylesheet" type="text/css" href="${path}/resources/css/board-list.css?ver=2019103101">
+<link rel="stylesheet" type="text/css" href="${path}/resources/css/board-list.css?ver=20191111">
 <%@ include file="../include/header.jsp"%>
 <%
 	String message= request.getParameter("message");
@@ -33,6 +33,7 @@
 		<tr>
 			<th class="recordNum">No.</th>
 			<th class="board-title">제목</th>
+			<th class="board-file">첨부파일</th>
 			<th class="board-writer">작정사</th>
 			<th class="board-regdate">작성일자</th>
 			<th class="board-viewcnt">조회수</th>
@@ -51,6 +52,16 @@
 						<span id="board-new">New</span>
 					</c:if>
 				</a>
+				</td>
+				<td class="board-content center">
+					<c:choose>
+						<c:when test="${list.fcount > 0}">
+							<i class="far fa-file"></i>
+						</c:when>
+						<c:otherwise>
+							<i class="fas fa-times"></i>
+						</c:otherwise>
+					</c:choose>
 				</td>
 				<td class="board-content center">${list.b_writer}</td>
 				<td class="board-content center">

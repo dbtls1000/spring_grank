@@ -98,7 +98,8 @@ public class AjaxFileController {
                 // 바이트배열을 스트링으로
                 // iso-8859-1 서유럽언어
                 // new String(fileName.getBytes("utf-8"),"iso-8859-1")
-                headers.add("Content-Disposition","attachment; filename=\"" + new String(fileName.getBytes("utf-8"), "iso-8859-1") + "\"");
+                headers.add("Content-Disposition","attachment; filename=\"" 
+                			+ new String(fileName.getBytes("utf-8"), "iso-8859-1") + "\"");
                 // headers.add("Content-Disposition"
                 // ,"attachment; filename='"+fileName+"'");
 //            }

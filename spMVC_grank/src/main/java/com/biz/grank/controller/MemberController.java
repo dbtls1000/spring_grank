@@ -123,6 +123,7 @@ public class MemberController {
 			map.put("end", end);
 			// 페이지네이션을하기위해 model에 page담기
 			model.addAttribute("page", page);
+			log.info(">"+bService.readByWriter(map));
 			// 해당 유저의 작성 게시글을 가져와 model에 담기
 			model.addAttribute("bList",bService.readByWriter(map));
 			// userid 값이 있으면 model에 userid 값과 일치한 값 담기

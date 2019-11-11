@@ -74,13 +74,13 @@ public class BoardServiceImp implements BoardService {
 		log.info(">>>>>>>>>>"+bDto);
 		// 게시글 답변 등록전 등록하려는 답변보다 높은 re_step을 +1 해주는 작업
 		bDao.updateRestep(bDto);
-		
+		// re_level이 0이면 제목앞에 화살표 붙여주기
 		if(bDto.getRe_level() == 0) {
 			bDto.setB_title("⤷"+bDto.getB_title());
-		} else {
+		} else { // re_level이 0이 아니면 띄어쓰기
 			bDto.setB_title("&nbsp;"+bDto.getB_title());
 		}
-		
+		// re_step, re_level +1
 		bDto.setRe_step(bDto.getRe_step()+1);
 		bDto.setRe_level(bDto.getRe_level()+1);
 		// 게시글 답변 등록

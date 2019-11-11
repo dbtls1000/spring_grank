@@ -30,4 +30,5 @@ public class BoardDto {
 	private int next_bno; // 다음 게시글 번호
 	private int like_cnt; // 게시글 좋아요 수
 	private List<String> board_files;
+	private int fcount;
 }

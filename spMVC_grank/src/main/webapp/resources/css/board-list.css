@@ -28,9 +28,11 @@
 }
 
 .board-title {
-	width: 590px;
+	width: 510px;
 }
-
+.board-file{
+	width:80px;
+}
 .board-writer {
 	width: 150px;
 }

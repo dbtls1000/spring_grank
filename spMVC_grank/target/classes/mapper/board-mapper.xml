@@ -13,7 +13,7 @@
 	</select>
 	<select id="listAll" resultType="bDto">
 		<include refid="header"/>
-		SELECT * FROM tbl_board
+		<include refid="outer_join"/>
 		<include refid="search"></include> 
 		<if test="sort_option == 'new'">ORDER BY ref desc, re_step</if>
 		<if test="sort_option == 'reply'">ORDER BY b_replycnt desc,ref desc, re_step</if>
@@ -22,9 +22,10 @@
 	</select>
 	<select id="popularList" resultType="bDto">
 		<include refid="header"/>
-		SELECT * FROM tbl_board WHERE re_step = 0 
-		AND b_regdate >= TO_CHAR(SYSDATE - 3,'YYYYMMDD')
-		ORDER BY b_viewcnt desc
+		<include refid="outer_join"/>
+		WHERE b.re_step = 0 
+		AND b.b_regdate >= TO_CHAR(SYSDATE - 3,'YYYYMMDD')
+		ORDER BY b.b_viewcnt desc
 		) A ) WHERE rnum BETWEEN 1 AND 5
 	</select>
 	<select id="readOne" resultType="bDto">
@@ -37,7 +38,8 @@
 	</select>
 	<select id="readByWriter" resultType="bDto">
 		<include refid="header"/>
-		SELECT * FROM tbl_board WHERE b_writer = #{name} ORDER BY bno desc
+		<include refid="outer_join"/>
+		WHERE b.b_writer = #{name} ORDER BY b.bno desc
 		<include refid="footer"/>
 	</select>
 	<insert id="insert" parameterType="bDto">
@@ -77,6 +79,12 @@
 	<delete id="delete">
 		DELETE FROM tbl_board WHERE bno = #{bno}
 	</delete>
+	<sql id="outer_join">
+		SELECT  DISTINCT b.*, (SELECT COUNT(f.bno) FROM tbl_file WHERE b.bno = f.bno) as fcount 
+		FROM tbl_board b
+		LEFT OUTER JOIN tbl_file f
+		ON (SELECT COUNT(*) FROM tbl_file WHERE b.bno = f.bno) > 0
+	</sql>
 	<sql id="search">
 		<choose>
 			<when test="search_option != 'title_content'">
