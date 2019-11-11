@@ -45,12 +45,14 @@
             </ul>
         </div>
         <div class="download-dropdown">
-        	<button class="download">첨부파일</button>
-            <ul class="download-dropbox">
-            	<c:forEach items="${fList}" var="f">
-                	<li><a href="${path}/upload/displayFile?fileName=${f.file_name}">${f.origin_name}</a></li>
-                </c:forEach>
-            </ul>
+        	<c:if test="${fList.size() > 0}">
+	        	<button class="download">첨부파일</button>
+	            <ul class="download-dropbox">
+	            	<c:forEach items="${fList}" var="f">
+	                	<li><a href="${path}/upload/displayFile?fileName=${f.file_name}">${f.origin_name}</a></li>
+	                </c:forEach>
+	            </ul>
+            </c:if>
         </div>
         <div class="view-item view-content">
             
