@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fnt"%>
 <c:set var="path" value="${pageContext.request.contextPath}" />
-<link rel="stylesheet" type="text/css" href="${path}/resources/css/gcard.css?ver=2019103102">
+<link rel="stylesheet" type="text/css" href="${path}/resources/css/gcard.css?ver=20191112">
 <!-- 게임순위평가리스트 -->
 <div class="flex-wrapper">
 	<c:forEach items="${gList}" var="g">
@@ -40,6 +40,7 @@
 				<div class="g-card-item g-card-content">Grank:&nbsp;<span class="high-score">S</span></div>
 			</c:otherwise>
 			</c:choose>
+			
 		</div>
 		<input type="hidden" id="gsize" value="${gSize}">
 	</c:forEach>

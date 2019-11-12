@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="../include/include.jsp"%>
 <link rel="stylesheet" type="text/css" href="${path}/resources/css/mypage.css?ver=2019101703">
-<link rel="stylesheet" type="text/css" href="${path}/resources/css/board-list.css?ver=20191111">
+<link rel="stylesheet" type="text/css" href="${path}/resources/css/board-list.css?ver=20191112">
 <%@ include file="../include/header.jsp"%>
 
 <div class="wrapper">

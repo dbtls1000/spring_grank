@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../include/include.jsp" %>
-<link rel="stylesheet" type="text/css" href="${path}/resources/css/join.css?ver=20191031">
+<link rel="stylesheet" type="text/css" href="${path}/resources/css/join.css?ver=20191112">
 <%@ include file="../include/header.jsp" %>
 <c:choose>
 	<c:when test="${mDto.userid == null}">

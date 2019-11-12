@@ -20,8 +20,9 @@ div#header {
 	position: fixed;
 	top: 0;
 	z-index: 997;
-	background: #00b894;
-	box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+	background: #f1f2f6;
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.5),
+				0 0 20px rgba(0, 0, 0, 0.5);
 }
 
 div#header img {
@@ -34,6 +35,8 @@ div.wrapper {
 	border: 2px solid #00b894;
 	margin: 100px auto 130px auto;
 	box-sizing: border-box;
+	border-radius: 5px;
+	box-shadow: 0 10px 10px rgba(0, 0, 0, 0.5);
 }
 
 div.g-wrapper {
@@ -42,12 +45,15 @@ div.g-wrapper {
 	margin: 100px auto 60px auto;
 	box-sizing: border-box;
 	height: 555px;
+	border-radius: 5px;
+	box-shadow: 0 10px 10px rgba(0, 0, 0, 0.5);
 }
 
 div.wrapper-reply {
 	width: 960px;
 	border: 2px solid #00b894;
 	margin: 20px auto 20px auto;
+	border-radius: 5px;
 }
 
 div.wrapper-header {
@@ -56,6 +62,7 @@ div.wrapper-header {
 	width: 100%;
 	color: #fff;
 	font-size: 25px;
+	border-radius: 3px 3px 0 0;
 }
 
 div.wrapper-content {
@@ -106,12 +113,14 @@ div#footer {
 	position: absolute;
 	margin-top: auto;
 	width: 100%;
-	height: 150px;
+	height: 100px;
+	font-size:11px;
 }
 
 .footer-ul {
 	display: flex;
 	padding-inline-start: 0;
+	margin:10px 0 0 0;
 }
 
 .footer-ul li {
@@ -127,11 +136,10 @@ div#footer {
 
 .footer-right{
 	margin: 0 10px;
-	margin-top:15px;	
 	color: #393e46;
 }
 
-.footer-ul li:nth-child(4) {
+.footer-ul li:nth-child(5) {
 	margin-left: auto;
 }
 .footer-ul li a{
@@ -191,7 +199,7 @@ div.nav span {
 	right: 0;
 	width: 100%;
 	height: 100%;
-	border-bottom: 1px solid #393e46;
+	border-bottom: 3px solid #393e46;
 	transform: scaleX(0);
 	transform-origin: right;
 }
@@ -244,6 +252,7 @@ a.a-button {
 	transition: 0.5s;
 	box-sizing: border-box;
 	cursor: pointer;
+	border-radius: 5px;
 }
 
 a.a-member {
@@ -288,12 +297,12 @@ a#join-btn, a#login-btn, a#logout-btn, a#mypage-btn {
 }
 
 a.a-member {
-	color: #341f97;
-	border: 2px solid #341f97;
+	color: #00b894;
+	border: 2px solid #00b894;
 }
 
 a.a-member::after {
-	background: #341f97;
+	background: #00b894;
 }
 
 a.a-button:hover, a#cancel-btn:hover, i.i-btn:hover {

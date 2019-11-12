@@ -14,11 +14,11 @@
 <body>
 	<div id="header">
 		<img id="home-img" style="float: left;" width="150px"
-			src="${path}/resources/images/ranklogo.png">
+			src="${path}/resources/images/ranklogo-green.png">
 		<div class="dropdown">
 			<button class="header-button dropdown-game" id="game-btn">Game</button>
 			<ul id="game-dropdown" class="dropdown-game">
-				<li><a href="${path}/game/comingsoonmoreview">Commingsoon</a></li>
+				<li><a href="${path}/game/comingsoonmoreview">Comingsoon</a></li>
 				<li><a class="moreview-game">All</a></li>
 				<li><a class="moreview-game" >PS4</a></li>
 				<li><a class="moreview-game" >XONE</a></li>

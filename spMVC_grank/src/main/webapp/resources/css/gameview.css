@@ -19,6 +19,7 @@ div.wrapper-header {
 	width: 960px;
 	margin: 20px auto;
 	justify-content: space-between;
+	
 }
 
 .creview-item {
@@ -26,6 +27,7 @@ div.wrapper-header {
 	width: 460px;
 	border: 2px solid #00b894;
 	height: 100%;
+	border-radius: 5px;
 }
 
 .ureview-item {
@@ -33,6 +35,7 @@ div.wrapper-header {
 	width: 460px;
 	border: 2px solid #00b894;
 	height: 100%;
+	border-radius: 5px;
 }
 
 .review-content {

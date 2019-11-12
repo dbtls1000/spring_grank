@@ -9,6 +9,7 @@
 }
 
 div.g-card {
+	position:relative;
 	width: 170px;
 	height: 370px;
 	margin: 20px 10px;
@@ -114,5 +115,19 @@ div.g-card {
 .XONE-color{
 	color:#6ab04c;
 }
+.g-card .tooltiptext{
+	visibility: hidden;
+	width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
 
-
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+}
+.g-card:hover .tooltiptext {
+  visibility: visible;
+}

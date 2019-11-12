@@ -102,11 +102,11 @@
         </div>
         <div class="private-info">
             <div class="private-item private-header">
-                6. 기타
+                6. 기타사항
             </div>
             <div class="private-item private-comment">
                 <div class="private-label">
-                    카카오는 여러분의 권리를 보호합니다.
+                    Grank는 여러분의 권리를 보호합니다.
                 </div>
                 이용자는 언제든지 자신의 개인정보를 조회하거나 수정할 수 있으며, 수집・이용에 대한 동의 철회 또는 가입 해지를 요청할 수 있습니다.<br>
                 보다 구체적으로는 서비스 내 설정을 통한 회원정보 수정 기능이나 회원탈퇴 기능을 이용할 수 있고, 고객센터를 통해 서면, 전화 또는 이메일로 요청하시면 지체 없이 조치하겠습니다.<br><br>
