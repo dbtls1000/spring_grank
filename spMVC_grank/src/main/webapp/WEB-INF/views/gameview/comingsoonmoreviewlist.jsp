@@ -8,7 +8,7 @@
 <div class="flex-wrapper">
 
 	<c:forEach items="${cList}" var="c">
-		<div class="g-card">
+		<div class="c-card">
                 	<c:if test="${c.platform == 'PS4' }">
 	                    <div class="g-card-item g-card-header PS4-color">${c.platform}</div>
                     </c:if>

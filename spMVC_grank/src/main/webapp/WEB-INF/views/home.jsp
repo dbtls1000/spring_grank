@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file="include/include.jsp" %>
 <link rel="stylesheet" type="text/css" href="${path}/resources/css/searchbox.css?ver=2019110601">
-<link rel="stylesheet" type="text/css" href="${path}/resources/css/gcard.css?ver=20191106">
+<link rel="stylesheet" type="text/css" href="${path}/resources/css/gcard.css?ver=20191113">
 <link rel="stylesheet" type="text/css" href="${path}/resources/css/board-list.css?ver=20191113">
 <%@ include file="include/header.jsp" %>
 <div style="height: 110px;"></div>
@@ -24,7 +24,7 @@
         <div id="g-list">
             <div class="flex-wrapper">
             	<c:forEach items="${cList}" var="c">
-                <div class="g-card">
+                <div class="c-card">
                 	<c:if test="${c.platform == 'PS4' }">
 	                    <div class="g-card-item g-card-header PS4-color">${c.platform}</div>
                     </c:if>
@@ -40,6 +40,7 @@
                     <div class="g-card-item"><img src="${c.c_img}"></div>
                     <div class="g-card-item g-card-content game-name">${c.c_name}</div>
                     <div class="g-card-item g-card-content">${c.c_date}</div>
+                    <span class="tooltiptext">아직 출시되지 않은 게임입니다. </span>
                 </div>
                 </c:forEach>
                 <div class="more"><a class="a-button a-common" href="${path}/game/comingsoonmoreview">more+</a></div>
@@ -61,7 +62,7 @@
      			<div id="gameranklist" class="gameranklist">
      			</div>
             </div>
-            <div class="g-more"><a class="a-button a-common">more+</a></div>
+            <div class="g-more"><a class="a-button a-common" id="g-more">more+</a></div>
         </div>
     </div>
     <!-- 오늘의 화제글 -->
@@ -129,24 +130,24 @@
  		var p_color = $(this).attr('id');
         $('#platform-id').val(platform);
  		if(platform == 'PS4'){
-			$('#PS4').css('color', 'white').css('background-color', '#4834d4').css('font-weight', 'bold').css('font-size', '20px');
+			$('#PS4').css('color', 'white').css('background-color', '#4834d4').css('font-weight', 'bold').css('font-size', '20px').css('border-radius', '5px').css('padding', '3px 5px');
 		}else{
-			$('#PS4').css('color', '').css('background', '').css('font-weight', '').css('font-size', '');
+			$('#PS4').css('color', '').css('background', '').css('font-weight', '').css('font-size', '').css('border-radius', '').css('padding', '');
 		}
 		if(platform == 'XONE'){
-			$('#XONE').css('color', 'white').css('background-color', '#6ab04c').css('font-weight', 'bold').css('font-size', '20px');
+			$('#XONE').css('color', 'white').css('background-color', '#6ab04c').css('font-weight', 'bold').css('font-size', '20px').css('border-radius', '5px').css('padding', '3px 5px');
 		}else{
-			$('#XONE').css('color', '').css('background', '').css('font-weight', '').css('font-size', '');
+			$('#XONE').css('color', '').css('background', '').css('font-weight', '').css('font-size', '').css('border-radius', '').css('padding', '');
 		}
 		if(platform == 'Switch'){
-			$('#Switch').css('color', 'white').css('background-color', '#eb4d4b').css('font-weight', 'bold').css('font-size', '20px');
+			$('#Switch').css('color', 'white').css('background-color', '#eb4d4b').css('font-weight', 'bold').css('font-size', '20px').css('border-radius', '5px').css('padding', '3px 5px');
 		}else{
-			$('#Switch').css('color', '').css('background', '').css('font-weight', '').css('font-size', '');
+			$('#Switch').css('color', '').css('background', '').css('font-weight', '').css('font-size', '').css('border-radius', '').css('padding', '');
 		}
 		if(platform == 'PC'){
-			$('#PC').css('color', 'white').css('background-color', '#130f40').css('font-weight', 'bold').css('font-size', '20px');
+			$('#PC').css('color', 'white').css('background-color', '#130f40').css('font-weight', 'bold').css('font-size', '20px').css('border-radius', '5px').css('padding', '3px 5px');
 		}else{
-			$('#PC').css('color', '').css('background', '').css('font-weight', '').css('font-size', '');
+			$('#PC').css('color', '').css('background', '').css('font-weight', '').css('font-size', '').css('border-radius', '').css('padding', '');
 		}
 		
 		$.ajax({
@@ -162,9 +163,9 @@
  	})
 
  	// more 버튼 클릭 시 해당 플랫폼으로 이동
- 	$(document).on('click','.g-more',function(){
+ 	$(document).on('click','#g-more',function(){
       var platform = $('#platform-id').val();
-      location.href = '${path}/game/rankmoreview?platform='+platform;
+      location.href = '${path}/game/redirectpage?platform='+platform;
     })
  	
 	function gameranklist(){
@@ -173,7 +174,7 @@
 			type:'GET',
 			success:function(page){
 				$('#gameranklist').html(page);
-				$('#PS4').css('color', 'white').css('background-color', '#4834d4').css('font-weight', 'bold').css('font-size', '20px');
+				$('#PS4').css('color', 'white').css('background-color', '#4834d4').css('font-weight', 'bold').css('font-size', '20px').css('border-radius', '5px').css('padding', '3px 5px');
 			}
 		})
  	}
@@ -191,6 +192,7 @@
 	// 페이지가 준비되면 메소드 호출
 	$(document).ready(function(){
 		gameranklist();
+		
 	})
 	// 검색박스 클릭시
 	$('.s-box-button').click(function() {
@@ -228,7 +230,9 @@
 			$('#search-result').html('');
 		}
 	})
-    $(document).on('click', '#g_img', function(){
+	
+	// 게임 상세보기
+    $(document).on('click', '.g-card', function(){
     	let game_code = $(this).attr("data-code");
 		location.href = '${path}/game/gameview?game_code='+game_code;
 	})

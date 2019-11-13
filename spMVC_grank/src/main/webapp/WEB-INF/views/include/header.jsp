@@ -55,6 +55,7 @@
 				$('#game-dropdown').attr('class','')
 			}
 		})
+		
 	    $(document).on('click','.moreview-game',function(){
 	        var platform = $(this).text();
 	        location.href="${path}/game/redirectpage?platform="+platform;

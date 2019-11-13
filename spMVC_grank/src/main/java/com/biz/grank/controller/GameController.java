@@ -52,7 +52,7 @@ public class GameController {
 	// 게임순위 View단(껍데기)
 	@RequestMapping(value ="rankmoreview", method = RequestMethod.GET)
 	public String RankMoreView(@RequestParam(defaultValue = "All")String platform,Model model) {
-		model.addAttribute("platform",platform);
+//		model.addAttribute("platform",platform);
 		return "gameview/rankmoreview";
 	}
 	

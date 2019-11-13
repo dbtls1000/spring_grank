@@ -373,6 +373,8 @@ img {
 
 .home-game-nav li span.platform {
 	cursor: pointer;
+	font-size:20px;
+	padding: 3px 5px;
 }
 
 .s-box-comment {

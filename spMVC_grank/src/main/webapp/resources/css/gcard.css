@@ -17,6 +17,16 @@ div.g-card {
 	border: 1px solid #dfe6e9;
 }
 
+div.c-card {
+	position:relative;
+	width: 170px;
+	height: 330px;
+	margin: 20px 10px;
+	cursor: pointer;
+	border: 1px solid #dfe6e9;
+}
+
+
 .g-card-item {
 	text-align: center;
 	width: 170px;
@@ -68,6 +78,8 @@ div.g-card {
 .game-nav li {
 	list-style: none;
 	cursor: pointer;
+	font-size:20px;
+	padding: 3px 5px;
 }
 
 .game-nav li:hover{
@@ -115,7 +127,7 @@ div.g-card {
 .XONE-color{
 	color:#6ab04c;
 }
-.g-card .tooltiptext{
+.c-card .tooltiptext{
     visibility: hidden;
     width: 120px;
     background-color: black;
@@ -128,6 +140,11 @@ div.g-card {
     position: absolute;
     z-index: 1;
 }
-.g-card:hover .tooltiptext {
+.c-card:hover .tooltiptext {
   visibility: visible;
+}
+.crown{
+	position: absolute;
+	top:0;
+	left:3px;
 }
