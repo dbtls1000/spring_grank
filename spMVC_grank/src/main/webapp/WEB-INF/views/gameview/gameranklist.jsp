@@ -18,7 +18,7 @@
 			</c:if>
 			<c:if test="${g.platform == 'XONE'}">				
 				<div class="g-card-item g-card-header XONE-color">${g.platform}</div>
-			</c:if>
+			</c:if>		
 			<div class="g-card-item">
 				<img data-code="${g.game_code}" id="g_img" src="${g.img_src}">
 			</div>

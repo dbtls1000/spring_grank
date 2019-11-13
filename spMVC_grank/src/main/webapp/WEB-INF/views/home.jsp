@@ -55,12 +55,13 @@
                 <li><span class="platform" id="Switch"><input class="input" type="hidden" value="Switch" >SWITCH</span></li>
                <li><span class="platform" id="PC"><input class="input" type="hidden" value="PC" >PC</span></li>
             </ul>
+            <input id="platform-id" type="hidden" value="PS4">
         <div>
             <div class="flex-item item1">
      			<div id="gameranklist" class="gameranklist">
      			</div>
             </div>
-            <div class="g-more"><a class="a-button a-common" href ="${path}/game/rankmoreview">more+</a></div>
+            <div class="g-more"><a class="a-button a-common">more+</a></div>
         </div>
     </div>
     <!-- 오늘의 화제글 -->
@@ -126,7 +127,7 @@
  		// 플랫폼별로 클릭했을 때 보여주기 위해 변수를 받아옴
  		var platform = $(this).children('input').val();
  		var p_color = $(this).attr('id');
- 		
+        $('#platform-id').val(platform);
  		if(platform == 'PS4'){
 			$('#PS4').css('color', 'white').css('background-color', '#4834d4').css('font-weight', 'bold').css('font-size', '20px');
 		}else{
@@ -159,6 +160,12 @@
 			}
 		})
  	})
+
+ 	// more 버튼 클릭 시 해당 플랫폼으로 이동
+ 	$(document).on('click','.g-more',function(){
+      var platform = $('#platform-id').val();
+      location.href = '${path}/game/rankmoreview?platform='+platform;
+    })
  	
 	function gameranklist(){
 		$.ajax({
@@ -166,6 +173,7 @@
 			type:'GET',
 			success:function(page){
 				$('#gameranklist').html(page);
+				$('#PS4').css('color', 'white').css('background-color', '#4834d4').css('font-weight', 'bold').css('font-size', '20px');
 			}
 		})
  	}

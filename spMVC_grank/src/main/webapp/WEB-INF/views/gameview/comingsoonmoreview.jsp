@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fnt"%>
 <c:set var="path" value="${pageContext.request.contextPath}" />
-<link rel="stylesheet" type="text/css" href="${path}/resources/css/gcard.css?ver=201910311">
+<link rel="stylesheet" type="text/css" href="${path}/resources/css/gcard.css?ver=20191112">
 <%@ include file="../include/header.jsp"%>
 <!-- 출시 예정작 -->
 <div class="wrapper">
@@ -38,10 +38,10 @@
 		// cSize 값
 		var max = ${cSize};
 		cnt += 20;
-		// cnt가 csize보다 커지면 cnt = max;  max 906 일 때 cnt가 size를 초과하면 cnt에 size를 넣어줌
+		// cnt가 csize보다 커지면 cnt = max;  max 일 때 cnt가 size를 초과하면 cnt에 size를 넣어줌
 		if(cnt > max){
 			cnt = max;
-			// cnt에 max값이 들어가면 버튼제거
+			// 버튼제거
 			$('.comingsoonmerviewlist').remove();
 		}
 		$('#limit-cnt').val(cnt)

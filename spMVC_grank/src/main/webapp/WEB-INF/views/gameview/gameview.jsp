@@ -127,7 +127,7 @@
 			// critic more button
  			if(id == 'c_more'){
  				ccount += 5;
- 	 			if(ccount > cmax) {
+ 	 			if(ccount >= cmax) {
  	 				ccount = cmax;
  	 				$('#c_more').remove();
  	 			}
@@ -148,7 +148,7 @@
  			// 4.user more button
  			if(id == 'u_more'){
  				ucount += 5;
-	 			if(ucount > umax) {
+	 			if(ucount >= umax) {
 	 				ucount = umax;
 	 				$('#u_more').remove();
 		 		}

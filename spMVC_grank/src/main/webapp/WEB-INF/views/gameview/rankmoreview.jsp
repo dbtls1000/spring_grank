@@ -14,7 +14,7 @@
 		<ul class="game-nav">
 			<li class="platform" id="All">ALL</li>
 			<li class="platform" id="PS4">PS4</li>
-			<li class="platform" id="XONE">XBOX</li>
+			<li class="platform" id="XONE">XONE</li>
 			<li class="platform" id="Switch">SWITCH</li>
 			<li class="platform" id="PC">PC</li>
 		</ul>
@@ -221,7 +221,6 @@
 							url : '${path}/game/rankmoreviewlist?count=' + count + '&platform=' + platform,
 							type : 'GET',
 							success : function(page) {
-								
 								$('#rankmoreviewlist').html(page);
 								
 							},

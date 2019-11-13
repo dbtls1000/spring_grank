@@ -52,10 +52,7 @@ public class GameController {
 	// 게임순위 View단(껍데기)
 	@RequestMapping(value ="rankmoreview", method = RequestMethod.GET)
 	public String RankMoreView(@RequestParam(defaultValue = "All")String platform,Model model) {
-		List<GameRankDto> gList = gameService.gFindPlatform(platform);
-		int gSize = gList.size();
-		//platform = var platform = '${platform}';로 데이터 받기위해서 보내줌
-		model.addAttribute("gList", gList);
+		model.addAttribute("platform",platform);
 		return "gameview/rankmoreview";
 	}
 	
