@@ -131,6 +131,7 @@ public class BoardController {
 	public String answer(@RequestParam(defaultValue = "0")int bno,Model model) {
 		if(bno !=0) {
 			model.addAttribute("bDto", bService.readOne(bno));
+			model.addAttribute("fList",afService.readByBno(bno));
 		}
 		// 답변등록일경우 flag에 answer값 담기
 		model.addAttribute("flag","answer");

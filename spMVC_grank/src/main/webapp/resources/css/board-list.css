@@ -26,10 +26,13 @@
 .recordNum {
 	width: 80px;
 }
-
-.board-title {
-	width: 510px;
+.board-platform{
+	width:40px;
 }
+.board-title {
+	width: 470px;
+}
+
 .board-file{
 	width:80px;
 }

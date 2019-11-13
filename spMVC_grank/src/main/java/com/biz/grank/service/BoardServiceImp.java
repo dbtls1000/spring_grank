@@ -85,6 +85,7 @@ public class BoardServiceImp implements BoardService {
 		bDto.setRe_level(bDto.getRe_level()+1);
 		// 게시글 답변 등록
 		bDao.answer(bDto);
+		afService.insert(bDto);
 	}
 
 	@Override

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="../include/include.jsp"%>
-<link rel="stylesheet" type="text/css" href="${path}/resources/css/board-list.css?ver=20191112">
+<link rel="stylesheet" type="text/css" href="${path}/resources/css/board-list.css?ver=20191113">
 <%@ include file="../include/header.jsp"%>
 <%
 	String message= request.getParameter("message");
@@ -32,6 +32,7 @@
 	<table class="board-list">
 		<tr>
 			<th class="recordNum">No.</th>
+			<th class="board-platform">구분</th>
 			<th class="board-title">제목</th>
 			<th class="board-file">첨부파일</th>
 			<th class="board-writer">작정사</th>
@@ -44,7 +45,8 @@
 			<fmt:formatDate value="${list.b_regdate}" pattern="yyyy-MM-dd" var="regdate"/>
 			<tr>
 				<td class="board-content center">${list.bno}</td>
-				<td class="board-content title"><a data-seq="${list.bno}" class="view-one" style="cursor:pointer">[${list.b_platform}] ${list.b_title}
+				<td class="board-content center">[${list.b_platform}]</td>
+				<td class="board-content title"><a data-seq="${list.bno}" class="view-one" style="cursor:pointer">${list.b_title}
 					<c:if test="${list.b_replycnt > 0}"> 
 					(${list.b_replycnt})
 					</c:if>

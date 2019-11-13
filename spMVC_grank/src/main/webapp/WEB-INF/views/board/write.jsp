@@ -84,19 +84,20 @@
 <%@ include file="../include/footer.jsp"%>
 <script>
 	$(function(){
-		var bno = '${bDto.bno}'
-		var flag = '${flag}'
+		var bno = '${bDto.bno}';
+		var flag = '${flag}';
 		
 		if(flag == 'answer'){
-			$("#board-write-btn").text("등록")
-			$(".header-text").text("답변 작성")
-			$('#b_title').attr('readonly','readonly')
+			$('.uploadedlist').text('');
+			$("#board-write-btn").text("등록");
+			$(".header-text").text("답변 작성");
+			$('#b_title').attr('readonly','readonly');
 		}else{
 			if(bno==''){
 				
 			} else{
-				$("#board-write-btn").text("수정")
-				$(".header-text").text("게시글 수정")
+				$("#board-write-btn").text("수정");
+				$(".header-text").text("게시글 수정");
 				var str = "";
 				str += "<input type='hidden' name='bno' value='"+bno+"'>";
 				$("#frm_board").append(str);
