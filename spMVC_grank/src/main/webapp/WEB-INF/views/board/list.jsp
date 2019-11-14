@@ -3,9 +3,6 @@
 <%@ include file="../include/include.jsp"%>
 <link rel="stylesheet" type="text/css" href="${path}/resources/css/board-list.css?ver=2019111301">
 <%@ include file="../include/header.jsp"%>
-<%
-	String message= request.getParameter("message");
-%>
 <div class="wrapper">
 	<div class="wrapper-header">
 		<span class="header-text">자유 게시판</span>
@@ -107,6 +104,12 @@
 	
 <%@ include file="../include/footer.jsp"%>
 <script>
+var msg = "${message}"
+	window.onpageshow = function(event){
+		if(event.persisted || (window.performance && window.performance.navigation.type == 2)){
+			msg = '';
+		}
+	}
 	// 페이지가 준비되면
 	$(document).ready(function(){
 		var sort = '${sort}';
@@ -124,7 +127,7 @@
 		}
 	})
 	$(function(){
-		var msg = "${message}"
+		
 		// msg가 nologin이면 모달창출력
 		if(msg == 'nologin') {
 			$('#modal-login').css('display', 'block');
@@ -152,10 +155,6 @@
 				$('#board-search-btn').click();
 			}
 		})
-		window.onpageshow = function(event){
-			if(event.persisted || (window.performance && window.performance.navigation.type == 2)){
-				location.reload();
-			}
-		}
+		
 	})
 </script>
