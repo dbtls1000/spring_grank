@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="include/include.jsp" %>
-<link rel="stylesheet" type="text/css" href="${path}/resources/css/private.css?ver=20191101">
+<link rel="stylesheet" type="text/css" href="${path}/resources/css/private.css?ver=20191114">
 <%@ include file="include/header.jsp" %>
 <div class="private-wrapper">
         <div class="wrapper-header"><span class="header-text">개인정보 처리방침</span></div>

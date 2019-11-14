@@ -199,6 +199,7 @@
 		$('.s-box-input').toggleClass('inclicked');
 		$('.s-box-button').toggleClass('close');
 		$('#s-box-search').val('');
+		$('.inclicked').focus();
 	})
 	// search-box에 글자를 입력하면
 	$(document).on('keyup','#s-box-search',function(evt){

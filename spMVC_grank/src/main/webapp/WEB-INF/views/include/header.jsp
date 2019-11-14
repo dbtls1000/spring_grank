@@ -124,6 +124,11 @@
 			$('.login-pscheck').click(function() {
 				location.href = "${path}/member/login_check?code=pscheck"
 			})
+			$(document).keyup(function(evt){
+				if(evt.keyCode == 27){
+					$('.modal-close').click();
+				}
+			})
 			// 모달창 닫기 클릭시 input태그의 값과 유효성검사 경고메세지 숨김
 			$('.modal-close').click(function() {
 				$('#modal-login').css('display', 'none')
