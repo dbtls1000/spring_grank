@@ -53,12 +53,14 @@ public class MemberController {
 				// 쿠키를 찾을 경로를 컨텍스트를 경로로 변경
 				cookie.setPath("/");
 				// 단위는 (초)임으로 7일정도로 유효시간을 설정해 준다. 
-				int amount =60 * 60 * 24 * 7;
+				int amount = 60 * 60 * 24 * 7;
+				// 쿠키 유효기간
 				cookie.setMaxAge(amount);
 				// 쿠키를 적용해준다.
 				response.addCookie(cookie);
 				// currentTimeMillis()가 1/1000초 단위임으로 1000을 곱해서 더해야함
 				long sessionLimit = System.currentTimeMillis()+(1000*amount);
+				// userid와 amount값을 데이터베이스에 담고 자동로그인 했을 때 값을 비교하기 위한 것 
 				mDto.setSessionkey((String)httpSession.getAttribute("userid"));
 				mDto.setSessionlimit(sessionLimit);
 				mService.autoLoginCheck(mDto);
