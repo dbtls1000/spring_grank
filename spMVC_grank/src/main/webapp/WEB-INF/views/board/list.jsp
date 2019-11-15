@@ -104,7 +104,7 @@
 	
 <%@ include file="../include/footer.jsp"%>
 <script>
-var msg = "${message}"
+	var msg = "${message}"
 	window.onpageshow = function(event){
 		if(event.persisted || (window.performance && window.performance.navigation.type == 2)){
 			msg = '';

@@ -33,10 +33,13 @@ public class ReplyController {
 	@ResponseBody
 	@PostMapping("write")
 	public int write(ReplyDto rDto,HttpSession httpSession) {
+		// 세션에 저장된 name값 가져오기
 		String name = (String)httpSession.getAttribute("name");
 		rDto.setR_writer(name);
 		log.info(">>rDto>>" + rDto);
+		// 댓글 등록/수정
 		rService.save(rDto);
+		// 해당 게시글의 총 댓글 수
 		int bno = rDto.getBno();
 		log.info(">>>>"+rService.countReply(bno));
 		return rService.countReply(bno);
@@ -46,7 +49,9 @@ public class ReplyController {
 	@ResponseBody
 	@GetMapping("delete")
 	public int delete(ReplyDto rDto) {
+		// 댓글 삭제
 		rService.delete(rDto);
+		// 해당 게시글의 총 댓글 수
 		int bno = rDto.getBno();
 		return rService.countReply(bno);
 	}

@@ -40,15 +40,18 @@ public class ReplyServiceImp implements ReplyService {
 	public void save(ReplyDto rDto) {
 		// TODO 댓글 작성
 		log.info(">>rno>>" + rDto.getRno());
+		// rno가 0이면 댓글 등록
 		if(rDto.getRno() == 0) {
 			rDao.insert_reply(rDto);
 			int bno = rDto.getBno();
+			// 댓글 등록이라고 알려주는 flag값
 			int flag = 1;
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("bno", bno);
 			map.put("flag", flag);
+			// 댓글등록/삭제에따른 댓글수 업데이트
 			rDao.updateReplyCnt(map);
-		} else {
+		} else { // rno가 0이아니면 댓글 수정
 			rDao.update_reply(rDto);
 		}
 		
@@ -61,17 +64,19 @@ public class ReplyServiceImp implements ReplyService {
 		// TODO 댓글 삭제
 		rDao.delete_reply(rDto);
 		int bno = rDto.getBno();
+		// 댓글 삭제라고 알려주는 flag값
 		int flag = -1;
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("bno", bno);
 		map.put("flag", flag);
+		// 댓글등록/삭제에따른 댓글수 업데이트
 		rDao.updateReplyCnt(map);
 		
 	}
 
 	@Override
 	public int countReply(int bno) {
-		// TODO Auto-generated method stub
+		// TODO 해당 게시글의 댓글 수를 가져옴
 		return rDao.countReply(bno);
 	}
 }
