@@ -118,8 +118,7 @@
 	// 2.ureview 
 	function ureview() { // function  start
 		var game_code = '${gDto.game_code}'
-		var umax = ${usize}
-		;
+		var umax = ${usize};
 		var count = Number($('#uview-count').val());
 
 		// count값이 umax보다 크면 버튼 제거
@@ -139,22 +138,11 @@
 	}// function end
 
 	// 3.userview more click
-	$(document).on(
-			'click',
-			'.review',
-			function() { // more button function start
+	$(document).on('click','.review',function() { // more button function start
 				var ccount = Number($('#cview-count').val());
 				var ucount = Number($('#uview-count').val());
-				var cmax = $
-				{
-					csize
-				}
-				;
-				var umax = $
-				{
-					usize
-				}
-				;
+				var cmax = ${csize};
+				var umax = ${usize};
 				var id = $(this).attr('id');
 				var game_code = '${gDto.game_code}'
 				// critic more button

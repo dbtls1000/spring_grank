@@ -163,8 +163,7 @@
 			} else {// document.location.hash
 				// rankmoreviewlist 페이지 생성
 				rankmoreviewlist();	
-			}
-			
+			}			
 		}
 	})
 	
