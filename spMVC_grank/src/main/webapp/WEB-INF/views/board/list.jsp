@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="../include/include.jsp"%>
-<link rel="stylesheet" type="text/css" href="${path}/resources/css/board-list.css?ver=2019111301">
+<link rel="stylesheet" type="text/css" href="${path}/resources/css/board-list.css?ver=20191118">
 <%@ include file="../include/header.jsp"%>
 <div class="wrapper">
 	<div class="wrapper-header">
@@ -80,7 +80,7 @@
 	<div class="wrapper-content list-search">
 		<div class="flex-item">
 			<c:if test="${!empty keyword}">
-	   			<span class="search-comment">"${keyword}"(으)로 검색한 결과는 총 ${count}건 입니다</span>
+	   			<span class="search-comment">"<span style="font-weight:bold">${keyword}</span>"(으)로 검색한 결과는 총 <span style="font-weight:bold">${count}</span>건 입니다</span>
 	  		</c:if>
   		</div>
   		<div class="flex-item">
@@ -108,6 +108,7 @@
 	window.onpageshow = function(event){
 		if(event.persisted || (window.performance && window.performance.navigation.type == 2)){
 			msg = '';
+			location.reload();
 		}
 	}
 	// 페이지가 준비되면

@@ -20,8 +20,8 @@
 						class="title-in title-select" name="b_platform" id="">
 						
 						<option value="PS4" <c:if test="${bDto.b_platform == 'PS4'}">selected="selected"</c:if> >PS4</option>
-						<option value="XBox" <c:if test="${bDto.b_platform == 'XBox'}">selected="selected"</c:if> >XBox</option>
-						<option value="SWITCH" <c:if test="${bDto.b_platform == 'SWITCH'}">selected="selected"</c:if> >SWITCH</option>
+						<option value="XONE" <c:if test="${bDto.b_platform == 'XBox'}">selected="selected"</c:if> >XBox</option>
+						<option value="Switch" <c:if test="${bDto.b_platform == 'SWITCH'}">selected="selected"</c:if> >SWITCH</option>
 						<option value="PC" <c:if test="${bDto.b_platform == 'PC'}">selected="selected"</c:if> >PC</option>
 					</select>
 				</div>

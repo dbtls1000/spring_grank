@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="include/include.jsp" %>
-<link rel="stylesheet" type="text/css" href="${path}/resources/css/searchbox.css?ver=2019110601">
+<link rel="stylesheet" type="text/css" href="${path}/resources/css/searchbox.css?ver=20191118">
 <link rel="stylesheet" type="text/css" href="${path}/resources/css/gcard.css?ver=20191113">
 <link rel="stylesheet" type="text/css" href="${path}/resources/css/board-list.css?ver=20191113">
 <%@ include file="include/header.jsp" %>
@@ -122,7 +122,7 @@
     </div>
 <%@ include file="include/footer.jsp" %>
 <script>
-	
+ var list = $(".search-result-item");
  	// 게임순위 리스트 띄워주는 Ajax메소드 생성
  	$(document).on('click','.platform',function(){
  		// 플랫폼별로 클릭했을 때 보여주기 위해 변수를 받아옴
@@ -207,7 +207,8 @@
 		var keyword = $.trim($('#s-box-search').val());
 		// s-box-search input태그의 값 길이가 3이상일때 검색 결과 리스트 출력
 		if(keyword.length >= 3){
-			search_list();	
+			search_list();
+			console.log(list)
 		} else{ // 2이하일때는 리스트 출력x
 			$('#search-result').html('');
 		}
@@ -217,7 +218,7 @@
 		var keyword = $.trim($('#s-box-search').val());
 		// s-box-search input태그의 값 길이가 3이상일때
 		if(keyword.length >= 3){
-			search_list();	
+			search_list();
 		}
 	})
 	// search-box의 x버튼 누를경우

@@ -87,6 +87,7 @@
 
 .pagination li a.active, .pagination li a:hover {
 	color: #00b894;
+	font-weight: bold;
 }
 
 .list-search {
