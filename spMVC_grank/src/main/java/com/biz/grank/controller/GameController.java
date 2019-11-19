@@ -126,6 +126,21 @@ public class GameController {
 	@GetMapping("search")
 	public String searchGame(@RequestParam(defaultValue = "")String keyword,Model model) {
 		List<GameRankDto> gList = gameService.gSearchList(keyword);
+		for (GameRankDto gameRankDto : gList) {
+			String indexname = gameRankDto.getGame_name().toLowerCase();
+			String name = gameRankDto.getGame_name();
+			int index = indexname.indexOf(keyword.toLowerCase());
+			String indexkeyword = name.substring(index, index+keyword.length());
+			log.info(">>>>>>>>>>>>>>"+indexkeyword);
+			if(name.contains(keyword)) {
+				gameRankDto.setGame_name(gameRankDto.getGame_name()
+							.replace(keyword, "<span style='color:#e55039;font-weight:bold;'>"+keyword+"</span>"));
+			} else {
+				gameRankDto.setGame_name(gameRankDto.getGame_name()
+						.replace(indexkeyword, "<span style='color:#e55039;font-weight:bold;'>"+indexkeyword+"</span>"));
+			}
+		}
+		// 대문자 검색 안됨 ㅎ
 		model.addAttribute("gList",gList);
 		return "gameview/search-result";
 	}
