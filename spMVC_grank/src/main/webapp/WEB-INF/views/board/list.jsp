@@ -148,7 +148,7 @@
 			var sort = '${sort}'
 			var search_option = $.trim($('#search_option').val());
 			var keyword = $.trim($('#keyword').val());
-			location.href = '${path}/board/list?search_option=' + search_option + '&keyword=' + keyword + '&sort_option=' + sort;
+			location.href = '${path}/board/list?search_option=' + search_option + '&keyword=' + encodeURI(keyword) + '&sort_option=' + sort;
 		})
 		// 검색하는 input태그에서 엔터키로 검색
 		$('#keyword').keyup(function(evt){

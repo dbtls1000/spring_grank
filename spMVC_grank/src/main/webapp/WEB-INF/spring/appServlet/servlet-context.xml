@@ -46,6 +46,16 @@
 			<beans:property name="maxUploadSizePerFile" value="104857600"/>
 	</beans:bean>
 	
+	<!-- 자동로그인 -->
+	<beans:bean id="RememberInterceptor" class="com.biz.grank.interceptor.RememberInterceptor"></beans:bean>
+	<!-- 인터셉터 호출을 위한 url mapping -->
+	<interceptors>
+		<interceptor>
+			<mapping path="/**"/>
+			<beans:ref bean="RememberInterceptor"/>
+		</interceptor>
+	</interceptors>
+	
 	<!-- 인터셉터 빈을 등록 -->
 	<beans:bean id="loginInterceptor" class="com.biz.grank.interceptor.LoginInterceptor"></beans:bean>
 	<!-- 인터셉터 호출을 위한 url mapping -->
@@ -57,13 +67,4 @@
 		</interceptor>
 	</interceptors>
 	
-	<!-- 자동로그인 -->
-	<beans:bean id="RememberInterceptor" class="com.biz.grank.interceptor.RememberInterceptor"></beans:bean>
-	<!-- 인터셉터 호출을 위한 url mapping -->
-	<interceptors>
-		<interceptor>
-			<mapping path="/**"/>
-			<beans:ref bean="RememberInterceptor"/>
-		</interceptor>
-	</interceptors>
 </beans:beans>
