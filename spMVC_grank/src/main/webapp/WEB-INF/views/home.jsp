@@ -182,7 +182,7 @@
  	function search_list(){
  		var keyword = $.trim($('#s-box-search').val());
  		$.ajax({
- 			url:'${path}/game/search?keyword='+keyword,
+ 			url:'${path}/game/search?keyword='+ keyword,
  			type:'GET',
  			success:function(page){
  				$('#search-result').html(page);

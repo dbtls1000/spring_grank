@@ -44,7 +44,7 @@
                     </div>
                 </div>
 		        <div class="member_password_btn">
-		            <a class="a-button a-common">취소</a>
+		            <a class="a-button a-common" id="cancle">취소</a>
 		            <a class="a-button a-delete" id="password_btn">확인</a>
 		        </div>
 				<input type="hidden" name="userid" value="${sessionScope.userid}">
@@ -149,6 +149,11 @@ $(function() {
 			return false;
 		}
 		$('#mem_uppass').submit();
+	})
+	
+	// 취소 버튼
+	$('#cancle').click(function(){
+		location.href = '${path}/member/mypage'
 	})
 })
 </script>
