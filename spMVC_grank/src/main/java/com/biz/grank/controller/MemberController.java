@@ -141,8 +141,10 @@ public class MemberController {
 	// 회원탈퇴 화면단
 	@GetMapping("member_delete")
 	public String member_delete() {
+		
 		return "member/member_delete";
-	}
+		}
+	
 	// id 찾기 화면단
 	@GetMapping("login_check")
 	public String login_idcheck(@RequestParam(defaultValue = "idcheck") String code, Model model) {
@@ -187,10 +189,32 @@ public class MemberController {
 	
 	// 회원 탈퇴
 	@PostMapping("delete")
-	public String delete(String userid ,HttpSession httpSession) {
+	public String delete(String userid ,HttpSession httpSession, HttpServletRequest request, HttpServletResponse response) {
+		
+		Cookie loginCookie = WebUtils.getCookie(request, "loginCookie");
+		if(loginCookie != null) {
+			
+			MemberDto mDto = new MemberDto();
+			// mDto에 세션 아이디 값 담기
+			mDto.setUserid((String)httpSession.getAttribute("userid"));
+			// 로그아웃 처리
+			mService.logout(httpSession);
+			loginCookie.setPath("/");
+			// 쿠키 값이 없을때 유효시간 0으로 설정
+			loginCookie.setMaxAge(0);
+			// 쿠키를 적용해준다.
+			response.addCookie(loginCookie);
+			// 테이블에도 유효시간을 현재시간으로 설정
+			long sessionLimit = System.currentTimeMillis();
+			// sessionkey값 none로 담기
+			mDto.setSessionkey("none");
+			mDto.setSessionlimit(sessionLimit);
+			// mDto에 담겨있는 값으로 변경
+			mService.autoLoginCheck(mDto);
+		}
 		mService.delete(userid);
-		// 회원 탈퇴 후 로그아웃
-		mService.logout(httpSession);
+
+		
 		return "redirect:/";
 	}
 	// 로그아웃
