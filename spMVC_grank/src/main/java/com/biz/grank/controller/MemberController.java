@@ -211,9 +211,10 @@ public class MemberController {
 			mDto.setSessionlimit(sessionLimit);
 			// mDto에 담겨있는 값으로 변경
 			mService.autoLoginCheck(mDto);
+		} else {
+			mService.delete(userid);
+			mService.logout(httpSession);
 		}
-		mService.delete(userid);
-
 		
 		return "redirect:/";
 	}
