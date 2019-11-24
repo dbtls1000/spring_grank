@@ -20,7 +20,7 @@
 	
 	<bean id="mongoDbFactory" class="org.springframework.data.mongodb.core.SimpleMongoDbFactory">
 		<constructor-arg name="mongoClient" ref="mongoClient" />
-		<constructor-arg name="databaseName" value="Grank" />
+		<constructor-arg name="databaseName" value="grank" />
 	</bean>
 
 	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
