@@ -4,6 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,13 +14,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.biz.grank.domain.AwardsRankDto;
 import com.biz.grank.domain.ComingSoonDto;
 import com.biz.grank.domain.CriticDto;
+import com.biz.grank.domain.FavoriteDto;
 import com.biz.grank.domain.GameRankDto;
 import com.biz.grank.domain.UserDto;
+import com.biz.grank.service.FavoriteService;
 import com.biz.grank.service.GameService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -31,7 +37,10 @@ public class GameController {
 
 	@Autowired
 	private GameService gameService;
-
+	
+	@Autowired
+	private FavoriteService fService;
+	
 	// 출시예정작 View단(껍다구)
 	@RequestMapping(value = "comingsoonmoreview", method = RequestMethod.GET)
 	public String ComingsoonMore(Model model) {
@@ -144,5 +153,27 @@ public class GameController {
 		model.addAttribute("gList",gList);
 		return "gameview/search-result";
 	}
-
+	
+	// 게임 즐겨찾기 Ajax
+	@ResponseBody
+	@GetMapping("favorite")
+	public String favorite(String gamecode, HttpSession httpSession) {
+		String userid = (String)httpSession.getAttribute("userid");
+		JSONObject obj = new JSONObject();
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("gamecode",gamecode);
+		map.put("userid", userid);
+		if(fService.checkFavorite(map) == 0) {
+			fService.makeFavorite(map);
+		}
+		FavoriteDto fDto = fService.readOne(map);
+		int fCheck = fDto.getFavorite_check();
+		if(fCheck == 0) {
+			fService.favoriteCheck(map);
+		} else {
+			fService.favoriteCheckCancel(map);
+		}
+		obj.put("fcheck", fCheck);
+		return obj.toString();
+	}
 }
