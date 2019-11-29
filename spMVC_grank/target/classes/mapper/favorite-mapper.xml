@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.biz.grank.persistence.FavoriteDao">
+	<select id="checkFavorite" resultType="int">
+		SELECT COUNT(*) FROM tbl_favorite 
+		WHERE userid = #{userid} AND gamecode = #{gamecode}
+	</select>
+	
+	<insert id="makeFavorite">
+		INSERT INTO tbl_favorite(fno, userid, gamecode)
+		VALUES(seq_favorite.NEXTVAL,#{userid},#{gamecode})	
+	</insert>
+	
+	<select id="readOne" resultType="favDto">
+		SELECT * FROM tbl_favorite 
+		WHERE userid = #{userid} AND gamecode = #{gamecode}
+	</select>
+	
+	<update id="favoriteCheck">
+		UPDATE tbl_favorite SET favorite_check = favorite_check + 1
+		WHERE userid = #{userid} AND gamecode = #{gamecode}
+	</update>
+	
+	<update id="favoriteCheckCancel">
+		UPDATE tbl_favorite SET favorite_check = 0
+		WHERE userid = #{userid} AND gamecode = #{gamecode}
+	</update>
+</mapper>
