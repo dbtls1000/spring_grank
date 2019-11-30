@@ -14,7 +14,20 @@
 			<img style="width: 150px;" src="${gDto.img_src}" alt="">
 		</div>
 		<div class="score-items">
-			<div class="game-title">${gDto.game_name}</div>
+			<div class="game-title">${gDto.game_name}
+			<c:choose>
+				<c:when test="${empty sessionScope.name}">
+				<span style="cursor:pointer;float:right;color:#f1c40f;position:relative;top:2px;"><i id="favorite-btn-login" class="far fa-star"></i></span>
+				</c:when>
+				<c:when test="${fDto.favorite_check == 1}">
+				<span style="cursor:pointer;float:right;color:#f1c40f;position:relative;top:2px;"><i id="favorite-btn" class="fas fa-star"></i></span>
+				</c:when>
+				<c:otherwise>
+				<span style="cursor:pointer;float:right;color:#f1c40f;position:relative;top:2px;"><i id="favorite-btn" class="far fa-star"></i></span>
+				</c:otherwise>			
+			</c:choose>
+			
+			</div>
 			<div class="score">
 				Metascore :&nbsp;
 				<c:choose>
@@ -195,5 +208,33 @@
 	$(document).ready(function() {
 		creview();
 		ureview();
+	})
+	$(document).on('click','#favorite-btn',function(){
+		var gamecode = '${gDto.game_code}';
+		$.ajax({
+			url : '${path}/game/favorite',
+			type:'GET',
+			dataType:'json',
+			data : 'gamecode='+gamecode,
+			success:function(result){
+				var icon = '';
+				var fcheck = result.fcheck;
+				console.log(fcheck);
+				if(fcheck == 0){
+					icon = 'fas fa-star';
+				} else {
+					icon = 'far fa-star';
+				}
+				$('#favorite-btn').attr('class',icon);
+			},
+			error:function(){
+				alert("게임즐겨찾기 실패")
+			}
+		})
+	})
+	$(document).on('click','#favorite-btn-login',function(){
+		$('#modal-login').css('display', 'block');
+		$('#login-id').focus();
+		$('.login-err-msg').text('로그인후 사용할 수 있습니다.').css('visibility','visible');
 	})
 </script>

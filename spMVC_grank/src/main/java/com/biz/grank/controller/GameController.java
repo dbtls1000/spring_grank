@@ -91,7 +91,15 @@ public class GameController {
 	
 	// 게임 상세 정보 View단
 	@RequestMapping(value = "gameview", method = RequestMethod.GET)
-	public String gameView(@RequestParam String game_code, Model model) {
+	public String gameView(@RequestParam String game_code, Model model,HttpSession httpSession) {
+		String userid = (String)httpSession.getAttribute("userid");
+		if(userid != null) {
+			Map<String,Object> map = new HashMap<String,Object>();
+			map.put("gamecode",game_code);
+			map.put("userid", userid);
+			FavoriteDto fDto = fService.readOne(map);
+			model.addAttribute("fDto", fDto);
+		}
 		GameRankDto gDto = gameService.gameView(game_code);
 		int cSize = gameService.cReviewSize(game_code);
 		int uSize = gameService.uReviewSize(game_code);
@@ -165,13 +173,16 @@ public class GameController {
 		map.put("userid", userid);
 		if(fService.checkFavorite(map) == 0) {
 			fService.makeFavorite(map);
+			log.info("favorite생성");
 		}
 		FavoriteDto fDto = fService.readOne(map);
 		int fCheck = fDto.getFavorite_check();
 		if(fCheck == 0) {
 			fService.favoriteCheck(map);
+			log.info("favorite누름");
 		} else {
 			fService.favoriteCheckCancel(map);
+			log.info("favorite취소");
 		}
 		obj.put("fcheck", fCheck);
 		return obj.toString();

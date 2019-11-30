@@ -4,10 +4,12 @@ import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.biz.grank.domain.FavoriteDto;
 import com.biz.grank.persistence.FavoriteDao;
 
+@Service
 public class FavoriteServiceimp implements FavoriteService {
 	
 	@Autowired
