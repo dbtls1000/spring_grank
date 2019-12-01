@@ -1,6 +1,8 @@
 package com.biz.grank.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.Cookie;
@@ -19,8 +21,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.util.WebUtils;
 
+import com.biz.grank.domain.FavoriteDto;
+import com.biz.grank.domain.GameRankDto;
 import com.biz.grank.domain.MemberDto;
 import com.biz.grank.service.BoardService;
+import com.biz.grank.service.FavoriteService;
+import com.biz.grank.service.GameService;
 import com.biz.grank.service.MemberService;
 import com.biz.grank.service.Pagination;
 
@@ -35,7 +41,10 @@ public class MemberController {
 	MemberService mService;
 	@Autowired
 	BoardService bService;
-	
+	@Autowired
+	FavoriteService fService;
+	@Autowired
+	GameService gService;
 	// 로그인
 	@ResponseBody
 	@PostMapping("login")
@@ -119,10 +128,23 @@ public class MemberController {
 			int start = page.getPageBegin();
 			int end = page.getPageEnd();
 			Map<String, Object> map = new HashMap<String, Object>();
-			log.info("count:"+count+"start:"+start+"end:"+end);
 			map.put("name", name);
 			map.put("start", start);
 			map.put("end", end);
+			
+			// 사용자가 즐겨찾기한 게임의 즐겨찾기 정보가져오기
+			List<FavoriteDto> gamecodeList = fService.gamecodeList(userid);
+			// 즐겨찾기 정보중 게임코드만 추출해서 리스트에 담기
+			List<String> favoriteList = new ArrayList<String>();
+			for(FavoriteDto fDto : gamecodeList) {
+				favoriteList.add(fDto.getGamecode());
+			}
+			log.info("mypage"+favoriteList);
+			// 게임코드 리스트로 해당게임 정보 가져오기
+			List<GameRankDto> mygameList = gService.mygameList(favoriteList);
+			log.info("mypage"+mygameList);
+			
+			model.addAttribute("mgList",mygameList);
 			// 페이지네이션을하기위해 model에 page담기
 			model.addAttribute("page", page);
 			log.info(">"+bService.readByWriter(map));

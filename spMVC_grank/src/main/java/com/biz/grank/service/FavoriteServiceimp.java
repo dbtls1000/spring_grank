@@ -1,5 +1,6 @@
 package com.biz.grank.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -50,6 +51,12 @@ public class FavoriteServiceimp implements FavoriteService {
 	public void favoriteCheckCancel(Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		fDao.favoriteCheckCancel(map);
+	}
+
+	@Override
+	public List<FavoriteDto> gamecodeList(String userid) {
+		// TODO Auto-generated method stub
+		return fDao.gamecodeList(userid);
 	}
 
 }

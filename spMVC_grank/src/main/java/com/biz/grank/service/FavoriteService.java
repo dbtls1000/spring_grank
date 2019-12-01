@@ -1,5 +1,6 @@
 package com.biz.grank.service;
 
+import java.util.List;
 import java.util.Map;
 
 import com.biz.grank.domain.FavoriteDto;
@@ -15,5 +16,7 @@ public interface FavoriteService {
 	public void favoriteCheck(Map<String, Object> map);
 
 	public void favoriteCheckCancel(Map<String, Object> map);
+
+	public List<FavoriteDto> gamecodeList(String userid);
 
 }

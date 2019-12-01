@@ -49,6 +49,8 @@ public interface GameService {
 	
 	// 13. 게임 검색결과 리스트
 	public List<GameRankDto> gSearchList(String keyword);
+
+	public List<GameRankDto> mygameList(List<String> favoriteList);
 	
 	
 }	

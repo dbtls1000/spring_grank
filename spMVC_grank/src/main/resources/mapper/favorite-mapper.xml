@@ -28,4 +28,9 @@
 		UPDATE tbl_favorite SET favorite_check = 0
 		WHERE userid = #{userid} AND gamecode = #{gamecode}
 	</update>
+	
+	<select id="gamecodeList" resultType="favDto">
+		SELECT * FROM tbl_favorite
+		WHERE userid = #{userid} AND favorite_check = 1	
+	</select>
 </mapper>

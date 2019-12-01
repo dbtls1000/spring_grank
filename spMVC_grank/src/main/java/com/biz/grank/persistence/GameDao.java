@@ -138,6 +138,12 @@ public class GameDao {
 		BasicQuery query = (BasicQuery) new BasicQuery("{'game_name' : /"+keyword+"/i}, game_code:'game_code', platform:'platform', c_img:'c_img', c_name:'c_name', c_date:'c_date");
 		List<GameRankDto> gList = mongoOper.find(query, GameRankDto.class, "metascore");
 		return gList;
+	}
+
+	public GameRankDto mygame(String gamecode) {
+		// TODO Auto-generated method stub
+		BasicQuery query = (BasicQuery) new BasicQuery("{'game_code' : '"+gamecode+"'}, game_code:'game_code', platform:'platform', c_img:'c_img', c_name:'c_name', c_date:'c_date");
+		return mongoOper.findOne(query, GameRankDto.class, "metascore");
 	}	
 	
 	

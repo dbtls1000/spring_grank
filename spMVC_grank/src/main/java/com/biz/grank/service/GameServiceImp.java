@@ -141,5 +141,16 @@ public class GameServiceImp implements GameService {
 	}
 
 
+	@Override
+	public List<GameRankDto> mygameList(List<String> favoriteList) {
+		// TODO Auto-generated method stub
+		List<GameRankDto> mygameList = new ArrayList<GameRankDto>();
+		for(String gamecode : favoriteList) {
+			mygameList.add(gDao.mygame(gamecode));
+		}
+		return mygameList;
+	}
+
+
 
 }
