@@ -3,6 +3,7 @@
 <%@ include file="../include/include.jsp"%>
 <link rel="stylesheet" type="text/css" href="${path}/resources/css/mypage.css?ver=2019101703">
 <link rel="stylesheet" type="text/css" href="${path}/resources/css/board-list.css?ver=20191113">
+<link rel="stylesheet" type="text/css" href="${path}/resources/css/gcard.css?ver=20191113">
 <%@ include file="../include/header.jsp"%>
 
 <div class="wrapper">
@@ -119,6 +120,47 @@
 			<li><a href="${path}/member/mypage?curPage=${page.totalPage}&userid=${sessionScope.userid}"><i class="fas fa-angle-double-right"></i></a></li>
 		</c:if>
 	</ul>
+</div>
+<div class="wrapper">
+	<div class="wrapper-header"><span class="header-text">즐겨찾기한 게임</span></div>
+	<div class="flex-wrapper">
+	<c:forEach items="${mgList}" var="g">
+		<div id="gSize"></div>
+		<div class="g-card" data-code="${g.game_code}">
+			<c:if test="${g.platform == 'Switch'}">				
+			<div class="g-card-item g-card-header switch-color">${g.platform}</div>
+			</c:if>
+			<c:if test="${g.platform == 'PC'}">				
+			<div class="g-card-item g-card-header PC-color">${g.platform}</div>
+			</c:if>
+			<c:if test="${g.platform == 'PS4'}">				
+			<div class="g-card-item g-card-header PS4-color">${g.platform}</div>
+			</c:if>
+			<c:if test="${g.platform == 'XONE'}">				
+			<div class="g-card-item g-card-header XONE-color">${g.platform}</div>
+			</c:if>
+			<div class="g-card-item">
+				<img src="${g.img_src}">
+			</div>
+			<div class="g-card-item g-card-content game-name"> 게임명 : ${g.game_name}</div>
+			<div class="g-card-item g-card-content">전문가 평점:&nbsp;<span class='c-score'>${g.m_score}</span></div>
+			<div class="g-card-item g-card-content">유저 평점:&nbsp;<span class="u-score">${g.u_score}</span></div>
+		    <c:choose>
+				<c:when test="${g.tot_score <= 70}">
+					<c:if test="${g.tot_score >= 30}">
+						<div class="g-card-item g-card-content">Grank:&nbsp;<span class="middle-score">A</span></div>
+					</c:if>
+	`				<c:if test="${g.tot_score < 30}">
+						<div class="g-card-item g-card-content">Grank:&nbsp;<span class="low-score">B</span></div>
+					</c:if>
+				</c:when>
+				<c:otherwise>
+					<div class="g-card-item g-card-content">Grank:&nbsp;<span class="high-score">S</span></div>
+				</c:otherwise>
+			</c:choose>
+		</div>
+	</c:forEach>
+</div>
 </div>
 <%@ include file="../include/footer.jsp" %>
 <script>
